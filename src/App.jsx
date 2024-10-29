@@ -5,6 +5,7 @@ import Announcements from './Pages/Teacher/Announcements/Announcements';
 import Discover from './Pages/Teacher/Discover/Discover';
 import Schedule from './Pages/Teacher/Schedule/Schedule';
 import MyCourses from './Pages/Teacher/Courses/MyCourses';
+import ColorPalettePage from "./ColorUsage/ColorPalettePage";
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
               <Route path="/announcements" element={<Announcements />} />
               <Route path="/discover" element={<Discover />} />
               <Route path="/schedule" element={<Schedule />} />
+              <Route path="/colorpalette" element={<ColorPalettePage />} />
             </Routes>
           </div>
         </div>
