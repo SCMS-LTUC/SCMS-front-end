@@ -1,6 +1,9 @@
 // import { Home, Info, ContactMail, Warning } from "@mui/icons-material";
 // import { Button } from "@mui/material";
-import ColorPalettePage from "./ColorUsage/ColorPalettePage";
+// import ColorPalettePage from "./ColorUsage/ColorPalettePage";
+import CalendarView from "./Pages/Teacher/Attendance/CalendarView";
+import { ThemeProvider } from "@mui/material/styles";
+import theme from "./Config/muiTheme";
 export default function App() {
   return (
     // <div className="flex flex-col items-center justify-center min-h-screen bg-background font-sans">
@@ -64,8 +67,11 @@ export default function App() {
     //     </div>
     //   </div>
     // </div>
-    <div>
-      <ColorPalettePage />
-    </div>
+
+    <ThemeProvider theme={theme}>
+      <div>
+        <CalendarView />
+      </div>
+    </ThemeProvider>
   );
 }
