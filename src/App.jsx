@@ -6,6 +6,7 @@ import Discover from './Pages/Teacher/Discover/Discover';
 import Schedule from './Pages/Teacher/Schedule/Schedule';
 import MyCourses from './Pages/Teacher/Courses/MyCourses';
 import ColorPalettePage from "./ColorUsage/ColorPalettePage";
+import CourseDetailsLayout from './Components/Common/CourseDetailsLayout';
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
           <div className="p-6 flex-1 overflow-auto">
             <Routes>
               <Route path="/" element={<MyCourses />} />
+              <Route path="/course-details/:courseName" element={<CourseDetailsLayout />} />
               <Route path="/announcements" element={<Announcements />} />
               <Route path="/discover" element={<Discover />} />
               <Route path="/schedule" element={<Schedule />} />
