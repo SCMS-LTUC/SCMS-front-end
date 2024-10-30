@@ -18,18 +18,10 @@ export default function ColorTabs() {
         textColor="secondary"
         indicatorColor="secondary"
         aria-label="secondary tabs example"
+        className="!text-neutral-textSecondary"
       >
-        <Tab
-          value="one"
-          label="Calender"
-          color="textSecondary"
-          //   className="!text-neutral-textSecondary"
-        />
-        <Tab
-          value="two"
-          label="Summary"
-          //   className="!text-neutral-textSecondary"
-        />
+        <Tab value="one" label="Calender" color="textSecondary" />
+        <Tab value="two" label="Summary" />
       </Tabs>
     </Box>
   );

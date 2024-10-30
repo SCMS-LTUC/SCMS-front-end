@@ -1,32 +1,41 @@
-import fullConfig from "../../tailwind.config";
 import { createTheme } from "@mui/material";
 
-const primaryColor = fullConfig.theme.colors.primary; // e.g., primary color shade 500
-const primaryColorLight = fullConfig.theme.colors.primary.light;
-const primaryColorDark = fullConfig.theme.colors.primary.dark;
+const primaryColor = "#FF7F50"; // e.g., primary color shade 500
+const primaryColorLight = "#E65D2E";
+const primaryColorDark = "#FFA07A";
 
-const secondaryColor = fullConfig.theme.colors.secondary;
-const secondaryColorLight = fullConfig.theme.colors.secondary.light;
-const secondaryColorDark = fullConfig.theme.colors.secondary.dark;
+const secondaryColor = "#4A9B8F";
+const secondaryColorLight = "#3B7A70";
+const secondaryColorDark = "#6BB5AA";
 
-const textPrimary = fullConfig.theme.colors.neutral.textPrimary;
-const textSecondary = fullConfig.theme.colors.neutral.textSecondary;
+const textPrimary = "#2D3748";
+const textSecondary = "#718096";
+
 const theme = createTheme({
+  components: {
+    MuiTab: {
+      style: {
+        // color: primaryColor,
+        // "&.Mui-selected": {
+        //   color: secondaryColor,
+        // },
+      },
+    },
+  },
   palette: {
     primary: {
-      main: primaryColor, // Replace with your desired primary color,
-      light: primaryColorLight, // Replace with your desired primary color light shade
+      main: primaryColor,
+      light: primaryColorLight,
       dark: primaryColorDark,
     },
     secondary: {
-      main: secondaryColor, // Replace with your desired secondary color
-      light: secondaryColorLight, // Replace with your desired secondary color light shade
+      main: secondaryColor,
+      light: secondaryColorLight,
       dark: secondaryColorDark,
     },
     text: {
-      main: textPrimary,
+      primary: textPrimary,
       secondary: textSecondary,
-      disabled: textSecondary,
     },
   },
 });

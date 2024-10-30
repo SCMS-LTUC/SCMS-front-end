@@ -40,6 +40,7 @@ export default {
           background: "#FFF9F5",
           // Content cards, modals, form fields, white spaces
           surface: "#FFFFFF",
+          border: "#E2E8F0", // Light gray for borders and subtle shadows
           // Main body text, headings, course titles, navigation
           textPrimary: "#2D3748",
           // Secondary text, meta info, placeholders, disabled states
