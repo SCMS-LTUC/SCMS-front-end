@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Sidebar from './Components/Common/Sidebar';
 import Navbar from './Components/Common/Navbar';
-import Announcements from './Pages/Teacher/Announcements/Announcements';
+import Announcements from './Pages/Teacher/Announcements/AnnouncementList';
 import Discover from './Pages/Teacher/Discover/Discover';
 import Schedule from './Pages/Teacher/Schedule/Schedule';
 import MyCourses from './Pages/Teacher/Courses/MyCourses';
