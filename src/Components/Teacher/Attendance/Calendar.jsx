@@ -5,7 +5,15 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import CalendarDay from "./CalendarDay";
 function CalendarWithHighlights() {
-  const lecturesDates = ["2024-10-25", "2024-10-28", "2024-10-30", "2024-11-5"];
+  const lecturesDates = [
+    "2024-10-1",
+    "2024-10-3",
+    "2024-10-6",
+    "2024-10-8",
+    "2024-10-10",
+    "2024-10-13",
+    "2024-10-31",
+  ];
 
   const [highlightedDays, setHighlightedDays] = useState([]);
   const [selectedDate, setSelectedDate] = useState(dayjs());

@@ -2,9 +2,8 @@ import dayjs from "dayjs";
 import Badge from "@mui/material/Badge";
 import { PickersDay } from "@mui/x-date-pickers/PickersDay";
 import PropTypes from "prop-types"; // Import PropTypes
-
-function onDaySelect() {}
-
+import { Link } from "react-router-dom";
+import { useState } from "react";
 export default function CustomDay({
   day,
   highlightedDays,
@@ -12,15 +11,20 @@ export default function CustomDay({
   isLastVisibleCell,
   isFirstVisibleCell,
 }) {
+  const [url, setUrl] = useState("");
+  // const navigate = useNavigate();
+  function onDaySelect() {
+    setUrl("/attendance/post");
+  }
   const isSelected = highlightedDays.some((date) => {
-    if (
-      dayjs(date).isSame(day, "day") &&
-      dayjs(date).isSame(day, "month") &&
-      dayjs(date).isSame(day, "year")
-    )
-      return true;
+    if (dayjs(date).isSame(day, "day")) return true;
     else return false;
   });
+  const isToday = () => {
+    const now = dayjs();
+    console.log("************", dayjs(now).isSame(day, "day"));
+    return dayjs(now).isSame(day, "day");
+  };
   return (
     <Badge
       key={day.toString()}
@@ -29,13 +33,21 @@ export default function CustomDay({
     >
       <PickersDay
         day={day}
+        component={Link}
+        to={url}
+        disabled={!(isSelected && isToday())}
         outsideCurrentMonth={outsideCurrentMonth}
-        onDaySelect={() => onDaySelect(day)}
+        // onClick={() => onDaySelect()}
+        onDaySelect={() => onDaySelect()}
         isLastVisibleCell={isLastVisibleCell}
         isFirstVisibleCell={isFirstVisibleCell}
         className={
           isSelected
-            ? "!bg-primary-dark hover:!bg-primary-light !rounded-lg !text-neutral-surface !shadow-md !shadow-neutral-border !transition-all"
+            ? ` hover:!bg-primary-dark !rounded-lg !text-neutral-surface !shadow-md !shadow-neutral-border !transition-all ${
+                isToday()
+                  ? "!bg-primary-dark transform transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg"
+                  : "!bg-primary-light"
+              }`
             : ""
         }
       />
