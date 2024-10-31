@@ -28,13 +28,13 @@ export default function CalendarView() {
             value="one"
             label="Calender"
             component={Link}
-            to="/attendance/"
+            to="/course-details/:courseId/attendance/"
           />
           <Tab
             value="two"
             label="Summary"
             component={Link}
-            to="/attendance/summary"
+            to="/course-details/:courseId/attendance/summary"
           />
         </Tabs>
       </Box>

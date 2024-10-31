@@ -27,7 +27,7 @@ export default function PostAttendance() {
     <div className="flex flex-col justify-between space-y-10">
       <div>
         <Button
-          onClick={() => navigate("/attendance/")}
+          onClick={() => navigate("/course-details/:courseId/attendance/")}
           className="!text-secondary !text-md !py-3 !px-4 space-x-2 hover:!bg-secondary-lighter hover:!text-white transition-all"
           variant="text"
         >
