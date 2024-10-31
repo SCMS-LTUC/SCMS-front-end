@@ -1,7 +1,8 @@
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Table from "../../../Components/Teacher/Attendance/PostTable";
-
+import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 const rows = [
   {
     studentID: "Student1",
@@ -21,27 +22,44 @@ const rows = [
 ];
 
 export default function PostAttendance() {
+  const navigate = useNavigate();
   return (
-    <Card className="container !mx-auto !w-4/6 !bg-neutral-surface !rounded-xl !shadow-md !shadow-neutral-border !border-2 !border-neutral-border !mb-10">
-      <CardContent className="!bg-neutral-background !border-b-2 !border-neutral-border">
-        <h1 className="font-bold pl-4 text-xl text-neutral-textPrimary">
-          Absence Summary
-        </h1>
-      </CardContent>
+    <div className="flex flex-col justify-between space-y-10">
+      <div>
+        <Button
+          onClick={() => navigate("/attendance/")}
+          className="!text-secondary !text-md !py-3 !px-4 space-x-2 hover:!bg-secondary-lighter hover:!text-white transition-all"
+          variant="text"
+        >
+          <i className="ri-arrow-left-line"></i>
+          <h1>Back to My Courses</h1>
+        </Button>
+      </div>
 
-      <CardContent className="">
-        <div className="flex justify-start !border-2 !border-neutral-border rounded-xl">
-          <Table rows={rows} />
-        </div>
-      </CardContent>
+      <Card className="container !mx-auto !w-4/6 !bg-neutral-surface !rounded-xl !shadow-md !shadow-neutral-border !border-2 !border-neutral-border !mb-10">
+        <CardContent className="!bg-neutral-background !border-b-2 !border-neutral-border">
+          <h1 className="font-bold pl-4 text-xl text-neutral-textPrimary">
+            Attendance for 31 Oct 2024
+          </h1>
+        </CardContent>
 
-      <CardContent>
-        <div className=" bg-neutral-background p-4 rounded-xl space-x-3 ">
-          {/* <div className="w-4 h-4 bg-primary-light rounded-md"></div> */}
-          <div className="text-primary-dark">Total Students</div>
-          <div className="text-primary-dark text-xl">{rows.length}</div>
-        </div>
-      </CardContent>
-    </Card>
+        <CardContent className="">
+          <div className="flex justify-start !border-2 !border-neutral-border rounded-xl">
+            <Table rows={rows} />
+          </div>
+        </CardContent>
+
+        <CardContent>
+          <div className="flex justify-end bg-neutral-background p-4 rounded-xl space-x-3 ">
+            <Button
+              variant="contained"
+              className="!text-neutral-surface !bg-primary"
+            >
+              Submit
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
   );
 }

@@ -2,8 +2,8 @@ import dayjs from "dayjs";
 import Badge from "@mui/material/Badge";
 import { PickersDay } from "@mui/x-date-pickers/PickersDay";
 import PropTypes from "prop-types"; // Import PropTypes
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useMemo, useState } from "react";
 export default function CustomDay({
   day,
   highlightedDays,
@@ -11,20 +11,23 @@ export default function CustomDay({
   isLastVisibleCell,
   isFirstVisibleCell,
 }) {
-  const [url, setUrl] = useState("");
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
+  const [lectureId, setLectureId] = useState("");
   function onDaySelect() {
-    setUrl("/attendance/post");
+    if (lectureId !== "") navigate(`/attendance/${lectureId}/post`);
   }
-  const isSelected = highlightedDays.some((date) => {
-    if (dayjs(date).isSame(day, "day")) return true;
-    else return false;
-  });
-  const isToday = () => {
-    const now = dayjs();
-    console.log("************", dayjs(now).isSame(day, "day"));
-    return dayjs(now).isSame(day, "day");
-  };
+  const isSelected = useMemo(() => {
+    return highlightedDays.some((lecture) => {
+      if (dayjs(lecture.date).isSame(day, "day")) {
+        if (dayjs(lecture.date).isSame(dayjs(), "day"))
+          setLectureId(lecture.id);
+
+        return true;
+      } else return false;
+    });
+  }, [highlightedDays, day]);
+
+  const isToday = () => dayjs().isSame(day, "day");
   return (
     <Badge
       key={day.toString()}
@@ -33,11 +36,8 @@ export default function CustomDay({
     >
       <PickersDay
         day={day}
-        component={Link}
-        to={url}
         disabled={!(isSelected && isToday())}
         outsideCurrentMonth={outsideCurrentMonth}
-        // onClick={() => onDaySelect()}
         onDaySelect={() => onDaySelect()}
         isLastVisibleCell={isLastVisibleCell}
         isFirstVisibleCell={isFirstVisibleCell}

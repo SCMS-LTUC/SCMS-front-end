@@ -8,22 +8,34 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import PropTypes from "prop-types";
+import { useParams } from "react-router-dom";
 
 const columns = [
   { id: "fullName", label: "Student Name", minWidth: 170 },
-  { id: "status", label: "Status", minWidth: 100 }, // Updated label
+  { id: "status", label: "Status", minWidth: 100 },
 ];
 
-const statusOptions = ["Present", "Absent", "Late"];
+const statusOptions = ["Present", "Absent"];
 
 StickyHeadTable.propTypes = {
   rows: PropTypes.array.isRequired,
 };
 
 export default function StickyHeadTable({ rows }) {
+  const { lectureId } = useParams();
+  const initialRequest = {
+    lectureId: lectureId,
+    lectureAttendance: rows.map((student) => ({
+      studentId: student.studentID,
+      status: "Present",
+    })),
+  };
+
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [requestData, setRequestData] = React.useState(initialRequest);
 
+  // Handlers
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -35,8 +47,15 @@ export default function StickyHeadTable({ rows }) {
 
   const handleStatusChange = (event, studentID) => {
     const newStatus = event.target.value;
-    console.log(`Student ID: ${studentID}, New Status: ${newStatus}`);
-    // Here, you might update state, call an API, etc.
+    const updatedData = {
+      ...requestData,
+      lectureAttendance: requestData.lectureAttendance.map((student) =>
+        student.studentId === studentID
+          ? { ...student, status: newStatus }
+          : student
+      ),
+    };
+    setRequestData(updatedData);
   };
 
   return (
@@ -60,32 +79,39 @@ export default function StickyHeadTable({ rows }) {
           <TableBody>
             {rows
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => (
-                <TableRow
-                  hover
-                  role="checkbox"
-                  tabIndex={-1}
-                  key={row.studentID}
-                  className="hover:!bg-neutral-background"
-                >
-                  {/* Student Name Cell */}
-                  <TableCell>{row.fullName}</TableCell>
-                  {/* Status Dropdown Cell */}
-                  <TableCell>
-                    <select
-                      value={row.status}
-                      onChange={(e) => handleStatusChange(e, row.studentID)}
-                      className="p-1 border border-gray-300 rounded-md"
-                    >
-                      {statusOptions.map((option) => (
-                        <option key={option} value={option}>
-                          {option}
-                        </option>
-                      ))}
-                    </select>
-                  </TableCell>
-                </TableRow>
-              ))}
+              .map((row) => {
+                const studentAttendance = requestData.lectureAttendance.find(
+                  (s) => s.studentId === row.studentID
+                );
+                return (
+                  <TableRow
+                    hover
+                    role="checkbox"
+                    tabIndex={-1}
+                    key={row.studentID}
+                    className="hover:!bg-neutral-background"
+                  >
+                    {/* Student Name Cell */}
+                    <TableCell>{row.fullName}</TableCell>
+                    {/* Status Dropdown Cell */}
+                    <TableCell>
+                      <select
+                        value={
+                          studentAttendance ? studentAttendance.status : ""
+                        }
+                        onChange={(e) => handleStatusChange(e, row.studentID)}
+                        className="p-1 border border-gray-300 rounded-md"
+                      >
+                        {statusOptions.map((option) => (
+                          <option key={option} value={option}>
+                            {option}
+                          </option>
+                        ))}
+                      </select>
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
           </TableBody>
         </Table>
       </TableContainer>

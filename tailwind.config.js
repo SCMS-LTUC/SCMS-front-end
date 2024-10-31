@@ -33,6 +33,7 @@ export default {
           dark: "#3B7A70",
           // Info box backgrounds, progress tracker bg, decorative elements
           light: "#6BB5AA",
+          lighter: "#7EC2B8 ",
         },
 
         neutral: {

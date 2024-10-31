@@ -18,7 +18,10 @@ export default function App() {
               <Route index element={<CalendarView />} />
               <Route path="summary" element={<Summary />} />
             </Route>
-            <Route path="attendance/post" element={<PostAttendance />} />
+            <Route
+              path="attendance/:lectureId/post"
+              element={<PostAttendance />}
+            />
           </Routes>
         </ThemeProvider>
       </div>

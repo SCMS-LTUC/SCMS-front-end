@@ -5,29 +5,27 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import CalendarDay from "./CalendarDay";
 function CalendarWithHighlights() {
-  const lecturesDates = [
-    "2024-10-1",
-    "2024-10-3",
-    "2024-10-6",
-    "2024-10-8",
-    "2024-10-10",
-    "2024-10-13",
-    "2024-10-31",
+  const lectures = [
+    { id: "1", date: "2024-10-1" },
+    { id: "2", date: "2024-10-3" },
+    { id: "3", date: "2024-10-6" },
+    { id: "4", date: "2024-10-31" },
   ];
 
-  const [highlightedDays, setHighlightedDays] = useState([]);
+  const [selectedMonthLectures, setSelectedMonthLectures] = useState([]);
   const [selectedDate, setSelectedDate] = useState(dayjs());
 
   // Filter dates in the highlightDates list to include only those with the same month and year as selectedMonth
-  const filterDatesByMonthAndYear = (now) => {
-    return lecturesDates.filter(
-      (date) =>
-        dayjs(date).isSame(now, "month") && dayjs(date).isSame(now, "year")
+  const filterDatesByMonthAndYear = (date) => {
+    return lectures.filter(
+      (lecture) =>
+        dayjs(lecture.date).isSame(date, "month") &&
+        dayjs(lecture.date).isSame(date, "year")
     );
   };
 
   useEffect(() => {
-    setHighlightedDays(filterDatesByMonthAndYear(selectedDate));
+    setSelectedMonthLectures(filterDatesByMonthAndYear(selectedDate));
   }, [selectedDate]);
 
   const handleMonthChange = (date) => {
@@ -46,7 +44,7 @@ function CalendarWithHighlights() {
           }}
           slotProps={{
             day: {
-              highlightedDays,
+              highlightedDays: selectedMonthLectures,
             },
           }}
         />
