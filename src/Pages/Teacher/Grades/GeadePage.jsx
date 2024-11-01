@@ -13,8 +13,6 @@ import {
 
 const GradePage = () => {
   const [classAverage, setClassAverage] = useState(0);
-  const [studentsAtRisk, setStudentsAtRisk] = useState([]);
-  const [pendingGrades, setPendingGrades] = useState([]);
   const [students, setStudents] = useState([]);
 
   useEffect(() => {
@@ -29,12 +27,6 @@ const GradePage = () => {
       fetchedStudents.reduce((acc, student) => acc + student.grade, 0) /
       fetchedStudents.length;
     setClassAverage(average);
-    setStudentsAtRisk(
-      fetchedStudents.filter((student) => student.grade < 60)
-    );
-    setPendingGrades(
-      fetchedStudents.filter((student) => student.grade === null)
-    );
   }, []);
 
   return (
@@ -51,14 +43,6 @@ const GradePage = () => {
         <div className="mb-4 w-full border shadow-md p-4">
             <div className="mb-1">Class Average</div>
             <div className="font-bold">{classAverage.toFixed(2)}%</div></div>
-        <div className="mb-4 w-full border shadow-md p-4">
-            <div className="mb-1">Students at Risk</div>
-            <div className="font-bold text-red-500">{studentsAtRisk.length}</div>
-        </div>
-        <div className="mb-4 w-full border shadow-md p-4">
-          <div className="mb-1">Pending Grades</div>
-            <div className="font-bold ">{pendingGrades.length}</div>
-        </div>
       </Box>
       <TableContainer component={Paper}>
         <Table>
@@ -66,8 +50,6 @@ const GradePage = () => {
             <TableRow>
               <TableCell>Student Name</TableCell>
               <TableCell>Grade</TableCell>
-              <TableCell>Status</TableCell>
-              <TableCell>Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -75,12 +57,6 @@ const GradePage = () => {
               <TableRow key={student.id}>
                 <TableCell>{student.name}</TableCell>
                 <TableCell>{student.grade}</TableCell>
-                <TableCell>{student.status}</TableCell>
-                <TableCell>
-                  <Button variant="contained" color="primary">
-                    View Details
-                  </Button>
-                </TableCell>
               </TableRow>
             ))}
           </TableBody>
