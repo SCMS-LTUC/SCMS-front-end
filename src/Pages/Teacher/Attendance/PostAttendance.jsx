@@ -3,6 +3,7 @@ import CardContent from "@mui/material/CardContent";
 import Table from "../../../Components/Teacher/Attendance/PostTable";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 const rows = [
   {
     studentID: "Student1",
@@ -27,12 +28,13 @@ export default function PostAttendance() {
     <div className="flex flex-col justify-between space-y-10">
       <div>
         <Button
-          onClick={() => navigate("/course-details/:courseId/attendance/")}
-          className="!text-secondary !text-md !py-3 !px-4 space-x-2 hover:!bg-secondary-lighter hover:!text-white transition-all"
+          onClick={() => navigate(`/course-details/${1}/attendance/`)}
+          className="!text-secondary !text-md !py-3 !px-4 space-x-2 hover:!bg-secondary-lighter hover:!text-neutral-surface transition-all"
           variant="text"
         >
-          <i className="ri-arrow-left-line"></i>
-          <h1>Back to My Courses</h1>
+          <ArrowBackOutlinedIcon />
+          {/* <i className="ri-arrow-left-line"/> */}
+          <h1>Back to Calendar</h1>
         </Button>
       </div>
 

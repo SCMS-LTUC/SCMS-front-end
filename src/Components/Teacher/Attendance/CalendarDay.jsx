@@ -15,7 +15,7 @@ export default function CustomDay({
   const [lectureId, setLectureId] = useState("");
   function onDaySelect() {
     if (lectureId !== "")
-      navigate(`/course-details/:courseId/attendance/${lectureId}/post`);
+      navigate(`/course-details/${1}/attendance/${lectureId}/post`);
   }
   const isSelected = useMemo(() => {
     return highlightedDays.some((lecture) => {

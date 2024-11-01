@@ -24,7 +24,7 @@ const InfoCard = ({
   const navigate = useNavigate();
 
   return (
-    <Card className="shadow-lg m-4">
+    <Card className=" lg:container shadow-lg m-4 !bg-neutral-surface ">
       <CardContent>
         <div className="flex justify-between mb-4">
           <Typography variant="h5" className="font-semibold text-primary">

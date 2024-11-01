@@ -4,6 +4,7 @@ import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import { Link } from "react-router-dom";
 import { Outlet } from "react-router-dom";
+
 export default function CalendarView() {
   const [value, setValue] = useState(() => {
     return localStorage.getItem("attendanceTabs") || "one";
@@ -28,13 +29,13 @@ export default function CalendarView() {
             value="one"
             label="Calender"
             component={Link}
-            to="/course-details/:courseId/attendance/"
+            to={`/course-details/${1}/attendance/`}
           />
           <Tab
             value="two"
             label="Summary"
             component={Link}
-            to="/course-details/:courseId/attendance/summary"
+            to={`/course-details/${1}/attendance/summary`}
           />
         </Tabs>
       </Box>

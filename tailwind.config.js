@@ -39,6 +39,7 @@ export default {
         neutral: {
           // Main website background, content areas, forum backgrounds
           background: "#FFF9F5",
+          darkerBackground: "#F5EBE4",
           // Content cards, modals, form fields, white spaces
           surface: "#FFFFFF",
           border: "#E2E8F0", // Light gray for borders and subtle shadows
@@ -46,6 +47,7 @@ export default {
           textPrimary: "#2D3748",
           // Secondary text, meta info, placeholders, disabled states
           textSecondary: "#718096",
+          textMedium: "#4F5C6F",
         },
 
         accent: {
