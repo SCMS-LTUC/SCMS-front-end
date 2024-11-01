@@ -2,6 +2,9 @@ import { useState } from "react";
 import { Tabs, Tab, Typography, Box, Button } from "@mui/material";
 import { Outlet, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
+import ManageCourseContent from "../../Pages/Teacher/Content/ManageCourseContent";
+import GradePage from "../../Pages/Teacher/Grades/GeadePage";
+
 const CourseDetailsLayout = ({ courseName, teacher }) => {
   const [activeTab, setActiveTab] = useState(0);
   const navigate = useNavigate();
@@ -50,7 +53,7 @@ const CourseDetailsLayout = ({ courseName, teacher }) => {
         {activeTab === 0 && (
           <Typography>Class List content goes here.</Typography>
         )}
-        {activeTab === 1 && <Typography>Content section goes here.</Typography>}
+        {activeTab === 1 && <ManageCourseContent />}
         {activeTab === 2 && (
           <Typography>Announcements section goes here.</Typography>
         )}
@@ -61,7 +64,7 @@ const CourseDetailsLayout = ({ courseName, teacher }) => {
         {activeTab === 5 && (
           <Typography>Assignments section goes here.</Typography>
         )}
-        {activeTab === 6 && <Typography>Grades section goes here.</Typography>}
+        {activeTab === 6 && <GradePage />}
       </Box>
 
       <div>
