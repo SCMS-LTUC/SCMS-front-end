@@ -143,7 +143,7 @@ const Sidebar = ({ isOpen }) => {
         minWidth: 64, // Prevents the sidebar from shrinking to 0
         transition: "width 0.4s ease", // Adjust transition duration as needed
       }}
-      className="h-screen bg-neutral-surface border-r-2 border-neutral-border !shadow-lg !shadow-neutral-border"
+      className="!h-full bg-neutral-surface border-r-2 border-neutral-border !shadow-lg !shadow-neutral-border"
     >
       <List>
         {menuItems.map((item) => (

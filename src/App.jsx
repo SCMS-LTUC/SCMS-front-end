@@ -14,34 +14,34 @@ import Schedule from "./Pages/Teacher/Schedule/Schedule";
 import MyCourses from "./Pages/Teacher/Courses/MyCourses";
 import ColorPalettePage from "./ColorUsage/ColorPalettePage";
 import CourseDetailsLayout from "./Components/Common/CourseDetailsLayout";
+// import Testjs from "./Components/Common/TestDima";
 
 const App = () => {
   return (
     <Router>
       <ThemeProvider theme={theme}>
         <Layout>
-          <div className="p-6 flex-1 overflow-auto">
-            <Routes>
-              <Route path="/" element={<MyCourses />} />
-              <Route
-                path="/course-details/:courseName"
-                element={<CourseDetailsLayout />}
-              >
-                <Route path="attendance" element={<AttendanceLayout />}>
-                  <Route index element={<CalendarView />} />
-                  <Route path="summary" element={<Summary />} />
-                </Route>
-                <Route
-                  path="attendance/:lectureId/post"
-                  element={<PostAttendance />}
-                />
+          <Routes>
+            <Route path="/" element={<MyCourses />} />
+            <Route
+              path="/course-details/:courseName"
+              element={<CourseDetailsLayout />}
+            >
+              <Route path="attendance" element={<AttendanceLayout />}>
+                <Route index element={<CalendarView />} />
+                <Route path="summary" element={<Summary />} />
               </Route>
-              <Route path="/announcements" element={<Announcements />} />
-              <Route path="/discover" element={<Discover />} />
-              <Route path="/schedule" element={<Schedule />} />
-              <Route path="/colorpalette" element={<ColorPalettePage />} />
-            </Routes>
-          </div>
+              <Route
+                path="attendance/:lectureId/post"
+                element={<PostAttendance />}
+              />
+            </Route>
+            <Route path="/announcements" element={<Announcements />} />
+            <Route path="/discover" element={<Discover />} />
+            <Route path="/schedule" element={<Schedule />} />
+            <Route path="/colorpalette" element={<ColorPalettePage />} />
+            {/* <Route path="/test" element={<Testjs />} /> */}
+          </Routes>
         </Layout>
       </ThemeProvider>
     </Router>

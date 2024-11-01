@@ -13,15 +13,19 @@ export default function Layout({ children }) {
   const toggleSidebar = () => setIsOpen((prev) => !prev);
 
   return (
-    <div className=" h-screen flex flex-col">
+    <div className="  flex flex-col !bg-neutral-background">
       <div>
         <Navbar isOpen={isOpen} toggleSidebar={toggleSidebar} />
       </div>
-      <div className="flex ">
-        <div>
-          <Sidebar isOpen={isOpen} />
+      <div className="min-h-screen">
+        <div className="flex h-full min-h-screen">
+          <div>
+            <Sidebar isOpen={isOpen} />
+          </div>
+          <div className="p-6 container w-screen flex-1 overflow-auto">
+            {children}
+          </div>
         </div>
-        <div>{children}</div>
       </div>
     </div>
   );

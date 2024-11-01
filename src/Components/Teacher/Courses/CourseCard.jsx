@@ -7,27 +7,33 @@ import {
   Typography,
   Button,
   LinearProgress,
-  IconButton,
+  // IconButton,
 } from "@mui/material";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
-import RoomIcon from "@mui/icons-material/Room";
-import DownloadIcon from "@mui/icons-material/Download";
+import PlaceIcon from "@mui/icons-material/Place";
+import QueryBuilderIcon from "@mui/icons-material/QueryBuilder"; // import DownloadIcon from "@mui/icons-material/Download";
 
 const InfoCard = ({
   courseName,
   teacher,
   progress,
-  date,
+  // date,
   classroom,
-  onDownload,
+  startTime,
+  endTime,
+  days,
+  // onDownload,
 }) => {
   const navigate = useNavigate();
 
   return (
-    <Card className=" lg:container shadow-lg m-4 !bg-neutral-surface ">
-      <CardContent>
-        <div className="flex justify-between mb-4">
-          <Typography variant="h5" className="font-semibold text-primary">
+    <Card className="container !h-72 !bg-neutral-surface !rounded-xl !shadow-md !shadow-neutral-border !border-2 !border-neutral-border !p-2">
+      <CardContent className="flex flex-col !h-full !justify-between">
+        <div id="title" className="flex justify-between ">
+          <Typography
+            variant="h5"
+            className=" !text-neutral-textPrimary !font-bold"
+          >
             {courseName}
           </Typography>
           <Typography className="text-secondary font-medium">
@@ -35,53 +41,71 @@ const InfoCard = ({
           </Typography>
         </div>
 
-        <div className="flex items-center text-secondary mb-1">
-          <CalendarTodayIcon
-            className="mr-1"
-            style={{ width: "16px", height: "16px" }}
-          />
-          <Typography>
-            <strong>Date:</strong> {date}
-          </Typography>
-        </div>
-
-        <div className="flex items-center text-secondary mb-1">
-          <RoomIcon
-            className="mr-1"
-            style={{ width: "16px", height: "16px" }}
-          />
-          <Typography>
-            <strong>Classroom:</strong> {classroom}
-          </Typography>
-        </div>
-
-        <div className="my-4">
-          <Typography className="text-secondary mb-1">
-            <strong>Progress:</strong> {progress}%
+        <div id="progress">
+          <Typography className="text-secondary mb-1 flex justify-between">
+            <h1>Progress</h1>
+            {progress}%
           </Typography>
           <LinearProgress
             variant="determinate"
             value={progress}
-            className="mt-2"
+            className="mt-2 rounded-lg !h-2"
             color="primary"
           />
         </div>
 
-        <div className="flex justify-between items-center mt-4">
+        <div id="icons" className="">
+          <div className="flex items-center text-secondary ">
+            <CalendarTodayIcon
+              className="mr-1"
+              style={{ width: "16px", height: "16px" }}
+            />
+            <Typography>
+              {days.map((day, index) => (
+                <span key={index}>
+                  {day} {index !== days.length - 1 ? "," : " "}
+                </span>
+              ))}
+            </Typography>
+          </div>
+
+          <div className="flex items-center text-secondary">
+            <QueryBuilderIcon
+              className="mr-1"
+              style={{ width: "16px", height: "16px" }}
+            />
+            <Typography>
+              <h1>
+                {startTime} - {endTime}
+              </h1>
+            </Typography>
+          </div>
+
+          <div className="flex items-center text-secondary">
+            <PlaceIcon
+              className="mr-1"
+              style={{ width: "16px", height: "16px" }}
+            />
+            <Typography>{classroom}</Typography>
+          </div>
+        </div>
+
+        <div className="flex justify-end items-center ">
           <Button
             variant="contained"
             color="primary"
             onClick={() => navigate(`/course-details/${courseName}`)} // Navigate to course details page
+            className="!text-neutral-surface"
           >
             Go to Course
           </Button>
 
-          {/* Conditional Rendering for Download Certificate */}
+          {/* Conditional Rendering for Download Certificate
           {progress === 100 && (
             <IconButton onClick={onDownload} title="Download Certificate">
               <DownloadIcon className="text-primary" />
             </IconButton>
-          )}
+          )} */}
         </div>
       </CardContent>
     </Card>
@@ -100,6 +124,9 @@ InfoCard.propTypes = {
   classroom: PropTypes.string, // classroom is an optional string
   onNavigate: PropTypes.func.isRequired, // onNavigate should be a required function
   onDownload: PropTypes.func.isRequired, // onDownload should be a required function
+  startTime: PropTypes.string.isRequired,
+  endTime: PropTypes.string.isRequired,
+  days: PropTypes.array.isRequired,
 };
 
 export default InfoCard;
