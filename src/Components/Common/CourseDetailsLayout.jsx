@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Tabs, Tab, Typography, Box, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import CourseQuizzes from '../../Pages/Teacher/Quizes/CourseQuizzes';
 
 const CourseDetailsLayout = ({ courseName, teacher }) => {
     const [activeTab, setActiveTab] = useState(0);
@@ -46,7 +47,7 @@ const CourseDetailsLayout = ({ courseName, teacher }) => {
                 {activeTab === 1 && <Typography>Content section goes here.</Typography>}
                 {activeTab === 2 && <Typography>Announcements section goes here.</Typography>}
                 {activeTab === 3 && <Typography>Attendance section goes here.</Typography>}
-                {activeTab === 4 && <Typography>Quizzes section goes here.</Typography>}
+                {activeTab === 4 && <CourseQuizzes />}
                 {activeTab === 5 && <Typography>Assignments section goes here.</Typography>}
                 {activeTab === 6 && <Typography>Grades section goes here.</Typography>}
             </Box>

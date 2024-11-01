@@ -7,6 +7,7 @@ import Schedule from './Pages/Teacher/Schedule/Schedule';
 import MyCourses from './Pages/Teacher/Courses/MyCourses';
 import ColorPalettePage from "./ColorUsage/ColorPalettePage";
 import CourseDetailsLayout from './Components/Common/CourseDetailsLayout';
+import CreateQuiz from './Pages/Teacher/Quizes/CreateQuiz';
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
             <Routes>
               <Route path="/" element={<MyCourses />} />
               <Route path="/course-details/:courseName" element={<CourseDetailsLayout />} />
+              <Route path="/create-quiz" element={<CreateQuiz />} />
               <Route path="/announcements" element={<Announcements />} />
               <Route path="/discover" element={<Discover />} />
               <Route path="/schedule" element={<Schedule />} />
