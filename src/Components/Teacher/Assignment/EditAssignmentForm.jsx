@@ -5,6 +5,7 @@ export default function CreateAssignmentForm() {
     name: '',
     due: '',
     description: '',
+    mark: 0
   });
 
   const handleChange = (e) => {
@@ -50,6 +51,17 @@ export default function CreateAssignmentForm() {
           rows="4"
           required
         ></textarea>
+      </div>
+      <div>
+        <label className="block text-sm font-medium">Assignment Mark</label>
+        <input
+          type="number"
+          name="mark"
+          value={assignment.mark}
+          onChange={handleChange}
+          className="mt-1 block w-auto border px-4 py-2 rounded-md"
+          required
+        />
       </div>
       <div>
       <input
