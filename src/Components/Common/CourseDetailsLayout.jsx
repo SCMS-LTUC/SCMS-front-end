@@ -1,73 +1,124 @@
-import { useState } from "react";
-import { Tabs, Tab, Typography, Box } from "@mui/material";
-import { Outlet } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Tabs, Tab, Typography /*IconButton*/ } from "@mui/material";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import PropTypes from "prop-types";
-const CourseDetailsLayout = ({ courseName, teacher }) => {
-  const [activeTab, setActiveTab] = useState(0);
-  // const navigate = useNavigate();
 
-  const handleTabChange = (event, newValue) => setActiveTab(newValue);
+import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
+import FeedOutlinedIcon from "@mui/icons-material/FeedOutlined";
+import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
+import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
+import QuizOutlinedIcon from "@mui/icons-material/QuizOutlined";
+import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
+// import GradeOutlinedIcon from "@mui/icons-material/GradeOutlined";
+import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
+const CourseDetailsLayout = ({ courseName, teacher }) => {
+  const navigate = useNavigate();
+  const Location = useLocation();
+  const tabs = [
+    {
+      key: "classList",
+      text: "Class List",
+      icon: <PeopleAltOutlinedIcon />,
+      path: "/course-details/:courseName/class-list",
+    },
+    {
+      key: "announcements",
+      text: "Announcements",
+      icon: <NotificationsNoneOutlinedIcon />,
+      path: "/course-details/:courseName/announcements",
+    },
+    {
+      key: "content",
+      text: "Content",
+      icon: <FeedOutlinedIcon />,
+      path: "/course-details/:courseName/content",
+    },
+    {
+      key: "assignments",
+      text: "Assignments",
+      icon: <AssignmentOutlinedIcon />,
+      path: "/course-details/:courseName/assignments",
+    },
+    {
+      text: "Quizzes",
+      icon: <QuizOutlinedIcon />,
+      path: "/course-details/:courseName/quizzes",
+    },
+    {
+      key: "grades",
+      text: "Grades",
+      icon: <SchoolOutlinedIcon />,
+      path: "/course-details/:courseName/grades",
+    },
+    {
+      key: "attendance",
+      text: "Attendance",
+      icon: <CalendarTodayOutlinedIcon />,
+      path: "/course-details/:courseName/attendance",
+    },
+  ];
+  function getInitialTab() {
+    const currentPath = Location.pathname;
+    const currentTab = tabs.find((tab) => currentPath.includes(tab.path));
+    return currentTab ? currentTab.key : tabs[0].key;
+  }
+  const [value, setValue] = useState(getInitialTab());
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+    const selectedTab = tabs.find((tab) => tab.key === newValue);
+    if (selectedTab) navigate(selectedTab.path);
+  };
+
+  useEffect(() => {
+    setValue(getInitialTab());
+  }, [Location.pathname]);
 
   return (
-    <div className="p-6">
-      <Card className="container !mx-auto !w-full !bg-neutral-surface !rounded-xl !shadow-md !shadow-neutral-border !border-2 !border-neutral-border !mb-10">
-        <CardContent className="!bg-neutral-background !border-b-2 !border-neutral-border">
-          {/* <h1 className="font-bold pl-4 text-xl text-neutral-textPrimary">
-            Absence Summary
-          </h1> */}
-
-          <Typography variant="h4" className="font-bold mb-2 text-primary">
+    <div className="">
+      <Card className="!h-auto container !mx-auto !w-full !bg-neutral-surface !rounded-xl !shadow-md !shadow-neutral-border !border-2 !border-neutral-border !mb-10">
+        <CardContent className=" !border-b-2 !border-neutral-border">
+          <Typography
+            variant="h4"
+            className="!font-bold mb-2 text-neutral-textPrimary !text-3xl"
+          >
             {courseName || "Web Development"}
           </Typography>
-          <Typography variant="subtitle1" className="text-secondary mb-4">
+          <Typography
+            variant="subtitle1"
+            className="text-neutral-textSecondary"
+          >
             Instructor: {teacher || "Dr. Ahmad Samhan"}
           </Typography>
         </CardContent>
 
         <CardContent className="">
-          <div className="flex justify-start !border-2 !border-neutral-border rounded-xl">
+          <div className=" !border-2 !border-neutral-border rounded-xl">
             {/* Navigation Tabs */}
             <Tabs
-              value={activeTab}
-              onChange={handleTabChange}
+              value={value}
+              onChange={handleChange}
               textColor="primary"
               indicatorColor="primary"
               variant="scrollable"
               scrollButtons="auto"
+              className="!flex !justify-between"
             >
-              <Tab label="Class List" />
-              <Tab label="Content" />
-              <Tab label="Announcements" />
-              <Tab label="Attendance" />
-              <Tab label="Quizzes" />
-              <Tab label="Assignments" />
-              <Tab label="Grades" />
+              {tabs.map((tab) => (
+                <Tab
+                  value={tab.key}
+                  key={tab.key}
+                  label={tab.text}
+                  icon={tab.icon}
+                  className="flex-1 flex justify-between"
+                ></Tab>
+              ))}
             </Tabs>
           </div>
         </CardContent>
       </Card>
-
-      {/* Tab Panels */}
-      <Box className="mt-4">
-        {/* Note: Here you can replace the Typography with the componenet that you will build it like Announcements or Attendance etc ..  */}
-        {activeTab === 0 && (
-          <Typography>Class List content goes here.</Typography>
-        )}
-        {activeTab === 1 && <Typography>Content section goes here.</Typography>}
-        {activeTab === 2 && (
-          <Typography>Announcements section goes here.</Typography>
-        )}
-        {activeTab === 3 && (
-          <Typography>Attendance section goes here.</Typography>
-        )}
-        {activeTab === 4 && <Typography>Quizzes section goes here.</Typography>}
-        {activeTab === 5 && (
-          <Typography>Assignments section goes here.</Typography>
-        )}
-        {activeTab === 6 && <Typography>Grades section goes here.</Typography>}
-      </Box>
 
       <div>
         <Outlet />

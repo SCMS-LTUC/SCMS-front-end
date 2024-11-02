@@ -5,7 +5,7 @@ export default function CalendarView() {
   return (
     <Card className="container !mx-auto !w-4/6 !bg-neutral-surface !rounded-xl !shadow-md !shadow-neutral-border !border-2 !border-neutral-border !mb-10">
       <CardContent className="!bg-neutral-background !border-b-2 !border-neutral-border">
-        <h1 className="font-bold pl-4 text-xl text-neutral-textPrimary">
+        <h1 className="font-bold  text-xl text-neutral-textPrimary">
           Course Schedule
         </h1>
       </CardContent>

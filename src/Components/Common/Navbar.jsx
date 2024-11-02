@@ -17,18 +17,22 @@ import MenuOpenOutlinedIcon from "@mui/icons-material/MenuOpenOutlined";
 
 const Navbar = ({ isOpen, toggleSidebar }) => {
   return (
-    <div className="bg-neutral-surface text-primary p-4 flex  justify-between border-b-2 border-neutral-border !shadow-sm !shadow-neutral-border">
+    <div className="bg-neutral-surface text-primary p-4 flex  justify-between border-b-2 border-neutral-border !shadow-sm !shadow-neutral-border pl-2">
       {/* Left: Site logo */}
       <div className="flex items-center space-x-3">
         <div>
           {/* handle toggle sidebar */}
           <IconButton
-            className=" hover:!bg-neutral-background !text-neutral-textMedium"
+            className=" hover:!bg-neutral-background  !text-neutral-textMedium !pl-2.5"
             onClick={toggleSidebar}
             aria-expanded={isOpen}
             aria-label={isOpen ? "Collapse Sidebar" : "Expand Sidebar"}
           >
-            {isOpen ? <MenuOpenOutlinedIcon /> : <MenuOutlinedIcon />}
+            {isOpen ? (
+              <MenuOpenOutlinedIcon sx={{ fontSize: "28px" }} />
+            ) : (
+              <MenuOutlinedIcon sx={{ fontSize: "28px" }} />
+            )}
             {/* <MenuOutlinedIcon className="text-primary" /> */}
           </IconButton>
         </div>
@@ -38,16 +42,16 @@ const Navbar = ({ isOpen, toggleSidebar }) => {
       {/* Right: Icons for actions */}
       <div className="flex items-center space-x-4">
         <IconButton className=" hover:!bg-neutral-background">
-          <ChatOutlinedIcon className="text-primary" />
+          <ChatOutlinedIcon className="text-neutral-textMedium hover:!text-primary" />
+        </IconButton>
+        <IconButton className=" hover:!bg-neutral-background ">
+          <NotificationsActiveOutlinedIcon className="text-neutral-textMedium hover:!text-primary" />
         </IconButton>
         <IconButton className=" hover:!bg-neutral-background">
-          <NotificationsActiveOutlinedIcon className="text-primary" />
+          <AccountCircleOutlinedIcon className="text-neutral-textMedium hover:!text-primary" />
         </IconButton>
         <IconButton className=" hover:!bg-neutral-background">
-          <AccountCircleOutlinedIcon className="text-primary" />
-        </IconButton>
-        <IconButton className=" hover:!bg-neutral-background">
-          <LogoutOutlinedIcon className="text-primary" />
+          <LogoutOutlinedIcon className="text-neutral-textMedium hover:!text-primary" />
         </IconButton>
       </div>
     </div>
