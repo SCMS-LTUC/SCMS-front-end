@@ -35,7 +35,7 @@ function CalendarWithHighlights() {
   };
 
   return (
-    <div className="!text-secondary-dark">
+    <div className="!text-secondary-dark !bg-neutral-background">
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DateCalendar
           defaultValue={dayjs()}

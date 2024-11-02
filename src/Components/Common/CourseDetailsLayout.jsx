@@ -18,16 +18,16 @@ const CourseDetailsLayout = ({ courseName, teacher }) => {
   const Location = useLocation();
   const tabs = [
     {
-      key: "classList",
-      text: "Class List",
-      icon: <PeopleAltOutlinedIcon />,
-      path: "/course-details/:courseName/class-list",
-    },
-    {
       key: "announcements",
       text: "Announcements",
       icon: <NotificationsNoneOutlinedIcon />,
       path: "/course-details/:courseName/announcements",
+    },
+    {
+      key: "classList",
+      text: "Class List",
+      icon: <PeopleAltOutlinedIcon />,
+      path: "/course-details/:courseName/class-list",
     },
     {
       key: "content",
@@ -78,7 +78,7 @@ const CourseDetailsLayout = ({ courseName, teacher }) => {
 
   return (
     <div className="">
-      <Card className="!h-auto container !mx-auto !w-full !bg-neutral-surface !rounded-xl !shadow-md !shadow-neutral-border !border-2 !border-neutral-border !mb-10">
+      <Card className="p-6 !h-auto container !mx-auto !w-full !bg-neutral-surface !rounded-xl !shadow-md !shadow-neutral-border !border-2 !border-neutral-border !mb-10">
         <CardContent className=" !border-b-2 !border-neutral-border">
           <Typography
             variant="h4"
@@ -94,35 +94,33 @@ const CourseDetailsLayout = ({ courseName, teacher }) => {
           </Typography>
         </CardContent>
 
-        <CardContent className="">
-          <div className=" !border-2 !border-neutral-border rounded-xl">
-            {/* Navigation Tabs */}
-            <Tabs
-              value={value}
-              onChange={handleChange}
-              textColor="primary"
-              indicatorColor="primary"
-              variant="scrollable"
-              scrollButtons="auto"
-              className="!flex !justify-between"
-            >
-              {tabs.map((tab) => (
-                <Tab
-                  value={tab.key}
-                  key={tab.key}
-                  label={tab.text}
-                  icon={tab.icon}
-                  className="flex-1 flex justify-between"
-                ></Tab>
-              ))}
-            </Tabs>
+        <CardContent className="!border-b-2 !border-neutral-border ">
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            textColor="primary"
+            indicatorColor="primary"
+            variant="scrollable"
+            scrollButtons="auto"
+            className="!flex !justify-between"
+          >
+            {tabs.map((tab) => (
+              <Tab
+                value={tab.key}
+                key={tab.key}
+                label={tab.text}
+                icon={tab.icon}
+                className="flex-1 flex justify-between"
+              ></Tab>
+            ))}
+          </Tabs>
+        </CardContent>
+        <CardContent>
+          <div className="!m-8">
+            <Outlet />
           </div>
         </CardContent>
       </Card>
-
-      <div>
-        <Outlet />
-      </div>
     </div>
   );
 };
