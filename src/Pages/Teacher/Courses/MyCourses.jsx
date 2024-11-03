@@ -8,6 +8,7 @@ const MyCourses = () => {
 
   const inProgressCourses = [
     {
+      courseId: "1",
       courseName: "Introduction to Web Development",
       teacher: "Dr. Ahmad Samhan",
       progress: 50,
@@ -18,6 +19,7 @@ const MyCourses = () => {
       days: ["Sun", "Tue"],
     },
     {
+      courseId: "1",
       courseName: "Advanced React",
       teacher: "Dr. Omar Zain",
       progress: 85,
@@ -36,6 +38,7 @@ const MyCourses = () => {
       <div className="container !w-4/6 mx-auto space-y-8">
         {inProgressCourses.map((course, index) => (
           <InfoCard
+            courseId={course.courseId}
             key={index}
             courseName={course.courseName}
             teacher={course.teacher}

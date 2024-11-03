@@ -1,21 +1,101 @@
-// eslint-disable-next-line react/prop-types
-export default function AssignmentCard({name, due, submissions, description}){
-    return (
-        <div className="bg-white shadow-md border rounded-md mx-1 p-4 mb-4">
-            <h2 className="text-lg font-bold">{name}</h2>
-            <div className="flex space-x-2">
-                <span className="bg-gray-100 text-gray-800 px-2 py-1 rounded-full text-sm">
-                    <strong>Due:</strong> {due}
-                </span>
-                <span className="bg-gray-100 text-green-400 px-2 py-1 rounded-full text-sm">
-                    <strong>Submissions:</strong> {submissions}
-                </span>
-            </div>
-            <p className="mt-2">{description}</p>
-            <div className="flex justify-end space-x-2 mt-4">
-                <button className=" text-black font-semibold border px-4 py-2 rounded">View Submissions</button>
-                <button className=" text-black font-semibold border px-4 py-2 rounded">Edit</button>
-            </div>
+import PropTypes from "prop-types";
+import {
+  Card,
+  CardContent,
+  Typography,
+  Button,
+  Chip,
+  Divider,
+} from "@mui/material";
+import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
+import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+export default function AssignmentCard({
+  name,
+  due,
+  submissions,
+  description,
+}) {
+  const [showFullDescription, setShowFullDescription] = useState(false);
+  const navigate = useNavigate();
+
+  const toggleDescription = () => {
+    setShowFullDescription(!showFullDescription);
+  };
+
+  return (
+    <Card className="container !bg-neutral-surface !rounded-xl !shadow-md !shadow-neutral-border !border-2 !border-neutral-border !p-4">
+      <CardContent className="flex flex-col !h-full !justify-between">
+        <div id="title" className="space-y-2">
+          <Typography className="!text-neutral-textPrimary !font-bold !text-xl">
+            {name}
+          </Typography>
+          <Typography className="!text-neutral-textSecondary !text-sm">
+            {showFullDescription
+              ? description
+              : `${description.substring(0, 100)}...`}
+          </Typography>
+          {description.length > 100 && (
+            <Button
+              onClick={toggleDescription}
+              className="!text-primary !text-xs"
+            >
+              {showFullDescription ? "Read Less" : "Read More"}
+            </Button>
+          )}
         </div>
-    );
+        <Divider className="!my-4" />
+        <div id="details" className="flex justify-between items-center">
+          <Chip
+            icon={<CalendarTodayIcon className="!text-neutral-textMedium" />}
+            label={`Due: ${due}`}
+            className="!bg-neutral-background !text-accent-error !border !border-neutral-border"
+          />
+          <Chip
+            icon={
+              <AssignmentTurnedInIcon className="!text-neutral-textMedium" />
+            }
+            label={`Submissions: ${submissions}`}
+            className="!bg-neutral-background !text-accent-success !border !border-neutral-border"
+          />
+        </div>
+        <Divider className="!my-4" />
+        <div className="flex justify-end items-center space-x-2">
+          <Button
+            variant="contained"
+            color="primary"
+            className="!text-neutral-surface"
+            onClick={() =>
+              navigate(
+                "/course-details/:courseName/assignments/:assignmentId/submissions"
+              )
+            }
+          >
+            View Submissions
+          </Button>
+          <Button
+            variant="outlined"
+            color="primary"
+            className="!text-primary !border-primary"
+            onClick={() =>
+              navigate(
+                "/course-details/:courseName/assignments/:assignmentId/edit"
+              )
+            }
+          >
+            Edit
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
+  );
 }
+
+AssignmentCard.propTypes = {
+  name: PropTypes.string.isRequired, // name should be a required string
+  due: PropTypes.string.isRequired, // due should be a required string
+  submissions: PropTypes.number.isRequired, // submissions should be a required number
+  description: PropTypes.string.isRequired, // description should be a required string
+};

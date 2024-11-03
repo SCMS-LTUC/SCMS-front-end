@@ -7,6 +7,7 @@ import {
   Typography,
   Button,
   LinearProgress,
+  Chip,
   // IconButton,
 } from "@mui/material";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
@@ -42,7 +43,7 @@ const InfoCard = ({
         </div>
 
         <div id="progress">
-          <Typography className="text-secondary mb-1 flex justify-between">
+          <Typography className="text-secondary mb-1 flex justify-between !text-base">
             <h1>Progress</h1>
             {progress}%
           </Typography>
@@ -55,38 +56,36 @@ const InfoCard = ({
         </div>
 
         <div id="icons" className="">
-          <div className="flex items-center text-secondary ">
-            <CalendarTodayIcon
-              className="mr-1"
-              style={{ width: "16px", height: "16px" }}
-            />
-            <Typography>
-              {days.map((day, index) => (
+          <div>
+            <Chip
+              icon={<CalendarTodayIcon className="!text-neutral-textMedium" />}
+              label={days.map((day, index) => (
                 <span key={index}>
                   {day} {index !== days.length - 1 ? "," : " "}
                 </span>
               ))}
-            </Typography>
+              className="!bg-neutral-surface !text-secondary !text-base"
+            />
           </div>
 
-          <div className="flex items-center text-secondary">
-            <QueryBuilderIcon
-              className="mr-1"
-              style={{ width: "16px", height: "16px" }}
+          <div>
+            <Chip
+              icon={<QueryBuilderIcon className="!text-neutral-textMedium" />}
+              label={
+                <h1>
+                  {startTime} - {endTime}
+                </h1>
+              }
+              className="!bg-neutral-surface !text-secondary !text-base"
             />
-            <Typography>
-              <h1>
-                {startTime} - {endTime}
-              </h1>
-            </Typography>
           </div>
 
-          <div className="flex items-center text-secondary">
-            <PlaceIcon
-              className="mr-1"
-              style={{ width: "16px", height: "16px" }}
+          <div>
+            <Chip
+              icon={<PlaceIcon className="!text-neutral-textMedium" />}
+              label={classroom}
+              className="!bg-neutral-surface !text-secondary !text-base"
             />
-            <Typography>{classroom}</Typography>
           </div>
         </div>
 

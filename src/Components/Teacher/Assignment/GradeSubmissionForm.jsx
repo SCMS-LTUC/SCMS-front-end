@@ -1,25 +1,27 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 // eslint-disable-next-line react/prop-types
 export default function GradeSubmissionForm({ submissionId }) {
   const [submission, setSubmission] = useState(null);
-  const [grade, setGrade] = useState('');
-  const [feedback, setFeedback] = useState('');
-  const [assingment] = useState({name: 'Assignment 1',
-    due: '2023-10-01',
+  const [grade, setGrade] = useState("");
+  const [feedback, setFeedback] = useState("");
+  const [assingment] = useState({
+    name: "Assignment 1",
+    due: "2023-10-01",
     submissions: 10,
-    description: 'Description for Assignment 1',
-    mark: 20});
+    description: "Description for Assignment 1",
+    mark: 20,
+  });
 
   useEffect(() => {
     // Fetch submission details using submissionId
     // Replace with actual API call
     const fetchedSubmission = {
       id: submissionId,
-      text: 'Submitted assignment text...',
-      fileUrl: '/path/to/uploaded/file.pdf',
-      grade: '',
-      feedback: '',
+      text: "Submitted assignment text...",
+      fileUrl: "/path/to/uploaded/file.pdf",
+      grade: "",
+      feedback: "",
     };
     setSubmission(fetchedSubmission);
   }, [submissionId]);
@@ -37,9 +39,7 @@ export default function GradeSubmissionForm({ submissionId }) {
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
         <label className="block text-sm font-medium">Submission Text</label>
-        <div className="mt-1 p-2 border rounded-md">
-          {submission.text}
-        </div>
+        <div className="mt-1 p-2 border rounded-md">{submission.text}</div>
       </div>
       <div>
         <label className="block text-sm font-medium">Attached File</label>
@@ -62,7 +62,9 @@ export default function GradeSubmissionForm({ submissionId }) {
           className="mt-1 border px-4 py-2 rounded-md"
           required
         />
-        <span className="ml-3 text-md text-gray-500">/ {assingment.mark}</span>
+        <span className="ml-3 text-base text-gray-500">
+          / {assingment.mark}
+        </span>
       </div>
       <div>
         <label className="block text-sm font-medium">Feedback</label>
