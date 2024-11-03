@@ -3,14 +3,20 @@ import { useParams } from 'react-router-dom';
 
 export default function AssignmentSubmissions() {
   const { assignmentId } = useParams();
+  const [assingment] = useState({name: 'Assignment 1',
+    due: '2023-10-01',
+    submissions: 10,
+    description: 'Description for Assignment 1',
+    mark: 10});
   const [submissions, setSubmissions] = useState([]);
+
 
   useEffect(() => {
     // Fetch submissions for the assignment using assignmentId
     // Replace with actual API call
     const fetchedSubmissions = [
-      { id: 1,status: true , studentName: 'Alice Johnson', submittedAt: '2023-10-01', grade: 90 },
-      { id: 2,status: false , studentName: 'Bob Smith', submittedAt: '2023-10-02', grade: 85 },
+      { id: 1,status: true , studentName: 'Alice Johnson', submittedAt: '2023-10-01', grade: 9 },
+      { id: 2,status: false , studentName: 'Bob Smith', submittedAt: '2023-10-02', grade: 8 },
       // Add more submissions as needed
     ];
     setSubmissions(fetchedSubmissions);
@@ -42,7 +48,7 @@ export default function AssignmentSubmissions() {
               <td className="border p-2">{submission.studentName}</td>
               <td className="border p-2">{submission.status ? "Submitted" : "Not Submitted"}</td>
               <td className="border p-2">{submission.status ? submission.submittedAt : ""}</td>
-              <td className="border p-2">{submission.status ? submission.grade : ""}</td>
+              <td className="border p-2">{submission.status ? `${submission.grade} \\ ${assingment.mark}` : ""}</td>
               <td className="border p-2"><button className="bg-white text-black px-4 py-2 border rounded-md shadow-sm">view and grade</button></td>
             </tr>
           ))}
