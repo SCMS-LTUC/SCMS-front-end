@@ -33,11 +33,12 @@ const calendarStyle = {
     justifyContent: "space-around",
     flex: 1,
     fontSize: "300px !important",
-    "& .MuiTypography-root": {
-      // Target the Typography component inside
-      // fontSize: "1.2rem !important",
-      // fontWeight: 500,
-    },
+  },
+
+  "& .MuiDayCalendar-weekDayLabel": {
+    color: "#3B7A70 !important",
+    // fontSize: "1.2rem !important",
+    fontWeight: 700,
   },
 
   "& .MuiPickersCalendarHeader-root": {
