@@ -15,7 +15,7 @@ export default function CustomDay({
   const [lectureId, setLectureId] = useState("");
   function onDaySelect() {
     if (lectureId !== "")
-      navigate(`/course-details/${1}/attendance/${lectureId}/post`);
+      navigate(`/course-details/:courseName/attendance/${lectureId}/post`);
   }
   const isSelected = useMemo(() => {
     return highlightedDays.some((lecture) => {
@@ -49,8 +49,13 @@ export default function CustomDay({
                   ? "!bg-primary-dark transform transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg"
                   : "!bg-primary-light"
               }`
-            : ""
+            : "!text-neutral-textSecondary"
         }
+        sx={{
+          width: 46,
+          height: 36,
+          margin: "5px",
+        }}
       />
     </Badge>
   );

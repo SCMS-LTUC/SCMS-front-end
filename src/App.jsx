@@ -14,7 +14,6 @@ import Schedule from "./Pages/Teacher/Schedule/Schedule";
 import MyCourses from "./Pages/Teacher/Courses/MyCourses";
 import ColorPalettePage from "./ColorUsage/ColorPalettePage";
 import CourseDetailsLayout from "./Components/Common/CourseDetailsLayout";
-// import Testjs from "./Components/Common/TestDima";
 
 const App = () => {
   return (
@@ -30,17 +29,13 @@ const App = () => {
               <Route path="attendance" element={<AttendanceLayout />}>
                 <Route index element={<CalendarView />} />
                 <Route path="summary" element={<Summary />} />
+                <Route path=":lectureId/post" element={<PostAttendance />} />
               </Route>
-              <Route
-                path="attendance/:lectureId/post"
-                element={<PostAttendance />}
-              />
             </Route>
             <Route path="/announcements" element={<Announcements />} />
             <Route path="/discover" element={<Discover />} />
             <Route path="/schedule" element={<Schedule />} />
             <Route path="/colorpalette" element={<ColorPalettePage />} />
-            {/* <Route path="/test" element={<Testjs />} /> */}
           </Routes>
         </Layout>
       </ThemeProvider>

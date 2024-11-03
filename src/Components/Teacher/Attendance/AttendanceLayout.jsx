@@ -3,43 +3,73 @@
 // import Tab from "@mui/material/Tab";
 // import Box from "@mui/material/Box";
 // import { Link } from "react-router-dom";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import ToggleButton from "@mui/material/ToggleButton";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+import { useEffect } from "react";
+import { useState } from "react";
 
 export default function CalendarView() {
-  // const [value, setValue] = useState(() => {
-  //   return localStorage.getItem("attendanceTabs") || "one";
-  // });
-
-  // const handleChange = (event, newValue) => {
-  //   setValue(newValue);
-  //   localStorage.setItem("attendanceTabs", newValue);
-  // };
+  const Location = useLocation();
+  const Navigate = useNavigate();
+  const [value, setValue] = useState("calendar");
+  useEffect(() => {
+    if (location.pathname.includes("summary")) {
+      setValue("summary");
+    } else {
+      setValue("calendar");
+    }
+  }, [Location.pathname]);
+  function handleButtonChange(event, newValue) {
+    if (newValue !== null) {
+      setValue(newValue);
+      if (newValue === "summary") {
+        Navigate("/course-details/:courseName/attendance/summary");
+      } else {
+        Navigate("/course-details/:courseName/attendance/");
+      }
+    }
+  }
   return (
-    // <div className="flex flex-col justify-between space-y-10">
-    //   <Box sx={{ width: "100%" }}>
-    //     <Tabs
-    //       value={value}
-    //       onChange={handleChange}
-    //       textColor="secondary"
-    //       indicatorColor="secondary"
-    //       aria-label="secondary tabs example"
-    //       className="!text-neutral-textSecondary"
-    //     >
-    //       <Tab
-    //         value="one"
-    //         label="Calender"
-    //         component={Link}
-    //         to={`/course-details/${1}/attendance/`}
-    //       />
-    //       <Tab
-    //         value="two"
-    //         label="Summary"
-    //         component={Link}
-    //         to={`/course-details/${1}/attendance/summary`}
-    //       />
-    //     </Tabs>
-    //   </Box>
-    <Outlet />
-    // {/* </div> */}
+    <div className="space-y-8">
+      {Location.pathname === "/course-details/:courseName/attendance/" ||
+      Location.pathname.includes("summary") ? (
+        <div className="flex justify-end">
+          <ToggleButtonGroup
+            value={value}
+            color="secondary"
+            exclusive
+            onChange={handleButtonChange}
+          >
+            <ToggleButton
+              value="calendar"
+              className={
+                value === "calendar"
+                  ? ""
+                  : "text-neutral-textSecondary hover:!bg-neutral-background"
+              }
+            >
+              Calendar
+            </ToggleButton>
+            <ToggleButton
+              value="summary"
+              className={
+                value === "summary"
+                  ? ""
+                  : "text-neutral-textSecondary hover:!bg-neutral-background"
+              }
+            >
+              Summary
+            </ToggleButton>
+          </ToggleButtonGroup>
+        </div>
+      ) : (
+        <></>
+      )}
+
+      <div className="">
+        <Outlet />
+      </div>
+    </div>
   );
 }

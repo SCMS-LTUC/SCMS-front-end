@@ -22,23 +22,24 @@ export default function CalendarView() {
     //   </CardContent>
     // </Card>
 
-    <div className="container !w-4/6 space-y-6 ">
+    <div className="container space-y-6 !mx-auto " style={{ width: "700px" }}>
       <div className="">
         <h1 className="font-bold  text-2xl text-neutral-textPrimary">
           Course Schedule
         </h1>
       </div>
-      <div className="bg-neutral-background">
-        <div className="flex justify-start !border-2 !border-neutral-border rounded-xl !shadow-md !shadow-neutral-border">
+      <div>
+        <div className="flex justify-start">
           <Calendar />
         </div>
       </div>
       <div>
-        <div className="flex items-center   rounded-xl space-x-3 ">
-          <div className="w-4 h-4 bg-primary-light rounded-md"></div>
+        <div className="flex items-center rounded-xl space-x-3 ">
+          <div className="w-5 h-4 bg-primary-light rounded-md"></div>
           <div className="text-neutral-textSecondary">Scheduled Lectures</div>
         </div>
       </div>
     </div>
+
   );
 }

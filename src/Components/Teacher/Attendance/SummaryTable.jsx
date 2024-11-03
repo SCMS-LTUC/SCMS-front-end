@@ -30,7 +30,11 @@ export default function StickyHeadTable({ rows }) {
   };
 
   return (
-    <Paper sx={{ width: "100%", overflow: "hidden" }}>
+    <Paper
+      sx={{ width: "100%", overflow: "hidden" }}
+      className=" !border-2 !border-neutral-border !text-secondary-dark
+          !shadow-md !shadow-neutral-border !rounded-xl "
+    >
       <TableContainer sx={{ maxHeight: 440 }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
@@ -40,7 +44,7 @@ export default function StickyHeadTable({ rows }) {
                   key={column.id}
                   align={column.align}
                   style={{ minWidth: column.minWidth }}
-                  className="!text-secondary-dark !font-bold"
+                  className="!text-secondary-dark !font-bold !bg-neutral-background !text-xl"
                 >
                   {column.label}
                 </TableCell>
@@ -62,7 +66,11 @@ export default function StickyHeadTable({ rows }) {
                     {columns.map((column) => {
                       const value = row[column.id];
                       return (
-                        <TableCell key={column.id} align={column.align}>
+                        <TableCell
+                          key={column.id}
+                          align={column.align}
+                          className="!text-neutral-textMedium !bg-neutral-surface !text-lg"
+                        >
                           {value}
                         </TableCell>
                       );

@@ -5,8 +5,8 @@ const primaryColorLight = "#E65D2E";
 const primaryColorDark = "#FFA07A";
 
 const secondaryColor = "#4A9B8F";
-const secondaryColorLight = "#3B7A70";
-const secondaryColorDark = "#6BB5AA";
+const secondaryColorLight = "#6BB5AA";
+const secondaryColorDark = "#3B7A70";
 
 const textPrimary = "#2D3748";
 const textSecondary = "#718096";
@@ -29,9 +29,9 @@ const theme = createTheme({
       dark: primaryColorDark,
     },
     secondary: {
-      main: secondaryColor,
+      main: secondaryColorDark,
       light: secondaryColorLight,
-      dark: secondaryColorDark,
+      dark: secondaryColor,
     },
     text: {
       primary: textPrimary,

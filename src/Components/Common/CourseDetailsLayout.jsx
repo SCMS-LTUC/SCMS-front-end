@@ -56,7 +56,7 @@ const CourseDetailsLayout = ({ courseName, teacher }) => {
       key: "attendance",
       text: "Attendance",
       icon: <CalendarTodayOutlinedIcon />,
-      path: "/course-details/:courseName/attendance",
+      path: "/course-details/:courseName/attendance/",
     },
   ];
   function getInitialTab() {
@@ -81,7 +81,7 @@ const CourseDetailsLayout = ({ courseName, teacher }) => {
       <Card className="p-6 !h-auto container !mx-auto !w-full !bg-neutral-surface !rounded-xl !shadow-md !shadow-neutral-border !border-2 !border-neutral-border !mb-10">
         <CardContent className=" !border-b-2 !border-neutral-border">
           <Typography
-            variant="h4"
+            // variant="h4"
             className="!font-bold mb-2 text-neutral-textPrimary !text-3xl"
           >
             {courseName || "Web Development"}
@@ -116,7 +116,7 @@ const CourseDetailsLayout = ({ courseName, teacher }) => {
           </Tabs>
         </CardContent>
         <CardContent>
-          <div className="!m-8">
+          <div className="!p-6">
             <Outlet />
           </div>
         </CardContent>
