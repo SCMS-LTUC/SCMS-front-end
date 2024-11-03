@@ -1,4 +1,9 @@
-﻿import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+﻿// import "./index.css";
+// import GradeSubmission from './Pages/Teacher/Assignments/GradeSubmission';
+// import AssignmentList from "./Pages/Teacher/Assignments/AssignmentList";
+// import CreateAssignment from "./Pages/Teacher/Assignments/CreateAssignment";
+
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./Config/muiTheme";
 
@@ -14,6 +19,7 @@ import Schedule from "./Pages/Teacher/Schedule/Schedule";
 import MyCourses from "./Pages/Teacher/Courses/MyCourses";
 import ColorPalettePage from "./ColorUsage/ColorPalettePage";
 import CourseDetailsLayout from "./Components/Common/CourseDetailsLayout";
+import EditAssignment from "./Pages/Teacher/Assignments/EditAssignment";
 
 const App = () => {
   return (
@@ -31,6 +37,7 @@ const App = () => {
                 <Route path="summary" element={<Summary />} />
                 <Route path=":lectureId/post" element={<PostAttendance />} />
               </Route>
+              <Route path="assignments" element={<EditAssignment />} />
             </Route>
             <Route path="/announcements" element={<Announcements />} />
             <Route path="/discover" element={<Discover />} />
