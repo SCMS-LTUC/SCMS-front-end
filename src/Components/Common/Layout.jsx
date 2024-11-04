@@ -22,7 +22,7 @@ export default function Layout({ children }) {
           <div>
             <Sidebar isOpen={isOpen} />
           </div>
-          <div className="p-6 container w-screen flex-1 overflow-auto">
+          <div className="p-6 container w-screen flex-1 overflow-auto ">
             {children}
           </div>
         </div>

@@ -1,27 +1,34 @@
-import { useParams } from "react-router-dom";
-import GradeSubmissionForm from "../../../Components/Teacher/Assignment/GradeSubmissionForm";
+import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
+import GradeSubmissionForm from "../../../Components/Teacher/Assignment/GradeSubmissionForm";
+// import PropTypes from "prop-types";
 
-export default function GradeSubmission() {
-  const { submissionId } = useParams();
+export default function AssignmentLayout() {
   const Navigate = useNavigate();
-
   return (
-    <div className="p-4">
-      <div className="flex items-center mb-4">
-        <button
-          className="bg-blue-500 text-white px-4 py-2 rounded-md mr-5"
+    <div className="flex flex-col justify-between space-y-8">
+      <div>
+        <Button
           onClick={() =>
             Navigate(
               "/course-details/:courseName/assignments/:assignmentId/submissions/"
             )
           }
+          className="!text-secondary !text-base !py-3 !px-4 space-x-2 hover:!bg-secondary-lighter hover:!text-neutral-surface transition-all"
+          variant="text"
         >
-          Back to Submissions
-        </button>
-        <h1 className="text-xl font-bold">Grade Submission {submissionId}</h1>
+          <ArrowBackOutlinedIcon />
+          <h1>Back to Submissions</h1>
+        </Button>
       </div>
-      <GradeSubmissionForm submissionId={submissionId} />
+
+      <div
+        className="container space-y-6 !mx-auto "
+        // style={{ width: "700px" }}
+      >
+        <GradeSubmissionForm />
+      </div>
     </div>
   );
 }

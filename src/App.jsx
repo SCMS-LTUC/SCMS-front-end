@@ -47,7 +47,7 @@ const App = () => {
                   element={<AssignmentSubmission />}
                 />
                 <Route
-                  path=":assignmentId/submissions/:submissionId/grade"
+                  path=":assignmentId/submissions/:submissionId/"
                   element={<GradeSubmission />}
                 />
               </Route>

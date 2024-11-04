@@ -80,7 +80,7 @@
 //                 <button
 //                   onClick={() =>
 //                     Navigate(
-//                       "/course-details/:courseName/assignments/:assignmentId/submissions/:submissionId/grade"
+//                       "/course-details/:courseName/assignments/:assignmentId/submissions/:submissionId/"
 //                     )
 //                   }
 //                   className="bg-white text-black px-4 py-2 border rounded-md shadow-sm"

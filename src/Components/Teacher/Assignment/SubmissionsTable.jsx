@@ -9,6 +9,7 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import PropTypes from "prop-types";
 import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const columns = [
   { id: "studentName", label: "Student Name", minWidth: 170 },
@@ -25,6 +26,7 @@ StickyHeadTable.propTypes = {
 export default function StickyHeadTable({ rows }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const Navigate = useNavigate();
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -112,6 +114,11 @@ export default function StickyHeadTable({ rows }) {
                         color="secondary"
                         style={{ marginLeft: 8 }}
                         className="!text-white"
+                        onClick={() =>
+                          Navigate(
+                            "/course-details/:courseName/assignments/:assignmentId/submissions/:submissionId/"
+                          )
+                        }
                       >
                         View & Grade
                       </Button>

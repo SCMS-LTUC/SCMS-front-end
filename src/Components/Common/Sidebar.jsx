@@ -55,7 +55,7 @@ const Sidebar = ({ isOpen }) => {
           >
             <ListItem disablePadding>
               <ListItemButton
-                className={`hover:!bg-neutral-background transition-all duration-300 !p-2.5 !m-2 !rounded-lg  ${
+                className={`hover:!bg-neutral-background transition-all duration-300 !p-2.5 !m-2 !rounded-lg ${
                   location.pathname === item.path
                     ? "!bg-neutral-background hover:!bg-neutral-darkerBackground"
                     : ""
@@ -81,14 +81,14 @@ const Sidebar = ({ isOpen }) => {
                 <Collapse in={isOpen} timeout="auto" unmountOnExit>
                   <ListItemText
                     primary={item.text}
-                    className={`!font-bold !text-neutral-textMedium ${
+                    className={`!text-neutral-textMedium ${
                       location.pathname === item.path
                         ? "!text-primary-dark"
                         : ""
                     }`}
                     sx={{
                       "& .MuiListItemText-primary": {
-                        fontSize: "1.1rem",
+                        fontSize: "1.2rem",
                         fontWeight: 500,
                         // letterSpacing: "0.02em",
                       },

@@ -11,7 +11,7 @@ import NotificationsActiveOutlinedIcon from "@mui/icons-material/NotificationsAc
 import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
-import logo from "./../../Assets/Images/logo-fusion.png";
+import logo from "./../../Assets/Images/no-back-80.png";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MenuOpenOutlinedIcon from "@mui/icons-material/MenuOpenOutlined";
 
@@ -36,7 +36,15 @@ const Navbar = ({ isOpen, toggleSidebar }) => {
             {/* <MenuOutlinedIcon className="text-primary" /> */}
           </IconButton>
         </div>
-        <img src={logo} alt="Fusion Learn Logo" className="h-14" />
+        <div className="flex items-center justify-between ">
+          <img src={logo} alt="Fusion Learn Logo" className="h-14 !w-20" />
+          <h1
+            className="text-primary-dark !font-semibold text-3xl !font-poppins"
+            style={{ fontFamily: "Source Sans Pro, sans-serif" }}
+          >
+            Learnify
+          </h1>
+        </div>
       </div>
 
       {/* Right: Icons for actions */}
