@@ -117,7 +117,7 @@ export default function CreateAssignmentForm({ onSubmit }) {
       onSubmit={handleSubmit}
       className="space-y-6 p-6 bg-white rounded-lg shadow-md"
     >
-      <Typography variant="h4" className="mb-4 text-primary font-bold">
+      <Typography className="mb-4 text-primary !font-bold  !text-3xl">
         Create Assignment
       </Typography>
       <Box className="mb-4">
@@ -183,7 +183,7 @@ export default function CreateAssignmentForm({ onSubmit }) {
               color="primary"
             />
           }
-          label="Make Assignment visible to students"
+          label="Visible"
         />
       </Box>
       <Box className="flex justify-end">

@@ -40,19 +40,23 @@ export default function AssignmentList() {
     <div className="flex flex-col justify-between space-y-8">
       <div className="!flex !justify-end">
         <Button
+          color="primary"
           onClick={() =>
             Navigate("/course-details/:courseName/assignments/create")
           }
-          className="!bg-primary !py-3   !space-x-1 !text-neutral-surface"
+          className=" !py-3 !space-x-1 !text-neutral-surface"
           variant="contained"
         >
           <AddIcon />
           <Typography>Create</Typography>
         </Button>
       </div>
-      <div className="container space-y-6 !mx-auto" style={{ width: "700px" }}>
+      <div
+        className="container space-y-6 !mx-auto"
+        // style={{ width: "700px" }}
+      >
         <div className="">
-          <Typography className="!font-bold !text-2xl !text-neutral-textPrimary">
+          <Typography className="!font-bold !text-3xl !text-neutral-textPrimary">
             Assignments
           </Typography>
         </div>

@@ -48,6 +48,7 @@
 // import { useParams } from "react-router-dom";
 // import { CircularProgress, Box } from "@mui/material";
 // import CreateAssignmentForm from "../../../Components/Teacher/Assignment/CreateAssignmentForm";
+
 import AssignmentLayout from "../../../Components/Teacher/Assignment/AssignmentLayout";
 import CreateAssignmentForm from "../../../Components/Teacher/Assignment/CreateAssignmentForm";
 export default function EditAssignment() {
@@ -55,9 +56,6 @@ export default function EditAssignment() {
     <div>
       <AssignmentLayout>
         <div className="space-y-6">
-          {/* <h1 className="font-bold  text-2xl text-neutral-textPrimary">
-            Edit Assignment
-          </h1> */}
           <CreateAssignmentForm />
         </div>
       </AssignmentLayout>

@@ -8,35 +8,24 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import PropTypes from "prop-types";
-import { useParams } from "react-router-dom";
-import { Select, MenuItem, FormControl } from "@mui/material";
+import { Button } from "@mui/material";
 
 const columns = [
-  { id: "fullName", label: "Student Name", minWidth: 170 },
+  { id: "studentName", label: "Student Name", minWidth: 170 },
   { id: "status", label: "Status", minWidth: 100 },
+  { id: "submittedDate", label: "Submitted Date", minWidth: 100 },
+  { id: "grade", label: "Grade", minWidth: 100 },
+  { id: "actions", label: "Actions", minWidth: 100 },
 ];
-
-const statusOptions = ["Present", "Absent"];
 
 StickyHeadTable.propTypes = {
   rows: PropTypes.array.isRequired,
 };
 
 export default function StickyHeadTable({ rows }) {
-  const { lectureId } = useParams();
-  const initialRequest = {
-    lectureId: lectureId,
-    lectureAttendance: rows.map((student) => ({
-      studentId: student.studentID,
-      status: "Present",
-    })),
-  };
-
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const [requestData, setRequestData] = React.useState(initialRequest);
 
-  // Handlers
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -46,17 +35,22 @@ export default function StickyHeadTable({ rows }) {
     setPage(0);
   };
 
-  const handleStatusChange = (event, studentID) => {
-    const newStatus = event.target.value;
-    const updatedData = {
-      ...requestData,
-      lectureAttendance: requestData.lectureAttendance.map((student) =>
-        student.studentId === studentID
-          ? { ...student, status: newStatus }
-          : student
-      ),
-    };
-    setRequestData(updatedData);
+  const formatDate = (dateString) => {
+    if (!dateString) return "N/A";
+    const date = new Date(dateString);
+    return (
+      date.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      }) +
+      " " +
+      date.toLocaleTimeString("en-US", {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true,
+      })
+    );
   };
 
   return (
@@ -84,9 +78,13 @@ export default function StickyHeadTable({ rows }) {
             {rows
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
-                const studentAttendance = requestData.lectureAttendance.find(
-                  (s) => s.studentId === row.studentID
-                );
+                const assignment = row.studentAssignment;
+                const status = assignment ? "Submitted" : "Not Submitted";
+                const submittedDate = assignment
+                  ? formatDate(assignment.submissionDate)
+                  : "N/A";
+                const grade = assignment ? assignment.grade : "N/A";
+
                 return (
                   <TableRow
                     hover
@@ -95,31 +93,28 @@ export default function StickyHeadTable({ rows }) {
                     key={row.studentID}
                     className="hover:!bg-white"
                   >
-                    {/* Student Name Cell */}
-                    <TableCell className="!text-neutral-textMedium !bg-neutral-surface !text-lg ">
+                    <TableCell className="!text-neutral-textMedium !bg-neutral-surface !text-lg">
                       {row.fullName}
                     </TableCell>
-                    {/* Status Dropdown Cell using MUI Select */}
-                    <TableCell>
-                      <FormControl variant="standard">
-                        {/* <InputLabel>Status</InputLabel> */}
-                        <Select
-                          value={
-                            studentAttendance ? studentAttendance.status : ""
-                          }
-                          onChange={(e) => handleStatusChange(e, row.studentID)}
-                        >
-                          {statusOptions.map((option) => (
-                            <MenuItem
-                              key={option}
-                              value={option}
-                              className="hover:!bg-primary hover:!text-neutral-surface"
-                            >
-                              {option}
-                            </MenuItem>
-                          ))}
-                        </Select>
-                      </FormControl>
+                    <TableCell className="!text-neutral-textMedium">
+                      {status}
+                    </TableCell>
+                    <TableCell className="!text-neutral-textMedium">
+                      {submittedDate}
+                    </TableCell>
+                    <TableCell className="!text-neutral-textMedium">
+                      {grade}
+                    </TableCell>
+                    <TableCell className="!text-neutral-textMedium">
+                      <Button
+                        variant="contained"
+                        size="small"
+                        color="secondary"
+                        style={{ marginLeft: 8 }}
+                        className="!text-white"
+                      >
+                        View & Grade
+                      </Button>
                     </TableCell>
                   </TableRow>
                 );

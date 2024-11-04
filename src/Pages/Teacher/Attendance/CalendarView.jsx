@@ -24,7 +24,7 @@ export default function CalendarView() {
 
     <div className="container space-y-6 !mx-auto " style={{ width: "700px" }}>
       <div className="">
-        <h1 className="font-bold  text-2xl text-neutral-textPrimary">
+        <h1 className="font-bold  text-3xl text-neutral-textPrimary">
           Course Schedule
         </h1>
       </div>
@@ -40,6 +40,5 @@ export default function CalendarView() {
         </div>
       </div>
     </div>
-
   );
 }

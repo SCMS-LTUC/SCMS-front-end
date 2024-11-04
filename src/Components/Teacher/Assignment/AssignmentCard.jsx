@@ -29,7 +29,7 @@ export default function AssignmentCard({
     <Card className="container !bg-neutral-surface !rounded-xl !shadow-md !shadow-neutral-border !border-2 !border-neutral-border !p-4">
       <CardContent className="flex flex-col !h-full !justify-between">
         <div id="title" className="space-y-2">
-          <Typography className="!text-neutral-textPrimary !font-bold !text-xl">
+          <Typography className="!text-neutral-textPrimary !font-bold !text-2xl">
             {name}
           </Typography>
           <Typography className="!text-neutral-textSecondary !text-sm">

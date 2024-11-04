@@ -55,9 +55,6 @@ export default function EditAssignment() {
     <div>
       <AssignmentLayout>
         <div className="space-y-6">
-          {/* <h1 className="font-bold  text-2xl text-neutral-textPrimary">
-            Edit Assignment
-          </h1> */}
           <EditAssignmentForm assignment={assignment} />
         </div>
       </AssignmentLayout>

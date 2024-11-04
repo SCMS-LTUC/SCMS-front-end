@@ -31,10 +31,7 @@ const InfoCard = ({
     <Card className="container !h-72 !bg-neutral-surface !rounded-xl !shadow-md !shadow-neutral-border !border-2 !border-neutral-border !p-2">
       <CardContent className="flex flex-col !h-full !justify-between">
         <div id="title" className="flex justify-between ">
-          <Typography
-            variant="h5"
-            className=" !text-neutral-textPrimary !font-bold"
-          >
+          <Typography className=" !text-neutral-textPrimary !font-bold !text-3xl">
             {courseName}
           </Typography>
           <Typography className="text-secondary font-medium">

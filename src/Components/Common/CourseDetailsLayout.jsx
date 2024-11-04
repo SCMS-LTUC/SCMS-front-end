@@ -42,6 +42,7 @@ const CourseDetailsLayout = ({ courseName, teacher }) => {
       path: "/course-details/:courseName/assignments",
     },
     {
+      key: "quizzes",
       text: "Quizzes",
       icon: <QuizOutlinedIcon />,
       path: "/course-details/:courseName/quizzes",
@@ -80,16 +81,10 @@ const CourseDetailsLayout = ({ courseName, teacher }) => {
     <div className="">
       <Card className="p-6 !h-auto container !mx-auto !w-full !bg-neutral-surface !rounded-xl !shadow-md !shadow-neutral-border !border-2 !border-neutral-border !mb-10">
         <CardContent className=" !border-b-2 !border-neutral-border">
-          <Typography
-            // variant="h4"
-            className="!font-bold mb-2 text-neutral-textPrimary !text-3xl"
-          >
+          <Typography className="!font-bold mb-2 text-neutral-textPrimary !text-4xl">
             {courseName || "Web Development"}
           </Typography>
-          <Typography
-            variant="subtitle1"
-            className="text-neutral-textSecondary"
-          >
+          <Typography className="text-neutral-textSecondary !text-base">
             Instructor: {teacher || "Dr. Ahmad Samhan"}
           </Typography>
         </CardContent>

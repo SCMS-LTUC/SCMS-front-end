@@ -46,7 +46,7 @@ export default function Summary() {
 
     <div className="container space-y-6 !mx-auto " style={{ width: "700px" }}>
       <div className="">
-        <h1 className="font-bold  text-2xl text-neutral-textPrimary">
+        <h1 className="font-bold  text-3xl text-neutral-textPrimary">
           Absence Summary
         </h1>
       </div>

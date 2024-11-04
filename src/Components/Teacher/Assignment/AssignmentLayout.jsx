@@ -18,7 +18,10 @@ export default function AssignmentLayout({ children }) {
         </Button>
       </div>
 
-      <div className="container space-y-6 !mx-auto " style={{ width: "700px" }}>
+      <div
+        className="container space-y-6 !mx-auto "
+        // style={{ width: "700px" }}
+      >
         {children}
       </div>
     </div>

@@ -39,7 +39,7 @@ export default function PostAttendance() {
 
       <div className="container space-y-6 !mx-auto " style={{ width: "700px" }}>
         <div className="">
-          <h1 className="font-bold  text-2xl text-neutral-textPrimary">
+          <h1 className="font-bold  text-3xl text-neutral-textPrimary">
             Attendance for 31 Oct 2024
           </h1>
         </div>
