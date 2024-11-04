@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import {
   Typography,
   Button,
@@ -8,26 +8,36 @@ import {
   RadioGroup,
   FormControlLabel,
   Paper,
-} from '@mui/material';
+} from "@mui/material";
 
 // Mock Quizzes Data
 const mockQuizzes = [
   {
     id: 1,
-    title: 'React Basics',
+    title: "React Basics",
     questions: [
       {
         id: 101,
-        questionText: 'What is JSX?',
+        questionText: "What is JSX?",
         options: [
-          'A JavaScript library',
-          'A syntax extension for JavaScript',
-          'A CSS framework',
-          'None of the above',
+          "A JavaScript library",
+          "A syntax extension for JavaScript",
+          "A CSS framework",
+          "None of the above",
         ],
         correctOption: 1,
       },
-      // Add more questions as needed
+      {
+        id: 102,
+        questionText: "What is JSX?",
+        options: [
+          "A JavaScript library",
+          "A syntax extension for JavaScript",
+          "A CSS framework",
+          "None of the above",
+        ],
+        correctOption: 1,
+      },
     ],
   },
   // Add more quizzes as needed
@@ -47,7 +57,7 @@ const TakeQuiz = () => {
       setQuiz(selectedQuiz);
     } else {
       // If quiz not found, navigate back
-      navigate('/student/quizzes');
+      navigate("/student/quizzes");
     }
   }, [quizId, navigate]);
 
@@ -67,10 +77,45 @@ const TakeQuiz = () => {
     // Optionally, send the results to an API
   };
 
+  // //edit dima
+  // useEffect(() => {
+  //   const quiz = {
+  //     id: 1,
+  //     title: "React Basics",
+  //     status: "Visible",
+  //     time: "30 minutes",
+  //     totalMarks: 100,
+  //     date: "2024-10-01",
+  //     questions: [
+  //       {
+  //         id: 101,
+  //         questionText: "What is JSX?",
+  //         options: [
+  //           "A JavaScript library",
+  //           "A syntax extension for JavaScript",
+  //           "A CSS framework",
+  //           "None of the above",
+  //         ],
+  //         correctOption: 1, // Index of the correct option
+  //       },
+  //       {
+  //         id: 102,
+  //         questionText:
+  //           "Which hook is used for state management in functional components?",
+  //         options: ["useEffect", "useState", "useContext", "useReducer"],
+  //         correctOption: 1,
+  //       },
+  //     ],
+  //   };
+  //   setQuiz(quiz);
+  // }, []);
+
   if (!quiz) return null;
 
   return (
-    <Box sx={{ backgroundColor: 'background.default', minHeight: '100vh', p: 5 }}>
+    <Box
+      sx={{ backgroundColor: "background.default", minHeight: "100vh", p: 5 }}
+    >
       <Typography variant="h4" gutterBottom>
         {quiz.title}
       </Typography>
@@ -82,8 +127,10 @@ const TakeQuiz = () => {
               {index + 1}. {question.questionText}
             </Typography>
             <RadioGroup
-              value={answers[question.id] ?? ''}
-              onChange={(e) => handleOptionChange(question.id, parseInt(e.target.value))}
+              value={answers[question.id] ?? ""}
+              onChange={(e) =>
+                handleOptionChange(question.id, parseInt(e.target.value))
+              }
             >
               {question.options.map((option, optIndex) => (
                 <FormControlLabel
