@@ -10,11 +10,12 @@ import CourseDetailsLayout from "./Components/Common/CourseDetailsLayout";
 import CreateQuiz from "./Pages/Teacher/Quizes/CreateQuiz";
 import CourseQuizzes from "./Pages/Teacher/Quizes/CourseQuizzes";
 import EditQuiz from "./Pages/Teacher/Quizes/EditQuiz"; // Import EditQuiz
-import ViewSubmissions from "./Pages/Teacher/Quizes/ViewSubmissions"; // Import ViewSubmissions
+import ViewSubmissions from "./Pages/Teacher/Quizes/ViewSubmissions";
 
 //new
 import StudentQuizzes from "./Pages/Student/Quizes/StudentQuizzes";
 import TakeQuiz from "./Pages/Student/Quizes/TakeQuiz";
+import Temp from "../temp/Temp";
 const App = () => {
   return (
     <Router>
@@ -51,6 +52,7 @@ const App = () => {
                 element={<TakeQuiz />}
               />
               <Route path="/student-quizzes" element={<StudentQuizzes />} />
+              <Route path="/temp" element={<Temp />} />
               {/* Add other routes as needed */}
             </Routes>
           </div>
