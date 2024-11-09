@@ -5,7 +5,7 @@ import Layout from "../../Components/Common/Layout";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import CampaignIcon from "@mui/icons-material/Campaign";
 import HomeIcon from "@mui/icons-material/Home";
-
+import AutoStoriesIcon from "@mui/icons-material/AutoStories";
 const menuItems = [
   {
     text: "My Courses",
@@ -16,6 +16,11 @@ const menuItems = [
     text: "Announcements",
     icon: <CampaignIcon />,
     path: "/announcements",
+  },
+  {
+    text: "Discover",
+    icon: <AutoStoriesIcon />,
+    path: "/discover",
   },
   {
     text: "Schedule",

@@ -2,25 +2,72 @@
 import Layout from "../../Components/Common/Layout";
 
 //menu items
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import CampaignIcon from "@mui/icons-material/Campaign";
-import HomeIcon from "@mui/icons-material/Home";
-
+import CollectionsBookmarkIcon from "@mui/icons-material/CollectionsBookmark";
+import CategoryIcon from "@mui/icons-material/Category";
+import MenuBookIcon from "@mui/icons-material/MenuBook";
+import MeetingRoomIcon from "@mui/icons-material/MeetingRoom";
+import PeopleIcon from "@mui/icons-material/People";
+import SchoolIcon from "@mui/icons-material/School";
+import PaymentIcon from "@mui/icons-material/Payment";
+import BarChartIcon from "@mui/icons-material/BarChart";
+import EmailIcon from "@mui/icons-material/Email";
+import SettingsIcon from "@mui/icons-material/Settings";
 const menuItems = [
-  {
-    text: "My Courses",
-    icon: <HomeIcon />,
-    path: "/",
-  },
   {
     text: "Announcements",
     icon: <CampaignIcon />,
-    path: "/announcements",
+    path: "/",
   },
   {
-    text: "Schedule",
-    icon: <CalendarMonthIcon />,
-    path: "/schedule",
+    text: "Courses",
+    icon: <CollectionsBookmarkIcon />,
+    path: "/courses",
+  },
+  {
+    text: "Categories",
+    icon: <CategoryIcon />,
+    path: "/categories",
+  },
+  {
+    text: "Subjects",
+    icon: <MenuBookIcon />,
+    path: "/subjects",
+  },
+  {
+    text: "Classrooms",
+    icon: <MeetingRoomIcon />,
+    path: "/classrooms",
+  },
+  {
+    text: "Teachers",
+    icon: <PeopleIcon />,
+    path: "/teachers",
+  },
+  {
+    text: "Students",
+    icon: <SchoolIcon />,
+    path: "/students",
+  },
+  {
+    text: "Payments",
+    icon: <PaymentIcon />,
+    path: "/payments",
+  },
+  {
+    text: "Report",
+    icon: <BarChartIcon />,
+    path: "/report",
+  },
+  {
+    text: "Messages",
+    icon: <EmailIcon />,
+    path: "/messages",
+  },
+  {
+    text: "Settings",
+    icon: <SettingsIcon />,
+    path: "/settings",
   },
 ];
 export default function Main() {
