@@ -16,6 +16,11 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MenuOpenOutlinedIcon from "@mui/icons-material/MenuOpenOutlined";
 
 const Navbar = ({ isOpen, toggleSidebar }) => {
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    window.location.href = "/login";
+  }
+
   return (
     <div className="bg-neutral-surface text-primary p-4 flex  justify-between border-b-2 border-neutral-border !shadow-sm !shadow-neutral-border pl-2">
       {/* Left: Site logo */}
@@ -59,7 +64,7 @@ const Navbar = ({ isOpen, toggleSidebar }) => {
           <AccountCircleOutlinedIcon className="text-neutral-textMedium hover:!text-primary" />
         </IconButton>
         <IconButton className=" hover:!bg-neutral-background">
-          <LogoutOutlinedIcon className="text-neutral-textMedium hover:!text-primary" />
+          <LogoutOutlinedIcon className="text-neutral-textMedium hover:!text-primary" onClick={handleLogout} />
         </IconButton>
       </div>
     </div>
