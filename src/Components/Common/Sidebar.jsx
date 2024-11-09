@@ -13,29 +13,9 @@ import {
 //   Announcement as AnnouncementsIcon,
 //   Event as ScheduleIcon,
 // } from "@mui/icons-material";
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import CampaignIcon from "@mui/icons-material/Campaign";
-import HomeIcon from "@mui/icons-material/Home";
-const Sidebar = ({ isOpen }) => {
-  const location = useLocation();
 
-  const menuItems = [
-    {
-      text: "My Courses",
-      icon: <HomeIcon />,
-      path: "/",
-    },
-    {
-      text: "Announcements",
-      icon: <CampaignIcon />,
-      path: "/announcements",
-    },
-    {
-      text: "Schedule",
-      icon: <CalendarMonthIcon />,
-      path: "/schedule",
-    },
-  ];
+const Sidebar = ({ isOpen, menuItems }) => {
+  const location = useLocation();
 
   return (
     <div
@@ -106,6 +86,7 @@ const Sidebar = ({ isOpen }) => {
 
 Sidebar.propTypes = {
   isOpen: PropTypes.bool.isRequired,
+  menuItems: PropTypes.array.isRequired,
 };
 
 export default Sidebar;

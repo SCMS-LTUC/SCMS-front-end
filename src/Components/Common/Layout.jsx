@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 import { useState } from "react";
-export default function Layout({ children }) {
+export default function Layout({ children, menuItems }) {
   // <div className="flex h-screen !bg-neutral-background ">
   // <Sidebar />
 
@@ -20,7 +20,7 @@ export default function Layout({ children }) {
       <div className="min-h-screen">
         <div className="flex h-full min-h-screen">
           <div>
-            <Sidebar isOpen={isOpen} />
+            <Sidebar isOpen={isOpen} menuItems={menuItems} />
           </div>
           <div className="p-6 container w-screen flex-1 overflow-auto ">
             {children}
@@ -32,4 +32,5 @@ export default function Layout({ children }) {
 }
 Layout.propTypes = {
   children: PropTypes.node.isRequired, // Ensures children prop is a valid React node and is required
+  menuItems: PropTypes.array.isRequired,
 };
