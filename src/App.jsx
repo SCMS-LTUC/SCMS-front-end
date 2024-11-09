@@ -5,7 +5,7 @@ import Teacher from "./Pages/Teacher/Main";
 import Student from "./Pages/Student/Main";
 import Admin from "./Pages/Admin/Main";
 
-const role = "admin";
+const role = "teacher";
 const renderComponents = (role) => {
   switch (role) {
     case "teacher":
