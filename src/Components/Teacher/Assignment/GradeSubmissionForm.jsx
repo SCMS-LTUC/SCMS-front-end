@@ -155,7 +155,7 @@ export default function GradeSubmissionForm({ submissionId }) {
               color="primary"
               href={submission.fileUrl}
               download
-              className="border rounded-md shadow-sm text-black px-4 py-2"
+              className="border rounded-md shadow-sm text-black"
             >
               Download File
             </Button>
@@ -193,7 +193,7 @@ export default function GradeSubmissionForm({ submissionId }) {
             type="submit"
             variant="contained"
             color="primary"
-            className="bg-primary !text-white px-6 py-2 rounded-md"
+            className="bg-primary !text-white rounded-md"
           >
             Save
           </Button>

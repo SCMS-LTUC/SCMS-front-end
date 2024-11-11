@@ -37,6 +37,9 @@ const theme = createTheme({
       primary: textPrimary,
       secondary: textSecondary,
     },
+    error: {
+      main: "#F56565",
+    },
   },
 });
 export default theme;

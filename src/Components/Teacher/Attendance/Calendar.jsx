@@ -116,7 +116,7 @@ function CalendarWithHighlights() {
     { id: "3", date: "2024-10-6" },
     { id: "4", date: "2024-10-31" },
     { id: "5", date: "2024-11-4" },
-    { id: "6", date: "2024-11-9" },
+    { id: "6", date: "2024-11-11" },
   ];
 
   const [selectedMonthLectures, setSelectedMonthLectures] = useState([]);

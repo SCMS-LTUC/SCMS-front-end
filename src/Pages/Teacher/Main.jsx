@@ -9,14 +9,14 @@ import AttendanceLayout from "../../Components/Teacher/Attendance/AttendanceLayo
 import CalendarView from "../Teacher/Attendance/CalendarView";
 import Summary from "../Teacher/Attendance/Summary";
 import PostAttendance from "../Teacher/Attendance/PostAttendance";
-import Announcements from "../Teacher/Announcements/Announcements";
+import Announcements from "./AdminAnnouncements/AnnouncementList";
 import Discover from "../Teacher/Discover/Discover";
 import Schedule from "../Teacher/Schedule/Schedule";
 import MyCourses from "../Teacher/Courses/MyCourses";
 // import ColorPalettePage from "../ColorUsage/ColorPalettePage";
 import CourseDetailsLayout from "../../Components/Common/CourseDetailsLayout";
-
-//menu items
+import CourseAnnouncements from "./CourseAnnouncements/AnnouncementList";
+//menu items icons
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import CampaignIcon from "@mui/icons-material/Campaign";
 import HomeIcon from "@mui/icons-material/Home";
@@ -48,6 +48,7 @@ export default function Main() {
           path="/course-details/:courseName"
           element={<CourseDetailsLayout />}
         >
+          <Route path="announcements" element={<CourseAnnouncements />} />
           <Route path="attendance" element={<AttendanceLayout />}>
             <Route index element={<CalendarView />} />
             <Route path="summary" element={<Summary />} />

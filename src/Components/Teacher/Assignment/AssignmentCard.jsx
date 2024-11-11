@@ -27,7 +27,7 @@ export default function AssignmentCard({
 
   return (
     <Card className="container !bg-neutral-surface !rounded-xl !shadow-md !shadow-neutral-border !border-2 !border-neutral-border !p-4">
-      <CardContent className="flex flex-col !h-full !justify-between">
+      <CardContent className="flex flex-col !h-full !justify-between !pb-4">
         <div id="title" className="space-y-2">
           <Typography className="!text-neutral-textPrimary !font-bold !text-2xl">
             {name}
@@ -42,7 +42,7 @@ export default function AssignmentCard({
               onClick={toggleDescription}
               className="!text-primary !text-xs"
             >
-              {showFullDescription ? "Read Less" : "Read More"}
+              {showFullDescription ? "Less" : "More"}
             </Button>
           )}
         </div>
@@ -51,18 +51,18 @@ export default function AssignmentCard({
           <Chip
             icon={<CalendarTodayIcon className="!text-neutral-textMedium" />}
             label={`Due: ${due}`}
-            className="!bg-neutral-background !text-accent-error !border !border-neutral-border"
+            className="!bg-neutral-background !text-accent-error !border !border-neutral-border !text-base"
           />
           <Chip
             icon={
               <AssignmentTurnedInIcon className="!text-neutral-textMedium" />
             }
             label={`Submissions: ${submissions}`}
-            className="!bg-neutral-background !text-accent-success !border !border-neutral-border"
+            className="!bg-neutral-background !text-accent-success !border !border-neutral-border !text-base"
           />
         </div>
         <Divider className="!my-4" />
-        <div className="flex justify-end items-center space-x-2">
+        <div className="flex justify-end space-x-3">
           <Button
             variant="contained"
             color="primary"

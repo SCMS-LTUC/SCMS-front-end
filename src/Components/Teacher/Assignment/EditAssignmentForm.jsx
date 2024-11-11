@@ -103,12 +103,21 @@ export default function EditAssignmentForm({ assignment }) {
           label="Visible"
         />
       </Box>
-      <Box className="flex justify-end">
+      <Box className="flex justify-end space-x-3">
+        <Button
+          type="submit"
+          variant="contained"
+          color="error"
+          className=" !text-white !rounded-md"
+        >
+          Delete
+        </Button>
+
         <Button
           type="submit"
           variant="contained"
           color="primary"
-          className="!bg-primary !text-white !px-6 !py-2 !rounded-md"
+          className=" !text-white  !rounded-md"
         >
           Save Changes
         </Button>

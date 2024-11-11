@@ -191,7 +191,7 @@ export default function CreateAssignmentForm({ onSubmit }) {
           type="submit"
           variant="contained"
           color="primary"
-          className="!bg-primary !text-white !px-6 !py-2 !rounded-md"
+          className=" !text-white  !rounded-md"
         >
           Create Assignment
         </Button>

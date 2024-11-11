@@ -28,8 +28,8 @@ const InfoCard = ({
   const navigate = useNavigate();
 
   return (
-    <Card className="container !h-72 !bg-neutral-surface !rounded-xl !shadow-md !shadow-neutral-border !border-2 !border-neutral-border !p-2">
-      <CardContent className="flex flex-col !h-full !justify-between">
+    <Card className="container  !bg-neutral-surface !rounded-xl !shadow-md !shadow-neutral-border !border-2 !border-neutral-border !p-4">
+      <CardContent className="flex flex-col !h-full !justify-between !pb-4 !space-y-4">
         <div id="title" className="flex justify-between ">
           <Typography className=" !text-neutral-textPrimary !font-bold !text-3xl">
             {courseName}
@@ -86,11 +86,13 @@ const InfoCard = ({
           </div>
         </div>
 
-        <div className="flex justify-end items-center ">
+        <div id="button" className="flex justify-end items-center ">
           <Button
             variant="contained"
             color="primary"
-            onClick={() => navigate(`/course-details/${courseName}`)} // Navigate to course details page
+            onClick={() =>
+              navigate(`/course-details/${courseName}/announcements`)
+            } // Navigate to course details page
             className="!text-neutral-surface"
           >
             Go to Course

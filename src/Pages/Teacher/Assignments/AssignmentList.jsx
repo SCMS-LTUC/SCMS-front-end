@@ -44,11 +44,11 @@ export default function AssignmentList() {
           onClick={() =>
             Navigate("/course-details/:courseName/assignments/create")
           }
-          className=" !py-3 !space-x-1 !text-neutral-surface"
+          className="!text-neutral-surface"
           variant="contained"
+          startIcon={<AddIcon />}
         >
-          <AddIcon />
-          <Typography>Create</Typography>
+          Create
         </Button>
       </div>
       <div
