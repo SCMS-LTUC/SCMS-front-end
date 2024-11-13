@@ -34,7 +34,15 @@ export default function NewAnnouncementDialog({ open, onClose, onSave }) {
   };
 
   return (
-    <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
+    <Dialog
+      open={open}
+      onClose={onClose}
+      fullWidth
+      maxWidth="sm"
+      classes={{
+        paper: "border-2 border-neutral-textSecondary ",
+      }}
+    >
       <DialogTitle>Post Announcement</DialogTitle>
       <DialogContent>
         <TextField

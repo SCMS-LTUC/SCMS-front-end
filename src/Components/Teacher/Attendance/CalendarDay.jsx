@@ -46,7 +46,7 @@ export default function CustomDay({
           isSelected
             ? ` hover:!bg-primary-dark !rounded-lg !text-neutral-surface !shadow-md !shadow-neutral-border !transition-all ${
                 isToday()
-                  ? "!bg-primary-dark transform transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg"
+                  ? "!bg-primary transform transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg"
                   : "!bg-primary-light"
               }`
             : "!text-neutral-textSecondary"

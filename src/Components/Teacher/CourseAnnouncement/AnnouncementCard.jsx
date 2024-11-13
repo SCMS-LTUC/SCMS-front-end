@@ -14,6 +14,7 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import EditAnnouncementDialog from "./EditAnnouncementDialog"; // Import the dialog component
+import ConfirmDeleteDialog from "../../../Components/Common/ConfirmDeleteDialog";
 
 const formatDate = (dateString) => {
   if (!dateString) return { date: "N/A", time: "N/A" };
@@ -35,24 +36,38 @@ const formatDate = (dateString) => {
 export default function AnnouncementCard({ title, createdAt, type, content }) {
   const [showFullDescription, setShowFullDescription] = useState(false);
   const [editDialogOpen, setEditDialogOpen] = useState(false);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
   const toggleDescription = () => {
     setShowFullDescription(!showFullDescription);
   };
 
+  // handlers
+  //Edit dialog
   const handleEditClick = () => {
     setEditDialogOpen(true);
   };
-
   const handleDialogClose = () => {
     setEditDialogOpen(false);
   };
-
   const handleSave = (updatedAnnouncement) => {
     // Handle save logic here
     console.log(updatedAnnouncement);
   };
 
+  // Delete dialog
+  const handleDeleteDialogOpen = () => {
+    setDeleteDialogOpen(true);
+  };
+
+  const handleDeleteDialogClose = () => {
+    setDeleteDialogOpen(false);
+  };
+
+  const handleConfirmDelete = () => {
+    // Handle delete logic here
+    console.log("deleted successfully");
+  };
   return (
     <Card
       className={`container !bg-neutral-surface !rounded-xl !shadow-md !shadow-neutral-border !border-2 !border-neutral-border !p-4 !border-l-4 ${
@@ -77,7 +92,10 @@ export default function AnnouncementCard({ title, createdAt, type, content }) {
                   className="!text-accent-warning"
                 />
               </IconButton>
-              <IconButton className="hover:!bg-neutral-background">
+              <IconButton
+                className="hover:!bg-neutral-background"
+                onClick={handleDeleteDialogOpen}
+              >
                 <DeleteOutlineOutlinedIcon
                   sx={{ fontSize: "28px" }}
                   className="!text-accent-error"
@@ -118,6 +136,13 @@ export default function AnnouncementCard({ title, createdAt, type, content }) {
         onClose={handleDialogClose}
         announcement={{ title, content, type }}
         onSave={handleSave}
+      />
+      <ConfirmDeleteDialog
+        open={deleteDialogOpen}
+        onClose={handleDeleteDialogClose}
+        onConfirm={handleConfirmDelete}
+        title="Delete Announcement"
+        message="Are you sure you want to delete this announcement?"
       />
     </Card>
   );

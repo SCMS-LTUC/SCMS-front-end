@@ -51,10 +51,7 @@ export default function AssignmentList() {
           Create
         </Button>
       </div>
-      <div
-        className="container space-y-6 !mx-auto"
-        // style={{ width: "700px" }}
-      >
+      <div className="container space-y-6 !mx-auto">
         <div className="">
           <Typography className="!font-bold !text-3xl !text-neutral-textPrimary">
             Assignments

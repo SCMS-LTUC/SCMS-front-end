@@ -1,100 +1,8 @@
-// import { useState } from "react";
-// import { Button, TablePagination, Typography, Divider } from "@mui/material";
-// import { useNavigate } from "react-router-dom";
-// import AddIcon from "@mui/icons-material/Add";
-// import AssignmentCard from "../../../Components/Teacher/CourseAnnouncement/AnnouncementCard";
-// export default function AnnouncementList() {
-//   const Navigate = useNavigate();
-//   const [page, setPage] = useState(0);
-//   const [rowsPerPage, setRowsPerPage] = useState(5);
-
-//   const announcements = [
-//     {
-//       title: "Announcement 1",
-//       createdAt: "2024-11-10T21:09:02.814Z",
-//       type: "Important",
-//       content:
-//         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-//     },
-//     {
-//       title: "Announcement 2",
-//       createdAt: "2024-11-10T21:09:02.814Z",
-//       type: "Notice",
-//       content: "Description for Announcement 2",
-//     },
-//     {
-//       title: "Announcement 3",
-//       createdAt: "2024-11-10T21:09:02.814Z",
-//       type: "Info",
-//       content: "Description for Announcement 2",
-//     },
-//   ];
-
-//   const handleChangePage = (event, newPage) => {
-//     setPage(newPage);
-//   };
-
-//   const handleChangeRowsPerPage = (event) => {
-//     setRowsPerPage(parseInt(event.target.value, 10));
-//     setPage(0);
-//   };
-
-//   return (
-//     <div className="flex flex-col justify-between space-y-8">
-//       <div className="!flex !justify-end">
-//         <Button
-//           color="primary"
-//           onClick={() =>
-//             Navigate("/course-details/:courseName/assignments/create")
-//           }
-//           className="  !text-neutral-surface"
-//           variant="contained"
-//           startIcon={<AddIcon />}
-//         >
-//           Create
-//         </Button>
-//       </div>
-//       <div
-//         className="container space-y-6 !mx-auto"
-//         // style={{ width: "700px" }}
-//       >
-//         <div className="">
-//           <Typography className="!font-bold !text-3xl !text-neutral-textPrimary">
-//             Announcements
-//           </Typography>
-//         </div>
-//         <Divider className="!my-4" />
-//         <div>
-//           <div className="flex flex-col justify-start space-y-6">
-//             {announcements
-//               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-//               .map((assignment, index) => (
-//                 <AssignmentCard key={index} {...assignment} />
-//               ))}
-//           </div>
-//         </div>
-//         <Divider className="!my-4" />
-//         <TablePagination
-//           component="div"
-//           count={announcements.length}
-//           page={page}
-//           onPageChange={handleChangePage}
-//           rowsPerPage={rowsPerPage}
-//           onRowsPerPageChange={handleChangeRowsPerPage}
-//           rowsPerPageOptions={[5, 10, 25]}
-//           className="!text-neutral-textPrimary"
-//         />
-//       </div>
-//     </div>
-//   );
-// }
-
 import { useState } from "react";
 import { Typography, Divider, Button, TablePagination } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import AnnouncementCard from "../../../Components/Teacher/CourseAnnouncement/AnnouncementCard";
 import NewAnnouncementDialog from "../../../Components/Teacher/CourseAnnouncement/NewAnnouncementDialog";
-
 export default function AnnouncementList() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -122,6 +30,7 @@ export default function AnnouncementList() {
     },
   ];
 
+  //handlers
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -131,14 +40,13 @@ export default function AnnouncementList() {
     setPage(0);
   };
 
+  //new announcements dialog
   const handleNewDialogOpen = () => {
     setNewDialogOpen(true);
   };
-
   const handleNewDialogClose = () => {
     setNewDialogOpen(false);
   };
-
   const handleSaveNewAnnouncement = (newAnnouncement) => {
     // Handle save logic here
     console.log(newAnnouncement);

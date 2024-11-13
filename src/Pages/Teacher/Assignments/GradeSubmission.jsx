@@ -23,10 +23,7 @@ export default function AssignmentLayout() {
         </Button>
       </div>
 
-      <div
-        className="container space-y-6 !mx-auto "
-        // style={{ width: "700px" }}
-      >
+      <div className="container space-y-6 !mx-auto ">
         <GradeSubmissionForm />
       </div>
     </div>

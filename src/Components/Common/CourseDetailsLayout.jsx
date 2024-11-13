@@ -6,7 +6,6 @@ import CardContent from "@mui/material/CardContent";
 import PropTypes from "prop-types";
 
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
-import FeedOutlinedIcon from "@mui/icons-material/FeedOutlined";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 import QuizOutlinedIcon from "@mui/icons-material/QuizOutlined";
@@ -28,12 +27,6 @@ const CourseDetailsLayout = ({ courseName, teacher }) => {
       text: "Class List",
       icon: <PeopleAltOutlinedIcon />,
       path: "/course-details/:courseName/class-list",
-    },
-    {
-      key: "content",
-      text: "Content",
-      icon: <FeedOutlinedIcon />,
-      path: "/course-details/:courseName/content",
     },
     {
       key: "assignments",

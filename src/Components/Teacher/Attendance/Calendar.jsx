@@ -54,60 +54,8 @@ const calendarStyle = {
   },
 
   height: "70vh", // 70% of viewport height
-  width: "700px",
-  // color: "red",
-  // borderRadius: "12px",
-  // paddingBottom: 4,
-  // boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
-  // height: "500px",
-  // width: "500px",
-  // marginBottom: "10px",
+  width: "635px",
 };
-
-// const calendarStyle = {
-//   // Reset all default height constraints
-//   "& .MuiDateCalendar-root": {
-//     height: "100%",
-//     maxHeight: "none",
-//     display: "flex",
-//     flexDirection: "column",
-//   },
-//   "& .MuiPickersLayout-contentWrapper": {
-//     height: "100%",
-//     maxHeight: "none",
-//   },
-//   "& .MuiDayCalendar-monthContainer": {
-//     height: "100%",
-//     maxHeight: "none",
-//     display: "flex",
-//     flexDirection: "column",
-//   },
-//   "& .MuiDayCalendar-weekContainer": {
-//     justifyContent: "space-around",
-//     flex: "1 1 0",
-//     minHeight: 0,
-//   },
-//   "& .MuiDayCalendar-header": {
-//     justifyContent: "space-around",
-//     marginBottom: "8px",
-//   },
-//   // Adjust day sizes
-//   ".MuiPickersDay-root": {
-//     fontSize: "1.2rem",
-//     width: "40px",
-//     height: "40px",
-//   },
-//   // Container styles
-//   width: "700px",
-//   height: "90vh", // Increased from 70vh
-//   display: "flex",
-//   flexDirection: "column",
-
-//   // Remove any overflow restrictions
-//   "& *": {
-//     overflow: "visible !important",
-//   },
-// };
 
 function CalendarWithHighlights() {
   const lectures = [
@@ -116,7 +64,7 @@ function CalendarWithHighlights() {
     { id: "3", date: "2024-10-6" },
     { id: "4", date: "2024-10-31" },
     { id: "5", date: "2024-11-4" },
-    { id: "6", date: "2024-11-11" },
+    { id: "6", date: "2024-11-13" },
   ];
 
   const [selectedMonthLectures, setSelectedMonthLectures] = useState([]);
