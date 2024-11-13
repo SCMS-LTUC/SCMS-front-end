@@ -51,7 +51,7 @@ const App = () => {
                 path="/student/:quizId/start-quiz"
                 element={<TakeQuiz />}
               />
-              <Route path="/student-quizzes" element={<StudentQuizzes />} />
+              <Route path="/student/quizzes" element={<StudentQuizzes />} />
               <Route path="/temp" element={<Temp />} />
               {/* Add other routes as needed */}
             </Routes>

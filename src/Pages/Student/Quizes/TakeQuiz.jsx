@@ -17,7 +17,7 @@ const mockQuizzes = [
   {
     id: 3,
     title: "React Basics",
-    time: "30 minutes",
+    time: "1 minutes",
     totalMarks: 100,
     startDate: "2024-09-01T09:00",
     endDate: "2024-09-30T23:59",

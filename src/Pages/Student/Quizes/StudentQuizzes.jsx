@@ -33,8 +33,8 @@ const mockQuizzes = [
     title: "Advanced JavaScript",
     time: "45 minutes",
     totalMarks: 150,
-    startDate: "2024-10-15T09:00",
-    endDate: "2024-10-20T23:59",
+    startDate: "2024-12-15T09:00",
+    endDate: "2024-12-20T23:59",
     instructions:
       "This quiz covers advanced topics in JavaScript. Ensure you understand closures, async programming, and ES6+ features.",
     questions: [
@@ -47,7 +47,7 @@ const mockQuizzes = [
     time: "60 minutes",
     totalMarks: 200,
     startDate: "2024-11-05T09:00",
-    endDate: "2024-11-10T23:59",
+    endDate: "2024-11-15T23:59",
     instructions:
       "Focus on user-centered design principles. Analyze each scenario before answering.",
     questions: [
