@@ -1,5 +1,7 @@
 import { IconButton } from "@mui/material";
 import PropTypes from "prop-types";
+import Cookies from "js-cookie";
+import { useNavigate } from 'react-router-dom';
 
 // import {} from
 //   Notifications as NotificationsIcon,
@@ -15,10 +17,20 @@ import logo from "./../../Assets/Images/no-back-80.png";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MenuOpenOutlinedIcon from "@mui/icons-material/MenuOpenOutlined";
 
+
 const Navbar = ({ isOpen, toggleSidebar }) => {
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    window.location.href = "/login";
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      Cookies.remove("AuthToken");
+      console.log("AuthToken removed");
+      navigate("/login");
+    }
+    catch (error) {
+      console.error("Logout failed:", error);
+      alert("Logout failed");
+    }
   }
 
   return (

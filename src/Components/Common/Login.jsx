@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { TextField, Button, Container, Typography, Box } from '@mui/material';
 import axios from '../../Api/BaseUrl';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -12,8 +13,11 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/api/Account/Login', { username, password });
-      localStorage.setItem('token', response.data.accessToken);
+      const response = await axios.post('/api/Account/Login', { username, password } , {
+        withCredentials: true // Include credentials in the request
+    });
+      Cookies.set('AuthToken', response.data.accessToken);
+      console.log('Login successful:', response);
       navigate('/');
     } catch (error) {
       console.error('Login failed:', error);
