@@ -16,6 +16,8 @@ import MyCourses from "../Teacher/Courses/MyCourses";
 // import ColorPalettePage from "../ColorUsage/ColorPalettePage";
 import CourseDetailsLayout from "../../Components/Common/CourseDetailsLayout";
 import CourseAnnouncements from "./CourseAnnouncements/AnnouncementList";
+import MainNotification from "../../../temp/MainNotification";
+
 //menu items icons
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import CampaignIcon from "@mui/icons-material/Campaign";
@@ -71,7 +73,7 @@ export default function Main() {
         <Route path="/announcements" element={<Announcements />} />
         <Route path="/discover" element={<Discover />} />
         <Route path="/schedule" element={<Schedule />} />
-        <Route path="/colorpalette" element={<CreateAssignment />} />
+        <Route path="/colorpalette" element={<MainNotification />} />
       </Routes>
     </Layout>
   );
