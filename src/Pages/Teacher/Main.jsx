@@ -17,7 +17,7 @@ import MyCourses from "../Teacher/Courses/MyCourses";
 import CourseDetailsLayout from "../../Components/Common/CourseDetailsLayout";
 import CourseAnnouncements from "./CourseAnnouncements/AnnouncementList";
 import MainNotification from "../../../temp/MainNotification";
-import CourseQuizzes from "./Quizzes/CourseQuizzes";
+import CourseQuizzes from "./Quizzes/QuizList";
 import ViewSubmissions from "./Quizzes/ViewSubmissions";
 import EditQuiz from "./Quizzes/EditQuiz";
 import CreateQuiz from "./Quizzes/CreateQuiz";

@@ -28,17 +28,17 @@ export default function ConfirmDeleteDialog({
     >
       <DialogTitle>{title || "Confirm Delete"}</DialogTitle>
       <DialogContent>
-        <DialogContentText>
+        <DialogContentText className="!text-neutral-textMedium">
           {message || "Are you sure you want to delete this item?"}
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose} color="secondary">
+        <Button onClick={onClose} className="!text-neutral-textMedium">
           Cancel
         </Button>
         <Button
           onClick={onConfirm}
-          color="primary"
+          color="error"
           variant="contained"
           className="!text-neutral-surface"
         >

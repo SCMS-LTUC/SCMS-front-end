@@ -157,11 +157,14 @@ import {
   TableRow,
   Chip,
 } from "@mui/material";
-// import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import EditIcon from "@mui/icons-material/Edit";
-import AssignmentIcon from "@mui/icons-material/Assignment";
+// import EditIcon from "@mui/icons-material/Edit";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+// import DeleteIcon from "@mui/icons-material/Delete";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+// import AssignmentIcon from "@mui/icons-material/Assignment";
+import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 import { useNavigate } from "react-router-dom";
-
+import ConfirmDeleteDialog from "../../Common/ConfirmDeleteDialog";
 const formatDate = (dateString) => {
   if (!dateString) return "N/A";
   const date = new Date(dateString);
@@ -179,6 +182,8 @@ StickyHeadTable.propTypes = {
 export default function StickyHeadTable({ assignments }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
+
   const navigate = useNavigate();
   const columns = React.useMemo(
     () => [
@@ -205,6 +210,20 @@ export default function StickyHeadTable({ assignments }) {
   function handleSubmissionClick(id) {
     navigate(`/course-details/:courseName/assignments/${id}/submissions`);
   }
+
+  // Delete dialog
+  const handleDeleteDialogOpen = () => {
+    setDeleteDialogOpen(true);
+  };
+
+  const handleDeleteDialogClose = () => {
+    setDeleteDialogOpen(false);
+  };
+
+  const handleConfirmDelete = () => {
+    // Handle delete logic here
+    console.log("deleted successfully");
+  };
 
   // pagination
   const handleChangePage = (event, newPage) => {
@@ -271,20 +290,29 @@ export default function StickyHeadTable({ assignments }) {
                   <TableCell className="!text-neutral-textMedium !bg-neutral-surface !text-lg">
                     <IconButton
                       className="hover:bg-neutral-background transition-transform duration-300 ease-in-out transform hover:scale-110 hover:rotate-3"
+                      onClick={() => handleSubmissionClick(row.assignmentId)}
+                    >
+                      <AssignmentOutlinedIcon
+                        sx={{ fontSize: "28px" }}
+                        className="text-secondary"
+                      />
+                    </IconButton>
+                    <IconButton
+                      className="hover:bg-neutral-background transition-transform duration-300 ease-in-out transform hover:scale-110 hover:rotate-3"
                       onClick={() => handleEditClick(row.assignmentId)}
                     >
-                      <EditIcon
+                      <EditOutlinedIcon
                         sx={{ fontSize: "28px" }}
                         className="text-accent-warning"
                       />
                     </IconButton>
                     <IconButton
                       className="hover:bg-neutral-background transition-transform duration-300 ease-in-out transform hover:scale-110 hover:rotate-3"
-                      onClick={() => handleSubmissionClick(row.assignmentId)}
+                      onClick={handleDeleteDialogOpen}
                     >
-                      <AssignmentIcon
+                      <DeleteOutlineOutlinedIcon
                         sx={{ fontSize: "28px" }}
-                        className="text-secondary"
+                        className="text-accent-error"
                       />
                     </IconButton>
                   </TableCell>
@@ -302,6 +330,15 @@ export default function StickyHeadTable({ assignments }) {
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
+      <div>
+        <ConfirmDeleteDialog
+          open={deleteDialogOpen}
+          onClose={handleDeleteDialogClose}
+          onConfirm={handleConfirmDelete}
+          title="Delete Quiz"
+          message="Are you sure you want to delete this quiz?"
+        />
+      </div>
     </Paper>
   );
 }

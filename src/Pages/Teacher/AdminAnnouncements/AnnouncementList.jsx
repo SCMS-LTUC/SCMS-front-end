@@ -35,7 +35,7 @@ export default function AdminAnnouncementList() {
 
   return (
     <div className="p-6">
-      <Card className="!p-4 !w-4/6 !h-auto container !mx-auto !bg-neutral-surface !rounded-xl !shadow-md !shadow-neutral-border !border-2 !border-neutral-border !mb-10">
+      <Card className="!p-4 !w-4/6 !h-auto container !mx-auto !bg-neutral-surface !rounded-xl !shadow-md !shadow-neutral-border !border-2 !border-neutral-border">
         <CardContent>
           <div className="">
             <Typography className="!font-bold !text-3xl !text-neutral-textPrimary">

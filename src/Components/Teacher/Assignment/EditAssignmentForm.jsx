@@ -117,14 +117,6 @@ export default function EditAssignmentForm({ assignment }) {
       <Box className="flex justify-end space-x-3">
         <Button
           type="submit"
-          variant="outlined"
-          color="error"
-          className=" text-white !rounded-md"
-        >
-          Delete
-        </Button>
-        <Button
-          type="submit"
           variant="contained"
           color="primary"
           className=" !text-white  !rounded-md"
