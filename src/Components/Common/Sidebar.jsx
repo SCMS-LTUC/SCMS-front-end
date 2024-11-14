@@ -35,7 +35,7 @@ const Sidebar = ({ isOpen, menuItems }) => {
           >
             <ListItem disablePadding>
               <ListItemButton
-                className={`hover:!bg-neutral-background transition-all duration-300 !p-2.5 !m-2 !rounded-lg ${
+                className={`hover:!bg-neutral-background !transition-all !duration-300 !p-2.5 !m-2 !rounded-lg ${
                   location.pathname === item.path
                     ? "!bg-neutral-background hover:!bg-neutral-darkerBackground"
                     : ""

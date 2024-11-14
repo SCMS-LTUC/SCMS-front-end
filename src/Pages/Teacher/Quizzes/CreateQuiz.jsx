@@ -1,24 +1,24 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { 
-  TextField, 
-  Button, 
-  FormControlLabel, 
-  Checkbox, 
-  Box 
-} from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
-import Question from './Question';
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import {
+  TextField,
+  Button,
+  FormControlLabel,
+  Checkbox,
+  Box,
+} from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+import Question from "./Question";
 
 const CreateQuiz = () => {
-  const [quizTitle, setQuizTitle] = useState('');
+  const [quizTitle, setQuizTitle] = useState("");
   const [isVisible, setIsVisible] = useState(true);
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
-  const [duration, setDuration] = useState('');
-  const [marks, setMarks] = useState('');
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [duration, setDuration] = useState("");
+  const [marks, setMarks] = useState("");
   const [questions, setQuestions] = useState([
-    { question: '', options: ['', '', '', ''], correctOption: '' }
+    { question: "", options: ["", "", "", ""], correctOption: "" },
   ]);
 
   const navigate = useNavigate();
@@ -33,7 +33,7 @@ const CreateQuiz = () => {
       const diffHours = Math.floor((diffMs / (1000 * 60 * 60)) % 24);
       const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
 
-      let calculatedDuration = '';
+      let calculatedDuration = "";
       if (diffDays > 0) {
         calculatedDuration += `${diffDays}d `;
       }
@@ -45,7 +45,7 @@ const CreateQuiz = () => {
       }
       setDuration(calculatedDuration.trim());
     } else {
-      setDuration('');
+      setDuration("");
     }
   }, [startDate, endDate]);
 
@@ -54,7 +54,10 @@ const CreateQuiz = () => {
   };
 
   const handleAddQuestion = () => {
-    setQuestions([...questions, { question: '', options: ['', '', '', ''], correctOption: '' }]);
+    setQuestions([
+      ...questions,
+      { question: "", options: ["", "", "", ""], correctOption: "" },
+    ]);
   };
 
   const handleRemoveQuestion = (index) => {
@@ -70,34 +73,38 @@ const CreateQuiz = () => {
       endDate,
       duration,
       marks,
-      questions
+      questions,
     });
     // TODO: Implement quiz creation logic (e.g., API call)
   };
 
   return (
     <div className="bg-neutral-background min-h-screen p-5">
-      <h1 className="text-neutral-textPrimary text-2xl font-bold mb-5">Create Quiz</h1>
-      
+      <h1 className="text-neutral-textPrimary text-2xl font-bold mb-5">
+        Create Quiz
+      </h1>
+
       {/* Return to Quizzes Button */}
-      <Button 
-        variant="contained" 
-        onClick={() => navigate('/quizzes')} 
+      <Button
+        variant="contained"
+        onClick={() => navigate("/course-details/:courseName/quizzes/")}
         className="mb-4"
       >
         Return to Quizzes
       </Button>
 
-      <form onSubmit={handleSubmit} className="bg-neutral-surface p-4 rounded-lg shadow-md">
-        
+      <form
+        onSubmit={handleSubmit}
+        className="bg-neutral-surface p-4 rounded-lg shadow-md"
+      >
         {/* Quiz Title */}
         <div className="mb-4">
-          <TextField 
-            label="Quiz Title" 
-            value={quizTitle} 
-            onChange={(e) => setQuizTitle(e.target.value)} 
-            fullWidth 
-            required 
+          <TextField
+            label="Quiz Title"
+            value={quizTitle}
+            onChange={(e) => setQuizTitle(e.target.value)}
+            fullWidth
+            required
           />
         </div>
 
@@ -105,10 +112,10 @@ const CreateQuiz = () => {
         <div className="mb-4">
           <FormControlLabel
             control={
-              <Checkbox 
-                checked={isVisible} 
-                onChange={(e) => setIsVisible(e.target.checked)} 
-                color="primary" 
+              <Checkbox
+                checked={isVisible}
+                onChange={(e) => setIsVisible(e.target.checked)}
+                color="primary"
               />
             }
             label="Visible"
@@ -117,50 +124,50 @@ const CreateQuiz = () => {
 
         {/* Start Date & Time */}
         <div className="mb-4">
-          <TextField 
-            label="Start Date & Time" 
-            type="datetime-local" 
-            value={startDate} 
-            onChange={(e) => setStartDate(e.target.value)} 
-            fullWidth 
-            required 
-            InputLabelProps={{ shrink: true }} 
+          <TextField
+            label="Start Date & Time"
+            type="datetime-local"
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+            fullWidth
+            required
+            InputLabelProps={{ shrink: true }}
           />
         </div>
 
         {/* End Date & Time */}
         <div className="mb-4">
-          <TextField 
-            label="End Date & Time" 
-            type="datetime-local" 
-            value={endDate} 
-            onChange={(e) => setEndDate(e.target.value)} 
-            fullWidth 
-            required 
-            InputLabelProps={{ shrink: true }} 
+          <TextField
+            label="End Date & Time"
+            type="datetime-local"
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
+            fullWidth
+            required
+            InputLabelProps={{ shrink: true }}
           />
         </div>
 
         {/* Duration (Calculated) */}
         <div className="mb-4">
-          <TextField 
-            label="Duration" 
-            value={duration} 
-            onChange={(e) => setDuration(e.target.value)} 
-            fullWidth 
-            disabled 
+          <TextField
+            label="Duration"
+            value={duration}
+            onChange={(e) => setDuration(e.target.value)}
+            fullWidth
+            disabled
           />
         </div>
 
         {/* Total Marks */}
         <div className="mb-4">
-          <TextField 
-            label="Total Marks" 
-            type="number" 
-            value={marks} 
-            onChange={(e) => setMarks(e.target.value)} 
-            fullWidth 
-            required 
+          <TextField
+            label="Total Marks"
+            type="number"
+            value={marks}
+            onChange={(e) => setMarks(e.target.value)}
+            fullWidth
+            required
           />
         </div>
 
@@ -172,15 +179,17 @@ const CreateQuiz = () => {
               key={index}
               question={q}
               index={index}
-              onChange={(updatedQuestion) => handleQuestionChange(index, updatedQuestion)}
+              onChange={(updatedQuestion) =>
+                handleQuestionChange(index, updatedQuestion)
+              }
               onRemove={() => handleRemoveQuestion(index)}
             />
           ))}
-          
+
           {/* Add Question Button */}
-          <Button 
-            variant="contained" 
-            onClick={handleAddQuestion} 
+          <Button
+            variant="contained"
+            onClick={handleAddQuestion}
             startIcon={<AddIcon />}
             className="mt-2"
           >
@@ -189,9 +198,9 @@ const CreateQuiz = () => {
         </Box>
 
         {/* Submit Button */}
-        <Button 
-          variant="contained" 
-          type="submit" 
+        <Button
+          variant="contained"
+          type="submit"
           className="bg-primary-DEFAULT hover:bg-primary-dark text-white"
         >
           Create Quiz

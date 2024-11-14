@@ -9,24 +9,34 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import PropTypes from "prop-types";
 import { Button } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-
-const columns = [
-  { id: "studentName", label: "Student Name", minWidth: 170 },
-  { id: "status", label: "Status", minWidth: 100 },
-  { id: "submittedDate", label: "Submitted Date", minWidth: 100 },
-  { id: "grade", label: "Grade", minWidth: 100 },
-  { id: "actions", label: "Actions", minWidth: 100 },
-];
+import { useNavigate, useParams } from "react-router-dom";
 
 StickyHeadTable.propTypes = {
   rows: PropTypes.array.isRequired,
 };
 
 export default function StickyHeadTable({ rows }) {
+  const columns = React.useMemo(
+    () => [
+      { id: "studentName", label: "Student Name", minWidth: 170 },
+      { id: "status", label: "Status", minWidth: 100 },
+      { id: "submittedDate", label: "Submitted Date", minWidth: 100 },
+      { id: "grade", label: "Grade", minWidth: 100 },
+      { id: "actions", label: "Actions", minWidth: 100 },
+    ],
+    []
+  );
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const { assignmentId } = useParams();
   const Navigate = useNavigate();
+  function handleGradeClick(id) {
+    if (assignmentId) {
+      Navigate(
+        `/course-details/:courseName/assignments/${assignmentId}/submissions/${id}/`
+      );
+    }
+  }
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -98,29 +108,25 @@ export default function StickyHeadTable({ rows }) {
                     <TableCell className="!text-neutral-textMedium !bg-neutral-surface !text-lg">
                       {row.fullName}
                     </TableCell>
-                    <TableCell className="!text-neutral-textMedium">
+                    <TableCell className="!text-neutral-textMedium !text-lg">
                       {status}
                     </TableCell>
-                    <TableCell className="!text-neutral-textMedium">
+                    <TableCell className="!text-neutral-textMedium !text-lg">
                       {submittedDate}
                     </TableCell>
-                    <TableCell className="!text-neutral-textMedium">
+                    <TableCell className="!text-neutral-textMedium !text-lg">
                       {grade}
                     </TableCell>
-                    <TableCell className="!text-neutral-textMedium">
+                    <TableCell className="!text-neutral-textMedium !text-lg">
                       <Button
                         variant="contained"
                         size="small"
                         color="secondary"
                         style={{ marginLeft: 8 }}
                         className="!text-white"
-                        onClick={() =>
-                          Navigate(
-                            "/course-details/:courseName/assignments/:assignmentId/submissions/:submissionId/"
-                          )
-                        }
+                        onClick={() => handleGradeClick(row.studentID)}
                       >
-                        View & Grade
+                        Grade
                       </Button>
                     </TableCell>
                   </TableRow>

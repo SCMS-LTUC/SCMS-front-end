@@ -17,7 +17,10 @@ import MyCourses from "../Teacher/Courses/MyCourses";
 import CourseDetailsLayout from "../../Components/Common/CourseDetailsLayout";
 import CourseAnnouncements from "./CourseAnnouncements/AnnouncementList";
 import MainNotification from "../../../temp/MainNotification";
-
+import CourseQuizzes from "./Quizzes/CourseQuizzes";
+import ViewSubmissions from "./Quizzes/ViewSubmissions";
+import EditQuiz from "./Quizzes/EditQuiz";
+import CreateQuiz from "./Quizzes/CreateQuiz";
 //menu items icons
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import CampaignIcon from "@mui/icons-material/Campaign";
@@ -68,6 +71,15 @@ export default function Main() {
               path=":assignmentId/submissions/:submissionId/"
               element={<GradeSubmission />}
             />
+          </Route>
+          <Route path="quizzes">
+            <Route index element={<CourseQuizzes />} />
+            <Route
+              path=":quizId/view-submissions"
+              element={<ViewSubmissions />}
+            />
+            <Route path=":quizId/edit-quiz" element={<EditQuiz />} />
+            <Route path="create-quiz" element={<CreateQuiz />} />
           </Route>
         </Route>
         <Route path="/announcements" element={<Announcements />} />

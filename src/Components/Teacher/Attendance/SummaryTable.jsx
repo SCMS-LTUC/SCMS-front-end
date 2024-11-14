@@ -9,14 +9,17 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import PropTypes from "prop-types";
 
-const columns = [
-  { id: "fullName", label: "Student Name", minWidth: 170 },
-  { id: "absenceRateForTheStudent", label: "Absence Rate", minWidth: 100 },
-];
 StickyHeadTable.propTypes = {
   rows: PropTypes.array.isRequired,
 };
 export default function StickyHeadTable({ rows }) {
+  const columns = React.useMemo(
+    () => [
+      { id: "fullName", label: "Student Name", minWidth: 170 },
+      { id: "absenceRateForTheStudent", label: "Absence Rate", minWidth: 100 },
+    ],
+    []
+  );
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 

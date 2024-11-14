@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from "react-router-dom";
 import {
   Typography,
   Button,
@@ -10,78 +10,99 @@ import {
   TableHead,
   TableRow,
   Paper,
-} from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
-import QuizIcon from '@mui/icons-material/Quiz';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import SubmissionsIcon from '@mui/icons-material/AssignmentTurnedIn';
-import { useState } from 'react';
+} from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+import QuizIcon from "@mui/icons-material/Quiz";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import SubmissionsIcon from "@mui/icons-material/AssignmentTurnedIn";
+import { useState } from "react";
 
 // Updated Mock Data with Questions and Options
 const initialQuizzes = [
   {
     id: 1,
-    title: 'React Basics',
-    status: 'Visible',
-    time: '30 minutes',
+    title: "React Basics",
+    status: "Visible",
+    time: "30 minutes",
     totalMarks: 100,
-    date: '2024-10-01',
+    date: "2024-10-01",
     questions: [
       {
         id: 101,
-        questionText: 'What is JSX?',
-        options: ['A JavaScript library', 'A syntax extension for JavaScript', 'A CSS framework', 'None of the above'],
+        questionText: "What is JSX?",
+        options: [
+          "A JavaScript library",
+          "A syntax extension for JavaScript",
+          "A CSS framework",
+          "None of the above",
+        ],
         correctOption: 1, // Index of the correct option
       },
       {
         id: 102,
-        questionText: 'Which hook is used for state management in functional components?',
-        options: ['useEffect', 'useState', 'useContext', 'useReducer'],
+        questionText:
+          "Which hook is used for state management in functional components?",
+        options: ["useEffect", "useState", "useContext", "useReducer"],
         correctOption: 1,
       },
     ],
   },
   {
     id: 2,
-    title: 'Advanced JavaScript',
-    status: 'Hidden',
-    time: '45 minutes',
+    title: "Advanced JavaScript",
+    status: "Hidden",
+    time: "45 minutes",
     totalMarks: 150,
-    date: '2024-10-15',
+    date: "2024-10-15",
     questions: [
       {
         id: 201,
-        questionText: 'What is the output of `typeof NaN`?',
+        questionText: "What is the output of `typeof NaN`?",
         options: ['"number"', '"NaN"', '"undefined"', '"object"'],
         correctOption: 0,
       },
       {
         id: 202,
-        questionText: 'Which method converts JSON data to JavaScript objects?',
-        options: ['JSON.parse()', 'JSON.stringify()', 'JSON.convert()', 'JSON.toObject()'],
+        questionText: "Which method converts JSON data to JavaScript objects?",
+        options: [
+          "JSON.parse()",
+          "JSON.stringify()",
+          "JSON.convert()",
+          "JSON.toObject()",
+        ],
         correctOption: 0,
       },
     ],
   },
   {
     id: 3,
-    title: 'UI/UX Design Principles',
-    status: 'Visible',
-    time: '60 minutes',
+    title: "UI/UX Design Principles",
+    status: "Visible",
+    time: "60 minutes",
     totalMarks: 200,
-    date: '2024-11-05',
+    date: "2024-11-05",
     questions: [
       {
         id: 301,
-        questionText: 'What does UX stand for?',
-        options: ['User Experience', 'User Execution', 'Universal Experience', 'Unified Execution'],
+        questionText: "What does UX stand for?",
+        options: [
+          "User Experience",
+          "User Execution",
+          "Universal Experience",
+          "Unified Execution",
+        ],
         correctOption: 0,
       },
       {
         id: 302,
-        questionText: 'Which principle focuses on reducing user memory load?',
-        options: ['Consistency', 'Feedback', 'Visibility', 'Recognition rather than recall'],
+        questionText: "Which principle focuses on reducing user memory load?",
+        options: [
+          "Consistency",
+          "Feedback",
+          "Visibility",
+          "Recognition rather than recall",
+        ],
         correctOption: 3,
       },
     ],
@@ -94,27 +115,29 @@ const CourseQuizzes = () => {
 
   const handleEdit = (quizId) => {
     const selectedQuiz = quizzes.find((quiz) => quiz.id === quizId);
-    navigate(`/edit-quiz/${quizId}`, { state: { quiz: selectedQuiz } });
+    navigate(`${quizId}/edit-quiz`, { state: { quiz: selectedQuiz } });
   };
 
   const handleDelete = (quizId) => {
-    if (window.confirm('Are you sure you want to delete this quiz?')) {
+    if (window.confirm("Are you sure you want to delete this quiz?")) {
       setQuizzes(quizzes.filter((quiz) => quiz.id !== quizId));
     }
   };
 
   const handleViewSubmissions = (quizId) => {
-    navigate(`/view-submissions/${quizId}`);
+    navigate(`${quizId}/view-submissions`);
   };
 
   return (
-    <Box sx={{ backgroundColor: 'background.default', minHeight: '100vh', p: 5 }}>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 5 }}>
+    <Box
+      sx={{ backgroundColor: "background.default", minHeight: "100vh", p: 5 }}
+    >
+      <Box sx={{ display: "flex", justifyContent: "space-between", mb: 5 }}>
         <Typography variant="h5">Available Quizzes</Typography>
         <Button
           variant="contained"
           component={Link}
-          to="/create-quiz"
+          to="/course-details/:courseName/quizzes/create-quiz"
           color="primary"
           aria-label="Add Quiz"
           startIcon={<AddIcon />}
@@ -139,7 +162,7 @@ const CourseQuizzes = () => {
             {quizzes.map((quiz) => (
               <TableRow key={quiz.id}>
                 <TableCell>
-                  <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                  <Box sx={{ display: "flex", alignItems: "center" }}>
                     <QuizIcon color="primary" sx={{ mr: 1 }} />
                     <Typography variant="subtitle1">{quiz.title}</Typography>
                   </Box>

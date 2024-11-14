@@ -44,7 +44,7 @@ const rows = [
   },
 ];
 
-export default function EditAssignment() {
+export default function AssignmentSubmissions() {
   return (
     <div>
       <AssignmentLayout>

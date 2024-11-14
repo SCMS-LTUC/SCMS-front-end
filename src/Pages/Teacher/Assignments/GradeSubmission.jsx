@@ -15,7 +15,7 @@ export default function AssignmentLayout() {
               "/course-details/:courseName/assignments/:assignmentId/submissions/"
             )
           }
-          className="!text-secondary !text-base !py-3 !px-4 space-x-2 hover:!bg-secondary-lighter hover:!text-neutral-surface transition-all"
+          className="!text-secondary !text-base !py-3 !px-4 space-x-2 hover:!bg-secondary-lighter hover:!text-neutral-surface !transition-all !duration-300"
           variant="text"
         >
           <ArrowBackOutlinedIcon />

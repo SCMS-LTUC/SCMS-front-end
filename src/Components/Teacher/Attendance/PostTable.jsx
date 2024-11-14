@@ -11,11 +11,6 @@ import PropTypes from "prop-types";
 import { useParams } from "react-router-dom";
 import { Select, MenuItem, FormControl } from "@mui/material";
 
-const columns = [
-  { id: "fullName", label: "Student Name", minWidth: 170 },
-  { id: "status", label: "Status", minWidth: 100 },
-];
-
 const statusOptions = ["Present", "Absent"];
 
 StickyHeadTable.propTypes = {
@@ -23,6 +18,14 @@ StickyHeadTable.propTypes = {
 };
 
 export default function StickyHeadTable({ rows }) {
+  const columns = React.useMemo(
+    () => [
+      { id: "fullName", label: "Student Name", minWidth: 170 },
+      { id: "status", label: "Status", minWidth: 100 },
+    ],
+    []
+  );
+
   const { lectureId } = useParams();
   const initialRequest = {
     lectureId: lectureId,

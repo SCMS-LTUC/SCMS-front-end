@@ -10,7 +10,7 @@ export default function AssignmentLayout({ children }) {
       <div>
         <Button
           onClick={() => Navigate(`/course-details/:courseName/assignments/`)}
-          className="!text-secondary !text-base !py-3 !px-4 space-x-2 hover:!bg-secondary-lighter hover:!text-neutral-surface transition-all"
+          className="!text-secondary !text-base !py-3 !px-4 space-x-2 hover:!bg-secondary-lighter hover:!text-neutral-surface !transition-all !duration-300"
           variant="text"
         >
           <ArrowBackOutlinedIcon />

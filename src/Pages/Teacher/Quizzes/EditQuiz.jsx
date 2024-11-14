@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import {
   TextField,
   Button,
@@ -8,14 +8,19 @@ import {
   Box,
   Typography,
   IconButton,
-} from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
-import DeleteIcon from '@mui/icons-material/Delete';
-import PropTypes from 'prop-types';
+} from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+import DeleteIcon from "@mui/icons-material/Delete";
+import PropTypes from "prop-types";
 
 // Component to handle individual options
-const OptionField = ({ option, index, handleOptionChange, handleRemoveOption }) => (
-  <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+const OptionField = ({
+  option,
+  index,
+  handleOptionChange,
+  handleRemoveOption,
+}) => (
+  <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
     <TextField
       label={`Option ${index + 1}`}
       value={option}
@@ -41,9 +46,16 @@ OptionField.propTypes = {
 };
 
 // Component to handle individual questions
-const QuestionField = ({ question, index, handleQuestionChange, handleAddOption, handleRemoveOption, handleRemoveQuestion }) => (
-  <Box sx={{ border: '1px solid #ccc', borderRadius: 2, p: 2, mb: 3 }}>
-    <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
+const QuestionField = ({
+  question,
+  index,
+  handleQuestionChange,
+  handleAddOption,
+  handleRemoveOption,
+  handleRemoveQuestion,
+}) => (
+  <Box sx={{ border: "1px solid #ccc", borderRadius: 2, p: 2, mb: 3 }}>
+    <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
       <Typography variant="h6">Question {index + 1}</Typography>
       <IconButton
         onClick={() => handleRemoveQuestion(index)}
@@ -56,7 +68,9 @@ const QuestionField = ({ question, index, handleQuestionChange, handleAddOption,
     <TextField
       label="Question Text"
       value={question.questionText}
-      onChange={(e) => handleQuestionChange(index, 'questionText', e.target.value)}
+      onChange={(e) =>
+        handleQuestionChange(index, "questionText", e.target.value)
+      }
       fullWidth
       required
       sx={{ mb: 2 }}
@@ -69,7 +83,9 @@ const QuestionField = ({ question, index, handleQuestionChange, handleAddOption,
         key={optIndex}
         option={option}
         index={optIndex}
-        handleOptionChange={(optIdx, value) => handleQuestionChange(index, 'options', value, optIdx)}
+        handleOptionChange={(optIdx, value) =>
+          handleQuestionChange(index, "options", value, optIdx)
+        }
         handleRemoveOption={(optIdx) => handleRemoveOption(index, optIdx)}
       />
     ))}
@@ -103,13 +119,13 @@ const EditQuiz = () => {
 
   // Retrieve quiz data from navigation state
   const [quiz, setQuiz] = useState({
-    id: '',
-    title: '',
+    id: "",
+    title: "",
     status: true,
-    startDate: '',
-    endDate: '',
-    duration: '',
-    totalMarks: '',
+    startDate: "",
+    endDate: "",
+    duration: "",
+    totalMarks: "",
     questions: [],
   });
 
@@ -119,16 +135,16 @@ const EditQuiz = () => {
       setQuiz({
         id: existingQuiz.id,
         title: existingQuiz.title,
-        status: existingQuiz.status === 'Visible',
-        startDate: existingQuiz.startDate || '',
-        endDate: existingQuiz.endDate || '',
-        duration: existingQuiz.duration || '',
+        status: existingQuiz.status === "Visible",
+        startDate: existingQuiz.startDate || "",
+        endDate: existingQuiz.endDate || "",
+        duration: existingQuiz.duration || "",
         totalMarks: existingQuiz.totalMarks,
         questions: existingQuiz.questions || [],
       });
     } else {
       // If no state is passed, navigate back to quizzes
-      navigate('/quizzes');
+      navigate("/quizzes");
     }
   }, [location.state, navigate]);
 
@@ -137,16 +153,16 @@ const EditQuiz = () => {
     const { name, value, type, checked } = e.target;
     setQuiz((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value,
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
   // Handle changes within questions and options
   const handleQuestionChange = (qIndex, field, value, optIndex = null) => {
     const updatedQuestions = [...quiz.questions];
-    if (field === 'questionText') {
+    if (field === "questionText") {
       updatedQuestions[qIndex].questionText = value;
-    } else if (field === 'options') {
+    } else if (field === "options") {
       updatedQuestions[qIndex].options[optIndex] = value;
     }
     setQuiz((prev) => ({
@@ -158,7 +174,7 @@ const EditQuiz = () => {
   // Add a new option to a specific question
   const handleAddOption = (qIndex) => {
     const updatedQuestions = [...quiz.questions];
-    updatedQuestions[qIndex].options.push('');
+    updatedQuestions[qIndex].options.push("");
     setQuiz((prev) => ({
       ...prev,
       questions: updatedQuestions,
@@ -168,7 +184,9 @@ const EditQuiz = () => {
   // Remove an option from a specific question
   const handleRemoveOption = (qIndex, optIndex) => {
     const updatedQuestions = [...quiz.questions];
-    updatedQuestions[qIndex].options = updatedQuestions[qIndex].options.filter((_, i) => i !== optIndex);
+    updatedQuestions[qIndex].options = updatedQuestions[qIndex].options.filter(
+      (_, i) => i !== optIndex
+    );
     setQuiz((prev) => ({
       ...prev,
       questions: updatedQuestions,
@@ -181,7 +199,7 @@ const EditQuiz = () => {
       ...prev,
       questions: [
         ...prev.questions,
-        { questionText: '', options: ['', '', '', ''], correctOption: 0 },
+        { questionText: "", options: ["", "", "", ""], correctOption: 0 },
       ],
     }));
   };
@@ -205,7 +223,7 @@ const EditQuiz = () => {
         const diffHours = Math.floor((diffMs / (1000 * 60 * 60)) % 24);
         const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
 
-        let calculatedDuration = '';
+        let calculatedDuration = "";
         if (diffDays > 0) {
           calculatedDuration += `${diffDays}d `;
         }
@@ -222,26 +240,28 @@ const EditQuiz = () => {
       } else {
         setQuiz((prev) => ({
           ...prev,
-          duration: '',
+          duration: "",
         }));
       }
     } else {
       setQuiz((prev) => ({
         ...prev,
-        duration: '',
+        duration: "",
       }));
     }
   }, [quiz.startDate, quiz.endDate]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Updated Quiz:', quiz);
-    alert('Quiz updated successfully!');
-    navigate('/quizzes');
+    console.log("Updated Quiz:", quiz);
+    alert("Quiz updated successfully!");
+    navigate("/quizzes");
   };
 
   return (
-    <Box sx={{ backgroundColor: 'background.default', minHeight: '100vh', p: 5 }}>
+    <Box
+      sx={{ backgroundColor: "background.default", minHeight: "100vh", p: 5 }}
+    >
       <Typography variant="h4" gutterBottom>
         Edit Quiz
       </Typography>
@@ -249,7 +269,7 @@ const EditQuiz = () => {
       {/* Return to Quizzes Button */}
       <Button
         variant="outlined"
-        onClick={() => navigate('/quizzes')}
+        onClick={() => navigate("/course-details/:courseName/quizzes/")}
         sx={{ mb: 4 }}
       >
         &larr; Back to Quizzes
@@ -259,7 +279,7 @@ const EditQuiz = () => {
         component="form"
         onSubmit={handleSubmit}
         sx={{
-          backgroundColor: 'background.paper',
+          backgroundColor: "background.paper",
           p: 4,
           borderRadius: 2,
           boxShadow: 3,
@@ -347,7 +367,14 @@ const EditQuiz = () => {
 
         {/* Questions Section */}
         <Box sx={{ mb: 4 }}>
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              mb: 2,
+            }}
+          >
             <Typography variant="h6">Questions</Typography>
             <Button
               variant="contained"
@@ -371,11 +398,7 @@ const EditQuiz = () => {
         </Box>
 
         {/* Submit Button */}
-        <Button
-          variant="contained"
-          type="submit"
-          color="primary"
-        >
+        <Button variant="contained" type="submit" color="primary">
           Save Changes
         </Button>
       </Box>

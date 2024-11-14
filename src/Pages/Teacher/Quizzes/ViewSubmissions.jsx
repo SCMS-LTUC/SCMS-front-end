@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from "react-router-dom";
 import {
   Typography,
   Button,
@@ -10,21 +10,21 @@ import {
   TableHead,
   TableRow,
   Paper,
-} from '@mui/material';
+} from "@mui/material";
 
 // Mock Submissions Data
 const mockSubmissions = {
   1: [
-    { id: 101, studentName: 'John Doe', score: 85, date: '2024-10-02' },
-    { id: 102, studentName: 'Jane Smith', score: 92, date: '2024-10-03' },
+    { id: 101, studentName: "John Doe", score: 85, date: "2024-10-02" },
+    { id: 102, studentName: "Jane Smith", score: 92, date: "2024-10-03" },
   ],
   2: [
-    { id: 201, studentName: 'Alice Johnson', score: 78, date: '2024-10-16' },
-    { id: 202, studentName: 'Bob Brown', score: 88, date: '2024-10-17' },
+    { id: 201, studentName: "Alice Johnson", score: 78, date: "2024-10-16" },
+    { id: 202, studentName: "Bob Brown", score: 88, date: "2024-10-17" },
   ],
   3: [
-    { id: 301, studentName: 'Charlie Davis', score: 95, date: '2024-11-06' },
-    { id: 302, studentName: 'Diana Evans', score: 89, date: '2024-11-07' },
+    { id: 301, studentName: "Charlie Davis", score: 95, date: "2024-11-06" },
+    { id: 302, studentName: "Diana Evans", score: 89, date: "2024-11-07" },
   ],
 };
 
@@ -34,7 +34,9 @@ const ViewSubmissions = () => {
   const submissions = mockSubmissions[quizId] || [];
 
   return (
-    <Box sx={{ backgroundColor: 'background.default', minHeight: '100vh', p: 5 }}>
+    <Box
+      sx={{ backgroundColor: "background.default", minHeight: "100vh", p: 5 }}
+    >
       <Typography variant="h4" gutterBottom>
         View Submissions
       </Typography>
@@ -42,7 +44,7 @@ const ViewSubmissions = () => {
       {/* Back to Quizzes Button */}
       <Button
         variant="outlined"
-        onClick={() => navigate('/quizzes')}
+        onClick={() => navigate("/course-details/:courseName/quizzes/")}
         sx={{ mb: 4 }}
       >
         &larr; Back to Quizzes

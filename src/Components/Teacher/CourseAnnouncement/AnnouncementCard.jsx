@@ -11,8 +11,10 @@ import {
 } from "@mui/material";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+// import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import EditIcon from "@mui/icons-material/Edit";
+// import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import DeleteIcon from "@mui/icons-material/Delete";
 import EditAnnouncementDialog from "./EditAnnouncementDialog"; // Import the dialog component
 import ConfirmDeleteDialog from "../../../Components/Common/ConfirmDeleteDialog";
 
@@ -83,11 +85,11 @@ export default function AnnouncementCard({ title, createdAt, type, content }) {
           <Typography className="flex justify-between !text-neutral-textPrimary !font-bold !text-2xl">
             {title}
             <div id="actions" className="!space-x-3">
-              <IconButton
+              {/* <IconButton
                 className="hover:!bg-neutral-background"
                 onClick={handleEditClick}
               >
-                <EditOutlinedIcon
+                <EditIcon
                   sx={{ fontSize: "28px" }}
                   className="!text-accent-warning"
                 />
@@ -96,15 +98,33 @@ export default function AnnouncementCard({ title, createdAt, type, content }) {
                 className="hover:!bg-neutral-background"
                 onClick={handleDeleteDialogOpen}
               >
-                <DeleteOutlineOutlinedIcon
+                <DeleteIcon
                   sx={{ fontSize: "28px" }}
                   className="!text-accent-error"
+                />
+              </IconButton> */}
+              <IconButton
+                className="hover:bg-neutral-background transition-transform duration-300 ease-in-out transform hover:scale-110 hover:rotate-3"
+                onClick={handleEditClick}
+              >
+                <EditIcon
+                  sx={{ fontSize: "28px" }}
+                  className="text-accent-warning"
+                />
+              </IconButton>
+              <IconButton
+                className="hover:bg-neutral-background transition-transform duration-300 ease-in-out transform hover:scale-110 hover:rotate-3"
+                onClick={handleDeleteDialogOpen}
+              >
+                <DeleteIcon
+                  sx={{ fontSize: "28px" }}
+                  className="text-accent-error"
                 />
               </IconButton>
             </div>
           </Typography>
           <Typography className="!text-neutral-textSecondary !text-sm">
-            {showFullDescription ? content : `${content.substring(0, 100)}...`}
+            {showFullDescription ? content : `${content.substring(0, 200)}...`}
           </Typography>
           {content.length > 100 && (
             <Button

@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   TextField,
   Button,
@@ -7,17 +7,28 @@ import {
   FormControlLabel,
   Checkbox,
   Typography,
-  // FormLabel,
 } from "@mui/material";
 
 export default function EditAssignmentForm({ assignment }) {
   const [formData, setFormData] = useState({
-    name: assignment.name,
-    due: assignment.due,
-    description: assignment.description,
-    mark: assignment.mark,
-    visible: assignment.visible || false,
+    assignmentName: "",
+    dueDate: "",
+    description: "",
+    mark: 0,
+    visible: false,
   });
+
+  useEffect(() => {
+    if (assignment) {
+      setFormData({
+        assignmentName: assignment.assignmentName,
+        dueDate: assignment.dueDate,
+        description: assignment.description,
+        mark: assignment.mark,
+        visible: assignment.visible || false,
+      });
+    }
+  }, [assignment]);
 
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
@@ -44,8 +55,8 @@ export default function EditAssignmentForm({ assignment }) {
       <Box className="mb-4">
         <TextField
           label="Assignment Name"
-          name="name"
-          value={formData.name}
+          name="assignmentName"
+          value={formData.assignmentName}
           onChange={handleChange}
           fullWidth
           variant="outlined"
@@ -55,9 +66,9 @@ export default function EditAssignmentForm({ assignment }) {
       <Box className="mb-4">
         <TextField
           label="Due Date"
-          name="due"
+          name="dueDate"
           type="date"
-          value={formData.due}
+          value={formData.dueDate}
           onChange={handleChange}
           fullWidth
           variant="outlined"
@@ -106,13 +117,12 @@ export default function EditAssignmentForm({ assignment }) {
       <Box className="flex justify-end space-x-3">
         <Button
           type="submit"
-          variant="contained"
+          variant="outlined"
           color="error"
-          className=" !text-white !rounded-md"
+          className=" text-white !rounded-md"
         >
           Delete
         </Button>
-
         <Button
           type="submit"
           variant="contained"
@@ -128,8 +138,8 @@ export default function EditAssignmentForm({ assignment }) {
 
 EditAssignmentForm.propTypes = {
   assignment: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    due: PropTypes.string.isRequired,
+    assignmentName: PropTypes.string.isRequired,
+    dueDate: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     mark: PropTypes.number.isRequired,
     visible: PropTypes.bool, // Ensure this is bool
