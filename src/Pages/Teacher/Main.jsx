@@ -21,6 +21,7 @@ import CourseQuizzes from "./Quizzes/QuizList";
 import ViewSubmissions from "./Quizzes/ViewSubmissions";
 import EditQuiz from "./Quizzes/EditQuiz";
 import CreateQuiz from "./Quizzes/CreateQuiz";
+import Classlist from "./Classlist/Classlist";
 //menu items icons
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import CampaignIcon from "@mui/icons-material/Campaign";
@@ -81,6 +82,7 @@ export default function Main() {
             <Route path=":quizId/edit-quiz" element={<EditQuiz />} />
             <Route path="create-quiz" element={<CreateQuiz />} />
           </Route>
+          <Route path="classlist" element={<Classlist />} />
         </Route>
         <Route path="/announcements" element={<Announcements />} />
         <Route path="/discover" element={<Discover />} />

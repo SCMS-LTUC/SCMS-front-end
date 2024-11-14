@@ -26,7 +26,7 @@ const CourseDetailsLayout = ({ courseName, teacher }) => {
       key: "classList",
       text: "Class List",
       icon: <PeopleAltOutlinedIcon />,
-      path: "/course-details/:courseName/class-list",
+      path: "/course-details/:courseName/classlist",
     },
     {
       key: "assignments",
