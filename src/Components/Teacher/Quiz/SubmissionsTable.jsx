@@ -1,3 +1,77 @@
+// import { useParams } from "react-router-dom";
+// import {
+//   Typography,
+//   Box,
+//   Table,
+//   TableBody,
+//   TableCell,
+//   TableContainer,
+//   TableHead,
+//   TableRow,
+//   Paper,
+// } from "@mui/material";
+
+// // Mock Submissions Data
+// const mockSubmissions = {
+//   1: [
+//     { id: 101, studentName: "John Doe", score: 85, date: "2024-10-02" },
+//     { id: 102, studentName: "Jane Smith", score: 92, date: "2024-10-03" },
+//   ],
+//   2: [
+//     { id: 201, studentName: "Alice Johnson", score: 78, date: "2024-10-16" },
+//     { id: 202, studentName: "Bob Brown", score: 88, date: "2024-10-17" },
+//   ],
+//   3: [
+//     { id: 301, studentName: "Charlie Davis", score: 95, date: "2024-11-06" },
+//     { id: 302, studentName: "Diana Evans", score: 89, date: "2024-11-07" },
+//   ],
+// };
+
+// const ViewSubmissions = () => {
+//   const { quizId } = useParams();
+//   //   const navigate = useNavigate();
+//   const submissions = mockSubmissions[quizId] || [];
+
+//   return (
+//     <Box
+//       sx={{ backgroundColor: "background.default", minHeight: "100vh", p: 5 }}
+//     >
+//       <Typography variant="h4" gutterBottom>
+//         View Submissions
+//       </Typography>
+
+//       {submissions.length > 0 ? (
+//         <TableContainer component={Paper}>
+//           <Table>
+//             <TableHead>
+//               <TableRow>
+//                 <TableCell>Student Name</TableCell>
+//                 <TableCell>Score</TableCell>
+//                 <TableCell>Date Submitted</TableCell>
+//               </TableRow>
+//             </TableHead>
+//             <TableBody>
+//               {submissions.map((submission) => (
+//                 <TableRow key={submission.id}>
+//                   <TableCell>{submission.studentName}</TableCell>
+//                   <TableCell>{submission.score}</TableCell>
+//                   <TableCell>{submission.date}</TableCell>
+//                 </TableRow>
+//               ))}
+//             </TableBody>
+//           </Table>
+//         </TableContainer>
+//       ) : (
+//         <Typography>No submissions found for this quiz.</Typography>
+//       )}
+//     </Box>
+//   );
+// };
+
+// ViewSubmissions.propTypes = {};
+
+// export default ViewSubmissions;
+
 import * as React from "react";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
@@ -8,35 +82,42 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import PropTypes from "prop-types";
-import { Button } from "@mui/material";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 StickyHeadTable.propTypes = {
   rows: PropTypes.array.isRequired,
 };
+// Mock Submissions Data
+const mockSubmissions = {
+  1: [
+    { id: 101, studentName: "John Doe", score: 85, date: "2024-10-02" },
+    { id: 102, studentName: "Jane Smith", score: 92, date: "2024-10-03" },
+  ],
+  2: [
+    { id: 201, studentName: "Alice Johnson", score: 78, date: "2024-10-16" },
+    { id: 202, studentName: "Bob Brown", score: 88, date: "2024-10-17" },
+  ],
+  3: [
+    { id: 301, studentName: "Charlie Davis", score: 95, date: "2024-11-06" },
+    { id: 302, studentName: "Diana Evans", score: 89, date: "2024-11-07" },
+  ],
+};
 
-export default function StickyHeadTable({ rows }) {
+export default function StickyHeadTable() {
+  const { quizId } = useParams();
+  const submissions = mockSubmissions[quizId] || [];
   const columns = React.useMemo(
     () => [
       { id: "studentName", label: "Student Name", minWidth: 170 },
-      { id: "status", label: "Status", minWidth: 100 },
+      // { id: "status", label: "Status", minWidth: 100 },
       { id: "submittedDate", label: "Submitted At", minWidth: 100 },
       { id: "grade", label: "Grade", minWidth: 100 },
-      { id: "actions", label: "Actions", minWidth: 100 },
+      // { id: "actions", label: "Actions", minWidth: 100 },
     ],
     []
   );
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const { assignmentId } = useParams();
-  const Navigate = useNavigate();
-  function handleGradeClick(id) {
-    if (assignmentId) {
-      Navigate(
-        `/course-details/:courseName/assignments/${assignmentId}/submissions/${id}/`
-      );
-    }
-  }
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -87,15 +168,11 @@ export default function StickyHeadTable({ rows }) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows
+            {submissions
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
-                const assignment = row.studentAssignment;
-                const status = assignment ? "Submitted" : "Not Submitted";
-                const submittedDate = assignment
-                  ? formatDate(assignment.submissionDate)
-                  : "N/A";
-                const grade = assignment ? assignment.grade : "N/A";
+                const submittedDate = formatDate(row.date);
+                const grade = row.score ? row.score : "0";
 
                 return (
                   <TableRow
@@ -106,28 +183,13 @@ export default function StickyHeadTable({ rows }) {
                     className="hover:!bg-white"
                   >
                     <TableCell className="!text-neutral-textMedium !bg-neutral-surface !text-lg">
-                      {row.fullName}
-                    </TableCell>
-                    <TableCell className="!text-neutral-textMedium !text-lg">
-                      {status}
+                      {row.studentName}
                     </TableCell>
                     <TableCell className="!text-neutral-textMedium !text-lg">
                       {submittedDate}
                     </TableCell>
                     <TableCell className="!text-neutral-textMedium !text-lg">
                       {grade}
-                    </TableCell>
-                    <TableCell className="!text-neutral-textMedium !text-lg">
-                      <Button
-                        variant="contained"
-                        size="small"
-                        color="secondary"
-                        style={{ marginLeft: 8 }}
-                        className="!text-white"
-                        onClick={() => handleGradeClick(row.studentID)}
-                      >
-                        Grade
-                      </Button>
                     </TableCell>
                   </TableRow>
                 );
@@ -138,7 +200,7 @@ export default function StickyHeadTable({ rows }) {
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
-        count={rows.length}
+        count={submissions.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
