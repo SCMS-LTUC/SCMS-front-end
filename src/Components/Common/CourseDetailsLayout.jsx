@@ -12,21 +12,23 @@ import QuizOutlinedIcon from "@mui/icons-material/QuizOutlined";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 // import GradeOutlinedIcon from "@mui/icons-material/GradeOutlined";
 import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
+import { useParams } from "react-router-dom";
 const CourseDetailsLayout = ({ courseName, teacher }) => {
   const navigate = useNavigate();
   const Location = useLocation();
+  const { courseId } = useParams();
   const tabs = [
     {
       key: "announcements",
       text: "Announcements",
       icon: <NotificationsNoneOutlinedIcon />,
-      path: "/course-details/:courseName/announcements",
+      path: `/course-details/${courseId}/announcements`,
     },
     {
       key: "classList",
       text: "Class List",
       icon: <PeopleAltOutlinedIcon />,
-      path: "/course-details/:courseName/classlist",
+      path: `/course-details/${courseId}/classlist`,
     },
     {
       key: "assignments",

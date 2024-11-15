@@ -10,13 +10,13 @@ import TableRow from "@mui/material/TableRow";
 import PropTypes from "prop-types";
 
 StickyHeadTable.propTypes = {
-  rows: PropTypes.array.isRequired,
+  students: PropTypes.array.isRequired,
 };
-export default function StickyHeadTable({ rows }) {
+export default function StickyHeadTable({ students }) {
   const columns = React.useMemo(
     () => [
-      { id: "fullName", label: "Student Name", minWidth: 170 },
-      { id: "absenceRateForTheStudent", label: "Absence Rate", minWidth: 100 },
+      { id: "studentName", label: "Student Name", minWidth: 170 },
+      { id: "averageGrades", label: "Average Grades", minWidth: 100 },
     ],
     []
   );
@@ -36,7 +36,7 @@ export default function StickyHeadTable({ rows }) {
     <Paper
       sx={{ width: "100%", overflow: "hidden" }}
       className=" !border-2 !border-neutral-border !text-secondary-dark
-          !shadow-md !shadow-neutral-border !rounded-xl "
+          !shadow-md !shadow-neutral-border !rounded-xl   md: !w-3/5"
     >
       <TableContainer sx={{ maxHeight: 440 }}>
         <Table stickyHeader aria-label="sticky table">
@@ -47,7 +47,6 @@ export default function StickyHeadTable({ rows }) {
                   key={column.id}
                   align={column.align}
                   style={{ minWidth: column.minWidth }}
-                  // className="!text-secondary-dark !font-bold !bg-neutral-background !text-xl"
                   className="!text-primary !font-bold !bg-neutral-background
                    !text-xl"
                 >
@@ -57,7 +56,7 @@ export default function StickyHeadTable({ rows }) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows
+            {students
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
                 return (
@@ -65,21 +64,15 @@ export default function StickyHeadTable({ rows }) {
                     hover
                     role="checkbox"
                     tabIndex={-1}
-                    key={row.studentID}
+                    key={row.studentId}
                     className="hover:!bg-neutral-background"
                   >
-                    {columns.map((column) => {
-                      const value = row[column.id];
-                      return (
-                        <TableCell
-                          key={column.id}
-                          align={column.align}
-                          className="!text-neutral-textMedium !bg-neutral-surface !text-lg"
-                        >
-                          {value}
-                        </TableCell>
-                      );
-                    })}
+                    <TableCell className="!text-neutral-textMedium !bg-neutral-surface !text-lg">
+                      {row.studentName}
+                    </TableCell>
+                    <TableCell className="!text-neutral-textMedium !bg-neutral-surface !text-lg">
+                      {row.averageGrades}%
+                    </TableCell>
                   </TableRow>
                 );
               })}
@@ -89,7 +82,7 @@ export default function StickyHeadTable({ rows }) {
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
-        count={rows.length}
+        count={students.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}

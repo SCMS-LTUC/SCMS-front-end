@@ -29,9 +29,9 @@ const theme = createTheme({
       dark: primaryColorDark,
     },
     secondary: {
-      main: secondaryColorDark,
+      main: secondaryColor,
       light: secondaryColorLight,
-      dark: secondaryColor,
+      dark: secondaryColorDark,
     },
     text: {
       primary: textPrimary,

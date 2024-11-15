@@ -117,25 +117,25 @@ export default function AssignmentList() {
   const Navigate = useNavigate();
 
   return (
-    <div className="flex flex-col justify-between space-y-8">
-      <div className="!flex !justify-end">
-        <Button
-          color="primary"
-          onClick={() =>
-            Navigate("/course-details/:courseName/assignments/create")
-          }
-          className="!text-neutral-surface"
-          variant="contained"
-          startIcon={<AddIcon />}
-        >
-          Create
-        </Button>
-      </div>
+    <div className="flex flex-col justify-between !p-8">
       <div className="container space-y-6 !mx-auto">
-        <div className="">
+        <div className="flex justify-between">
           <Typography className="!font-bold !text-3xl !text-neutral-textPrimary">
             Assignments
           </Typography>
+          <div className="!flex !justify-end">
+            <Button
+              color="secondary"
+              onClick={() =>
+                Navigate("/course-details/:courseName/assignments/create")
+              }
+              className="!text-neutral-surface"
+              variant="contained"
+              startIcon={<AddIcon />}
+            >
+              Create
+            </Button>
+          </div>
         </div>
         <Divider className="!my-4" />
         <div>

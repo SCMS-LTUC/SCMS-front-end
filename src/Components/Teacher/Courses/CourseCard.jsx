@@ -15,6 +15,7 @@ import PlaceIcon from "@mui/icons-material/Place";
 import QueryBuilderIcon from "@mui/icons-material/QueryBuilder"; // import DownloadIcon from "@mui/icons-material/Download";
 
 const InfoCard = ({
+  courseId,
   courseName,
   teacher,
   progress,
@@ -87,11 +88,12 @@ const InfoCard = ({
         </div>
 
         <div id="button" className="flex justify-end items-center ">
+          {console.log("this is the course Id", courseId)}
           <Button
             variant="contained"
             color="primary"
             onClick={() =>
-              navigate(`/course-details/${courseName}/announcements`)
+              navigate(`/course-details/${courseId}/announcements`)
             } // Navigate to course details page
             className="!text-neutral-surface"
           >
@@ -111,6 +113,7 @@ const InfoCard = ({
 };
 
 InfoCard.propTypes = {
+  courseId: PropTypes.number.isRequired,
   courseName: PropTypes.string.isRequired, // courseName should be a required string
   teacher: PropTypes.string.isRequired, // teacher should be a required string
   progress: PropTypes.number.isRequired, // progress should be a required number

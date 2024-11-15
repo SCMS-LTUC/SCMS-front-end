@@ -50,16 +50,28 @@ const Navbar = ({ isOpen, toggleSidebar }) => {
       {/* Right: Icons for actions */}
       <div className="flex items-center space-x-4">
         <IconButton className=" hover:!bg-neutral-background">
-          <ChatOutlinedIcon className="text-neutral-textMedium hover:!text-primary" />
+          <ChatOutlinedIcon
+            className="text-neutral-textMedium hover:!text-primary"
+            sx={{ fontSize: "28px" }}
+          />
         </IconButton>
         <IconButton className=" hover:!bg-neutral-background ">
-          <NotificationsActiveOutlinedIcon className="text-neutral-textMedium hover:!text-primary" />
+          <NotificationsActiveOutlinedIcon
+            className="text-neutral-textMedium hover:!text-primary"
+            sx={{ fontSize: "28px" }}
+          />
         </IconButton>
         <IconButton className=" hover:!bg-neutral-background">
-          <AccountCircleOutlinedIcon className="text-neutral-textMedium hover:!text-primary" />
+          <AccountCircleOutlinedIcon
+            className="text-neutral-textMedium hover:!text-primary"
+            sx={{ fontSize: "28px" }}
+          />
         </IconButton>
         <IconButton className=" hover:!bg-neutral-background">
-          <LogoutOutlinedIcon className="text-neutral-textMedium hover:!text-primary" />
+          <LogoutOutlinedIcon
+            className="text-neutral-textMedium hover:!text-primary"
+            sx={{ fontSize: "28px" }}
+          />
         </IconButton>
       </div>
     </div>

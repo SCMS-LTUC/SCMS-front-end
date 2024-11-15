@@ -21,6 +21,7 @@ export default {
           // Info box backgrounds, progress tracker bg, decorative elements
           light: "#6BB5AA",
           lighter: "#7EC2B8 ",
+          background: "#f0fcfb",
         },
 
         neutral: {
@@ -32,6 +33,7 @@ export default {
           border: "#E2E8F0", // Light gray for borders and subtle shadows
           // Main body text, headings, course titles, navigation
           textPrimary: "#2D3748",
+
           // Secondary text, meta info, placeholders, disabled states
           textSecondary: "#718096",
           textMedium: "#4F5C6F",

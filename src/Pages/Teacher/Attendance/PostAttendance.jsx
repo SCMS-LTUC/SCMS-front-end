@@ -37,7 +37,7 @@ export default function PostAttendance() {
         </Button>
       </div>
 
-      <div className="container space-y-6 !mx-auto w-1/2">
+      <div className="container space-y-6 !mx-auto w-1/2 md:w-3/5">
         <div className="">
           <h1 className="font-bold  text-3xl text-neutral-textPrimary">
             Attendance for 31 Oct 2024

@@ -1,0 +1,52 @@
+/* new style */
+/* Calendar container */
+.fc {
+  background-color: var(--neutral-surface);
+  border-radius: 0.75rem;
+  border: 2px solid var(--neutral-border);
+  box-shadow: 0 4px 6px -1px var(--neutral-border);
+}
+
+/* Header title (month/year) */
+.fc .fc-toolbar-title {
+  color: var(--primary);
+  font-size: 1.25rem !important;
+  font-weight: 700;
+}
+
+/* Day names (Mon, Tue, etc) */
+.fc .fc-col-header-cell {
+  color: var(--primary);
+  font-weight: 700;
+  padding: 8px;
+}
+
+/* Navigation buttons */
+.fc .fc-button-primary {
+  background-color: transparent !important;
+  border: none !important;
+  color: var(--secondary) !important;
+}
+
+.fc .fc-button-primary:hover {
+  background-color: var(--secondary-lighter) !important;
+  color: var(--neutral-surface) !important;
+}
+
+/* Highlighted dates */
+.highlighted-date {
+  background-color: var(--primary-light) !important;
+}
+
+.highlighted-date:hover {
+  background-color: var(--primary) !important;
+  color: var(--neutral-surface) !important;
+  transform: translateY(-1px);
+  transition: all 0.2s;
+}
+
+/* Today's date */
+.fc .fc-day-today {
+  background-color: var(--primary) !important;
+  color: var(--neutral-surface) !important;
+}

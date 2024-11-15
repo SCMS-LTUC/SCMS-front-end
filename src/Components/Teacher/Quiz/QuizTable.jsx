@@ -98,7 +98,9 @@ export default function StickyHeadTable({ quizzes }) {
                 <TableCell
                   key={column.id}
                   style={{ minWidth: column.minWidth }}
-                  className="!text-secondary-dark !font-bold !bg-neutral-background !text-xl"
+                  // className="!text-secondary-dark !font-bold !bg-neutral-background !text-xl"
+                  className="!text-primary !font-bold !bg-neutral-background
+                   !text-xl"
                 >
                   {column.label}
                 </TableCell>

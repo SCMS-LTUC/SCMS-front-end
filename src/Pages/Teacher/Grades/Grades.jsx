@@ -1,60 +1,45 @@
 import {
   Typography,
   Divider,
-  TablePagination,
+  //   TablePagination,
   InputAdornment,
-  // Button,
 } from "@mui/material";
 import { useState } from "react";
-import ClasslistCard from "../../../Components/Teacher/Classlist/ClasslistCard";
+// import ClasslistCard from "../../../Components/Teacher/Classlist/ClasslistCard";
 import { TextField } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-
+import GradesTable from "../../../Components/Teacher/Grade/GradesTable";
 const students = [
   {
     studentId: 1,
     studentName: "John Doe",
-    studentUserName: "johndoe",
-    studentEmail: "johndoe@gmail.com",
+    averageGrades: "80",
   },
   {
     studentId: 2,
     studentName: "Dima Salem",
     studentUserName: "DimaSalem",
-    studentEmail: "johndoe@gmail.com",
+    averageGrades: "90",
   },
   {
     studentId: 3,
     studentName: "Leen Yasir",
-    studentUserName: "LeenYasir",
-    studentEmail: "LeenYasir@gmail.com",
+    averageGrades: "70",
   },
 ];
 
 export default function Classlist() {
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
   const [searchQuery, setSearchQuery] = useState("");
 
   // Search handler
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);
-    setPage(0); // Reset to first page when searching
   };
 
   // Filter students based on search query
   const filteredStudents = students.filter((student) =>
     student.studentName.toLowerCase().includes(searchQuery.toLowerCase())
   );
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
 
   return (
     <div className="flex flex-col justify-between !p-8">
@@ -82,24 +67,10 @@ export default function Classlist() {
         <Divider className="!my-4" />
         <div>
           <div className="flex flex-col justify-start space-y-2">
-            {filteredStudents
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((student, index) => (
-                <ClasslistCard key={index} student={student} />
-              ))}
+            <GradesTable students={filteredStudents} />
           </div>
         </div>
         <Divider className="!my-4" />
-        <TablePagination
-          component="div"
-          count={filteredStudents.length}
-          page={page}
-          onPageChange={handleChangePage}
-          rowsPerPage={rowsPerPage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-          rowsPerPageOptions={[5, 10, 25]}
-          className="!text-neutral-textPrimary"
-        />
       </div>
     </div>
   );

@@ -22,6 +22,7 @@ import ViewSubmissions from "./Quizzes/ViewSubmissions";
 import EditQuiz from "./Quizzes/EditQuiz";
 import CreateQuiz from "./Quizzes/CreateQuiz";
 import Classlist from "./Classlist/Classlist";
+import Grades from "./Grades/Grades";
 //menu items icons
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import CampaignIcon from "@mui/icons-material/Campaign";
@@ -51,7 +52,7 @@ export default function Main() {
       <Routes>
         <Route path="/" element={<MyCourses />} />
         <Route
-          path="/course-details/:courseName"
+          path="/course-details/:courseId"
           element={<CourseDetailsLayout />}
         >
           <Route path="announcements" element={<CourseAnnouncements />} />
@@ -83,6 +84,7 @@ export default function Main() {
             <Route path="create-quiz" element={<CreateQuiz />} />
           </Route>
           <Route path="classlist" element={<Classlist />} />
+          <Route path="grades" element={<Grades />} />
         </Route>
         <Route path="/announcements" element={<Announcements />} />
         <Route path="/discover" element={<Discover />} />

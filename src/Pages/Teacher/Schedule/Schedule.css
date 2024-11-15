@@ -1,0 +1,103 @@
+/* Main calendar container */
+.fc {
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+  border-radius: 8px !important;
+  overflow: hidden !important;
+  border: none !important;
+}
+
+/* Header section */
+.fc .fc-toolbar {
+  background-color: #fff9f5 !important;
+  padding: 1rem !important;
+}
+.fc-toolbar-title {
+  font-weight: 500 !important;
+  color: #3b7a70 !important;
+}
+
+/* Days header */
+.fc .fc-col-header {
+  background-color: #fff9f5 !important;
+}
+
+/* Calendar body */
+.fc .fc-daygrid-body {
+  background-color: white !important;
+}
+
+/* Day cells */
+.fc .fc-daygrid-day {
+  transition: all 0.2s ease-in-out !important;
+}
+
+/* Regular day numbers */
+.fc .fc-daygrid-day-number {
+  color: #e65d2e !important;
+  padding: 8px !important;
+}
+
+/* Day names in header */
+.fc .fc-col-header-cell {
+  color: #e65d2e !important;
+  font-weight: 600 !important;
+}
+
+/* Today's cell */
+.fc .fc-day-today {
+  background-color: white !important;
+}
+.fc-day-today .fc-daygrid-day-number {
+  background-color: #ff7f50 !important;
+  color: white !important;
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 4px !important;
+}
+
+/* test event style */
+.fc-event {
+  background-color: #b3d1cc;
+  border: none;
+  color: #666;
+  padding: 5px;
+  border-radius: 4px;
+  font-size: 14px;
+  width: fit-content;
+  /* cursor: pointer; */
+}
+
+.fc-event:hover {
+  background-color: #a1c7c0; /* Slightly darker shade on hover */
+}
+
+/* prev, next buttons */
+.fc-prev-button,
+.fc-next-button {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important; /* Remove any box-shadow */
+  color: #3b7a70 !important;
+  background-color: #fff9f5 !important;
+  font-weight: 500 !important;
+}
+
+.fc-prev-button:focus,
+.fc-next-button:focus {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important; /* Remove any box-shadow on focus */
+}
+
+.fc-prev-button:active,
+.fc-next-button:active {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important; /* Remove any box-shadow on active */
+}
