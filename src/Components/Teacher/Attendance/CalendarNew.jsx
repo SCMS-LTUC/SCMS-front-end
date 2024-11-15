@@ -4,7 +4,7 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import { useState } from "react";
 import { useEffect } from "react";
-import PostDialog from "./PostTable.jsx";
+import PostDialog from "./PostTableDialog.jsx";
 
 const rows = [
   { studentID: 1, fullName: "John Doe" },
@@ -31,16 +31,16 @@ const formatDate = (dateString) => {
 const App = () => {
   const [lectureDates, setLectureDates] = useState([]);
   const [calendarKey, setCalendarKey] = useState(0);
-  const [dialogOpen, setDialogOpen] = useState(false);
+  const [postDialogOpen, setPostDialogOpen] = useState(false);
   const [selectedLectureId, setSelectedLectureId] = useState(null);
 
   const handleDialogOpen = (id) => {
     setSelectedLectureId(id);
-    setDialogOpen(true);
+    setPostDialogOpen(true);
   };
 
   const handleDialogClose = () => {
-    setDialogOpen(false);
+    setPostDialogOpen(false);
   };
 
   useEffect(() => {
@@ -99,7 +99,7 @@ const App = () => {
 
   return (
     <div
-      style={{ width: "1000px", margin: "0 auto" }}
+      style={{ width: "980px", margin: "0 auto" }}
       className="!border-2 !border-neutral-border !text-secondary-dark  !shadow-neutral-border !shadow-md !rounded-xl"
     >
       <FullCalendar
@@ -122,7 +122,7 @@ const App = () => {
       <div>
         <PostDialog
           rows={rows}
-          open={dialogOpen}
+          open={postDialogOpen}
           onClose={handleDialogClose}
           lectureId={selectedLectureId}
         />
