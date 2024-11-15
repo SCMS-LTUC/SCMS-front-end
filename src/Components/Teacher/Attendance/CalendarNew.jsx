@@ -1,9 +1,25 @@
 import "./CalendarStyle.css";
 import FullCalendar from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid"; // Month view plugin
-import interactionPlugin from "@fullcalendar/interaction"; // For date-click functionality
+import dayGridPlugin from "@fullcalendar/daygrid";
+import interactionPlugin from "@fullcalendar/interaction";
 import { useState } from "react";
 import { useEffect } from "react";
+import PostDialog from "./PostTable.jsx";
+
+const rows = [
+  { studentID: 1, fullName: "John Doe" },
+  { studentID: 2, fullName: "Jane Smith" },
+  { studentID: 1, fullName: "John Doe" },
+  { studentID: 2, fullName: "Jane Smith" },
+  { studentID: 1, fullName: "John Doe" },
+  { studentID: 2, fullName: "Jane Smith" },
+  { studentID: 1, fullName: "John Doe" },
+  { studentID: 2, fullName: "Jane Smith" },
+  { studentID: 1, fullName: "John Doe" },
+  { studentID: 2, fullName: "Jane Smith" },
+  { studentID: 1, fullName: "John Doe" },
+  { studentID: 2, fullName: "Jane Smith" },
+];
 const formatDate = (dateString) => {
   if (!dateString) return "N/A";
   const date = new Date(dateString);
@@ -11,9 +27,21 @@ const formatDate = (dateString) => {
   // Extract the date part in 'YYYY-MM-DD' format
   return date.toISOString().split("T")[0];
 };
+
 const App = () => {
   const [lectureDates, setLectureDates] = useState([]);
   const [calendarKey, setCalendarKey] = useState(0);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [selectedLectureId, setSelectedLectureId] = useState(null);
+
+  const handleDialogOpen = (id) => {
+    setSelectedLectureId(id);
+    setDialogOpen(true);
+  };
+
+  const handleDialogClose = () => {
+    setDialogOpen(false);
+  };
 
   useEffect(() => {
     //lectures is the data response
@@ -42,7 +70,7 @@ const App = () => {
     const formattedLectures = lectures.map((l, index) => ({
       date: formatDate(l.LectureDate),
       title: `Lecture ${index + 1}`,
-      //   extendedProps: { date: formatDate(l.LectureDate) },
+      extendedProps: { LectureId: l.LectureId },
     }));
     setLectureDates(formattedLectures);
     setCalendarKey((prevKey) => prevKey + 1); // Force re-render of the calendar
@@ -53,48 +81,27 @@ const App = () => {
     if (event.isToday) {
       return ["custom-event"]; // Add custom styles for today’s lecture
     }
-    // return ["custom-event"]; // Apply regular event styles
   };
 
   const handleEventClick = (clickInfo) => {
     const date = clickInfo.event.start.toLocaleDateString("en-CA"); // 'en-CA' format is 'YYYY-MM-DD'
     const today = new Date().toLocaleDateString("en-CA"); // Get today's date in 'YYYY-MM-DD' format
     const isToday = today === date;
-    // const { event } = clickInfo;
-    console.log(clickInfo.event.start);
-    console.log(today);
-    console.log("this is the date", date);
-    console.log(clickInfo);
-    console.log(isToday);
 
     // Check if the event is `isTodayLecture`
     if (isToday) {
-      alert(`Clicked on today's lecture: this is the event`);
+      // alert(
+      //   `Clicked on today's lecture: ${clickInfo.event.extendedProps.LectureId}`
+      // );
+      handleDialogOpen(clickInfo.event.extendedProps.LectureId);
     }
   };
 
-  // Custom rendering logic for day cells
-  //   const renderDayCell = (info) => {
-  //     if (!lectureDates) {
-  //       return;
-  //     }
-  //     const today = new Date().toISOString().split("T")[0]; // Get today's date in 'YYYY-MM-DD' format
-
-  //     const isLecture = lectureDates.find(
-  //       (lecture) => lecture.date === info.dateStr
-  //     );
-  //     const isTodayLecture = isLecture && info.dateStr === today;
-  //     // Apply custom styles conditionally
-  //     if (isLecture && isTodayLecture) {
-  //       info.el.style.cursor = "pointer";
-  //       // Add a click handler
-  //       //   info.el.onclick = () =>
-  //       //     alert(`Clicked on today's lecture date: ${info.dateStr}`);
-  //     }
-  //   };
-
   return (
-    <div style={{ width: "800px", margin: "0 auto", padding: "24px" }}>
+    <div
+      style={{ width: "1000px", margin: "0 auto" }}
+      className="!border-2 !border-neutral-border !text-secondary-dark  !shadow-neutral-border !shadow-md !rounded-xl"
+    >
       <FullCalendar
         key={calendarKey}
         plugins={[dayGridPlugin, interactionPlugin]}
@@ -105,23 +112,21 @@ const App = () => {
           right: "prev,next",
           center: "",
         }}
-        // eventContent={renderEventContent}
-        // eventBackgroundColor={renderEventBackgroundColor}
         dayCellContent={(info) => {
           // Render the day number
           return <div>{info.dayNumberText}</div>;
         }}
-        // datesSet={() => {
-        //   // Custom rendering for each visible day cell
-        //   const cells = document.querySelectorAll(".fc-daygrid-day");
-        //   cells.forEach((cell) => {
-        //     const dateStr = cell.getAttribute("data-date");
-        //     renderDayCell({ el: cell, dateStr });
-        //   });
-        // }}
         eventClassNames={eventClassNames}
-        eventClick={handleEventClick} // Handle event clicks here
+        eventClick={handleEventClick}
       />
+      <div>
+        <PostDialog
+          rows={rows}
+          open={dialogOpen}
+          onClose={handleDialogClose}
+          lectureId={selectedLectureId}
+        />
+      </div>
     </div>
   );
 };

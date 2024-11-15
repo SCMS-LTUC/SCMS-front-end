@@ -5,10 +5,10 @@ import AssignmentList from "../Teacher/Assignments/AssignmentList";
 import CreateAssignment from "../Teacher/Assignments/CreateAssignment";
 import EditAssignment from "../Teacher/Assignments/EditAssignment";
 import AssignmentSubmission from "../Teacher/Assignments/AssignmentSubmissions";
-import AttendanceLayout from "../../Components/Teacher/Attendance/AttendanceLayout";
+// import AttendanceLayout from "../../Components/Teacher/Attendance/AttendanceLayout";
 import CalendarView from "../Teacher/Attendance/CalendarView";
-import Summary from "../Teacher/Attendance/Summary";
-import PostAttendance from "../Teacher/Attendance/PostAttendance";
+// import Summary from "../Teacher/Attendance/Summary";
+// import PostAttendance from "../Teacher/Attendance/PostAttendance";
 import Announcements from "./AdminAnnouncements/AnnouncementList";
 import Discover from "../Teacher/Discover/Discover";
 import Schedule from "../Teacher/Schedule/Schedule";
@@ -56,11 +56,13 @@ export default function Main() {
           element={<CourseDetailsLayout />}
         >
           <Route path="announcements" element={<CourseAnnouncements />} />
-          <Route path="attendance" element={<AttendanceLayout />}>
+          <Route path="attendance" element={<CalendarView />} />
+
+          {/* <Route path="attendance" element={<AttendanceLayout />}>
             <Route index element={<CalendarView />} />
             <Route path="summary" element={<Summary />} />
             <Route path=":lectureId/post" element={<PostAttendance />} />
-          </Route>
+          </Route> */}
           <Route path="assignments">
             <Route index element={<AssignmentList />} />
             <Route path="create" element={<CreateAssignment />} />
