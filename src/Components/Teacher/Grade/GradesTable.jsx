@@ -24,6 +24,7 @@ export default function StickyHeadTable({ students, classAverage }) {
       { id: "assignments", label: "Assignments", minWidth: 130 },
       { id: "quizzes", label: "Quizzes", minWidth: 130 },
       { id: "averageGrades", label: "Average Grades", minWidth: 130 },
+      { id: "status", label: "Status", minWidth: 130 },
     ],
     []
   );
@@ -58,12 +59,6 @@ export default function StickyHeadTable({ students, classAverage }) {
                   {column.label}
                 </TableCell>
               ))}
-              <TableCell
-                className="!text-primary !font-bold !bg-neutral-background !text-xl"
-                style={{ minWidth: 130 }}
-              >
-                Status
-              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

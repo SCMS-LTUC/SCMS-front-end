@@ -6,7 +6,7 @@ import ScheduleTable from "../../../Components/Teacher/Schedule/ScheduleTable";
 export default function Schedule() {
   return (
     <div className="p-6">
-      <Card className="!p-4 !w-5/6 !h-auto container !mx-auto !bg-neutral-surface !rounded-lg !shadow-md !shadow-neutral-border !border-2 !border-neutral-border">
+      <Card className="!p-4 !h-auto container !mx-auto !bg-neutral-surface !rounded-lg !shadow-md !shadow-neutral-border !border-2 !border-neutral-border">
         <CardContent>
           <div className="">
             <Typography className="!font-bold !text-3xl !text-neutral-textPrimary">
