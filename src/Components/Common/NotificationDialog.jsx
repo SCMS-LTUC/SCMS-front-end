@@ -9,7 +9,12 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 const NotificationSnackbar = ({ open, onClose, message, type }) => {
   return (
-    <Snackbar open={open} autoHideDuration={6000} onClose={onClose}>
+    <Snackbar
+      open={open}
+      autoHideDuration={3000}
+      onClose={onClose}
+      anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+    >
       <Alert onClose={onClose} severity={type} sx={{ width: "100%" }}>
         {message}
       </Alert>

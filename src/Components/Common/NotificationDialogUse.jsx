@@ -1,6 +1,6 @@
 import { useState } from "react";
-import NotificationSnackbar from "../src/Components/Common/NotificationDialog";
-
+import NotificationSnackbar from "./NotificationDialog";
+import { Button } from "@mui/material";
 const MainNotification = () => {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
@@ -19,21 +19,23 @@ const MainNotification = () => {
   };
 
   return (
-    <div>
-      <button
+    <div className="space-x-3">
+      <Button
+        variant="contained"
+        color="secondary"
         onClick={() =>
           handleOpenSnackbar("This is a success message", "success")
         }
-        className="bg-green-500 text-white p-2 m-2"
       >
         Show Success
-      </button>
-      <button
+      </Button>
+      <Button
+        variant="contained"
+        color="secondary"
         onClick={() => handleOpenSnackbar("This is an error message", "error")}
-        className="bg-red-500 text-white p-2 m-2"
       >
         Show Error
-      </button>
+      </Button>
 
       <NotificationSnackbar
         open={snackbarOpen}

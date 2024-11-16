@@ -60,10 +60,14 @@ const App = () => {
       },
       {
         LectureId: 4,
-        LectureDate: "2024-11-16T21:09:02.814Z",
+        LectureDate: "2024-11-17T21:09:02.814Z",
       },
       {
         LectureId: 5,
+        LectureDate: "2024-11-18T21:09:02.814Z",
+      },
+      {
+        LectureId: 6,
         LectureDate: "2024-12-20T21:09:02.814Z",
       },
     ];

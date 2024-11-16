@@ -126,13 +126,11 @@ export default function StickyHeadTable({ assignments }) {
                     {row.assignmentName}
                   </TableCell>
                   <TableCell
-                    className={`!text-neutral-textMedium !bg-neutral-surface !text-lg  ${row.visible ? "!-green-500" : "!-red-500"}`}
+                    className={`!text-neutral-textMedium !bg-neutral-surface !text-lg  `}
                   >
                     <Chip
-                      variant="outlined"
-                      color={row.visible ? "success" : "error"}
                       label={row.visible ? "Visible" : "Hidden"}
-                      className="!text-base"
+                      className={`!text-base ${row.visible ? "!bg-green-100 !text-green-700" : "!bg-red-100 !text-red-700"} "`}
                     />
                   </TableCell>
                   <TableCell className="!text-neutral-textMedium !bg-neutral-surface !text-lg">

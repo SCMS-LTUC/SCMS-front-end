@@ -77,33 +77,6 @@ export default function AnnouncementCard({ title, createdAt, type, content }) {
             className="!bg-neutral-surface !text-neutral-textSecondary !border !border-neutral-border !text-base"
           />
         </div>
-        {/* <Divider className="!my-4" />
-        <div className="flex justify-end items-center space-x-2">
-          <Button
-            variant="contained"
-            color="primary"
-            className="!text-neutral-surface"
-            onClick={() =>
-              navigate(
-                "/course-details/:courseName/assignments/:assignmentId/submissions"
-              )
-            }
-          >
-            View Submissions
-          </Button>
-          <Button
-            variant="outlined"
-            color="primary"
-            className="!text-primary !border-primary"
-            onClick={() =>
-              navigate(
-                "/course-details/:courseName/assignments/:assignmentId/edit"
-              )
-            }
-          >
-            Edit
-          </Button>
-        </div> */}
       </CardContent>
     </Card>
   );
