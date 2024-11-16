@@ -29,83 +29,87 @@ const InfoCard = ({
   const navigate = useNavigate();
 
   return (
-    <Card className="container  !bg-neutral-surface !rounded-xl !shadow-md !shadow-neutral-border !border-2 !border-neutral-border !p-4">
+    <Card className="container  !bg-neutral-surface !rounded-lg !shadow-md !shadow-neutral-border !border-2 !border-neutral-border !p-4">
       <CardContent className="flex flex-col !h-full !justify-between !pb-4 !space-y-4">
         <div id="title" className="flex justify-between ">
           <Typography className=" !text-neutral-textPrimary !font-bold !text-3xl">
             {courseName}
           </Typography>
-          <Typography className="text-secondary font-medium">
+          <Typography className="text-secondary !font-medium">
             {teacher}
           </Typography>
         </div>
 
         <div id="progress">
-          <Typography className="text-secondary mb-1 flex justify-between !text-base">
+          <Typography className="text-secondary mb-1 flex justify-between !text-base !font-medium">
             <h1>Progress</h1>
             {progress}%
           </Typography>
           <LinearProgress
             variant="determinate"
             value={progress}
-            className="mt-2 rounded-lg !h-2"
+            className="mt-2 rounded-lg !h-2 !font-medium"
             color="primary"
           />
         </div>
 
-        <div id="icons" className="">
-          <div>
-            <Chip
-              icon={<CalendarTodayIcon className="!text-neutral-textMedium" />}
-              label={days.map((day, index) => (
-                <span key={index}>
-                  {day} {index !== days.length - 1 ? "," : " "}
-                </span>
-              ))}
-              className="!bg-neutral-surface !text-secondary !text-base"
-            />
+        <div className="flex justify-between items-end !font-medium">
+          <div id="icons" className="">
+            <div>
+              <Chip
+                icon={
+                  <CalendarTodayIcon className="!text-neutral-textMedium " />
+                }
+                label={days.map((day, index) => (
+                  <span key={index}>
+                    {day} {index !== days.length - 1 ? "," : " "}
+                  </span>
+                ))}
+                className="!bg-neutral-surface !text-secondary !text-base"
+              />
+            </div>
+
+            <div>
+              <Chip
+                icon={<QueryBuilderIcon className="!text-neutral-textMedium" />}
+                label={
+                  <h1>
+                    {startTime} - {endTime}
+                  </h1>
+                }
+                className="!bg-neutral-surface !text-secondary !text-base"
+              />
+            </div>
+
+            <div>
+              <Chip
+                icon={<PlaceIcon className="!text-neutral-textMedium" />}
+                label={classroom}
+                className="!bg-neutral-surface !text-secondary !text-base"
+              />
+            </div>
           </div>
 
-          <div>
-            <Chip
-              icon={<QueryBuilderIcon className="!text-neutral-textMedium" />}
-              label={
-                <h1>
-                  {startTime} - {endTime}
-                </h1>
-              }
-              className="!bg-neutral-surface !text-secondary !text-base"
-            />
-          </div>
+          <div id="button" className="flex justify-end items-center ">
+            {console.log("this is the course Id", courseId)}
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() =>
+                navigate(`/course-details/${courseId}/announcements`)
+              } // Navigate to course details page
+              className="!text-neutral-surface"
+            >
+              Go to Course
+            </Button>
 
-          <div>
-            <Chip
-              icon={<PlaceIcon className="!text-neutral-textMedium" />}
-              label={classroom}
-              className="!bg-neutral-surface !text-secondary !text-base"
-            />
-          </div>
-        </div>
-
-        <div id="button" className="flex justify-end items-center ">
-          {console.log("this is the course Id", courseId)}
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() =>
-              navigate(`/course-details/${courseId}/announcements`)
-            } // Navigate to course details page
-            className="!text-neutral-surface"
-          >
-            Go to Course
-          </Button>
-
-          {/* Conditional Rendering for Download Certificate
+            {/* Conditional Rendering for Download Certificate
           {progress === 100 && (
             <IconButton onClick={onDownload} title="Download Certificate">
               <DownloadIcon className="text-primary" />
             </IconButton>
           )} */}
+          </div>
         </div>
       </CardContent>
     </Card>

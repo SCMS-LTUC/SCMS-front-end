@@ -8,15 +8,22 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import PropTypes from "prop-types";
+import Chip from "@mui/material/Chip";
+// import { constrainPoint } from "@fullcalendar/core/internal";
 
 StickyHeadTable.propTypes = {
   students: PropTypes.array.isRequired,
+  classAverage: PropTypes.number.isRequired,
 };
-export default function StickyHeadTable({ students }) {
+
+export default function StickyHeadTable({ students, classAverage }) {
+  console.log(classAverage);
   const columns = React.useMemo(
     () => [
       { id: "studentName", label: "Student Name", minWidth: 170 },
-      { id: "averageGrades", label: "Average Grades", minWidth: 100 },
+      { id: "assignments", label: "Assignments", minWidth: 130 },
+      { id: "quizzes", label: "Quizzes", minWidth: 130 },
+      { id: "averageGrades", label: "Average Grades", minWidth: 130 },
     ],
     []
   );
@@ -31,12 +38,11 @@ export default function StickyHeadTable({ students }) {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-
   return (
     <Paper
       sx={{ width: "100%", overflow: "hidden" }}
-      className=" !border-2 !border-neutral-border !text-secondary-dark
-          !shadow-md !shadow-neutral-border !rounded-xl   md: !w-3/5"
+      className="!border-2 !border-neutral-border !text-secondary-dark
+          !shadow-md !shadow-neutral-border !rounded-lg "
     >
       <TableContainer sx={{ maxHeight: 440 }}>
         <Table stickyHeader aria-label="sticky table">
@@ -47,18 +53,29 @@ export default function StickyHeadTable({ students }) {
                   key={column.id}
                   align={column.align}
                   style={{ minWidth: column.minWidth }}
-                  className="!text-primary !font-bold !bg-neutral-background
-                   !text-xl"
+                  className="!text-primary !font-bold !bg-neutral-background !text-xl"
                 >
                   {column.label}
                 </TableCell>
               ))}
+              <TableCell
+                className="!text-primary !font-bold !bg-neutral-background !text-xl"
+                style={{ minWidth: 130 }}
+              >
+                Status
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {students
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
+                const status =
+                  row.averageGrades >= classAverage + 5
+                    ? "Excellent"
+                    : row.averageGrades <= classAverage - 10
+                      ? "Needs Support"
+                      : "On Track";
                 return (
                   <TableRow
                     hover
@@ -71,7 +88,21 @@ export default function StickyHeadTable({ students }) {
                       {row.studentName}
                     </TableCell>
                     <TableCell className="!text-neutral-textMedium !bg-neutral-surface !text-lg">
+                      {row.assignments || "N/A"}%
+                    </TableCell>
+                    <TableCell className="!text-neutral-textMedium !bg-neutral-surface !text-lg">
+                      {row.quizzes || "N/A"}%
+                    </TableCell>
+                    <TableCell className="!text-neutral-textMedium !bg-neutral-surface !text-lg">
                       {row.averageGrades}%
+                    </TableCell>
+                    <TableCell className="!text-neutral-textMedium !bg-neutral-surface !text-lg">
+                      <Chip
+                        // variant="outlined"
+                        // color={status === "Pass" ? "success" : "error"}
+                        label={status}
+                        className={`!text-base ${status === "Needs Support" ? "!bg-red-100 !text-red-700" : status === "Excellent" ? "!bg-green-100 !text-green-700" : "!bg-yellow-100 !text-yellow-700"}`}
+                      />
                     </TableCell>
                   </TableRow>
                 );

@@ -22,7 +22,7 @@ const SummaryDialog = ({ rows, open, onClose }) => {
       maxWidth="md"
       fullWidth
       classes={{
-        paper: "!rounded-xl border-2 border-neutral-textSecondary",
+        paper: "!rounded-lg border-2 border-neutral-textSecondary",
       }}
     >
       <DialogTitle className="!pb-0">
@@ -32,7 +32,7 @@ const SummaryDialog = ({ rows, open, onClose }) => {
       </DialogTitle>
 
       <DialogContent className="!p-6">
-        <Paper className="!border-2 !border-neutral-border !shadow-md !shadow-neutral-border !rounded-xl">
+        <Paper className="!border-2 !border-neutral-border !shadow-md !shadow-neutral-border !rounded-lg">
           <TableContainer className="!max-h-[450px]">
             <Table stickyHeader>
               <TableHead>

@@ -11,10 +11,10 @@ import {
 } from "@mui/material";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
-// import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import EditIcon from "@mui/icons-material/Edit";
-// import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import DeleteIcon from "@mui/icons-material/Delete";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+// import EditIcon from "@mui/icons-material/Edit";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+// import DeleteIcon from "@mui/icons-material/Delete";
 import EditAnnouncementDialog from "./EditAnnouncementDialog"; // Import the dialog component
 import ConfirmDeleteDialog from "../../../Components/Common/ConfirmDeleteDialog";
 
@@ -72,7 +72,7 @@ export default function AnnouncementCard({ title, createdAt, type, content }) {
   };
   return (
     <Card
-      className={`container !bg-neutral-surface !rounded-xl !shadow-md !shadow-neutral-border !border-2 !border-neutral-border !p-4 !border-l-4 ${
+      className={`container !bg-neutral-surface !rounded-lg !shadow-md !shadow-neutral-border !border-2 !border-neutral-border !p-4 !border-l-4 ${
         type === "Important"
           ? "!border-l-accent-error"
           : type === "Notice"
@@ -85,39 +85,21 @@ export default function AnnouncementCard({ title, createdAt, type, content }) {
           <Typography className="flex justify-between !text-neutral-textPrimary !font-bold !text-2xl">
             {title}
             <div id="actions" className="!space-x-3">
-              {/* <IconButton
-                className="hover:!bg-neutral-background"
+              <IconButton
+                className="hover:!bg-neutral-background transition-transform duration-300 ease-in-out transform hover:scale-110 hover:rotate-3"
                 onClick={handleEditClick}
               >
-                <EditIcon
-                  sx={{ fontSize: "28px" }}
-                  className="!text-accent-warning"
-                />
-              </IconButton>
-              <IconButton
-                className="hover:!bg-neutral-background"
-                onClick={handleDeleteDialogOpen}
-              >
-                <DeleteIcon
-                  sx={{ fontSize: "28px" }}
-                  className="!text-accent-error"
-                />
-              </IconButton> */}
-              <IconButton
-                className="hover:bg-neutral-background transition-transform duration-300 ease-in-out transform hover:scale-110 hover:rotate-3"
-                onClick={handleEditClick}
-              >
-                <EditIcon
-                  sx={{ fontSize: "28px" }}
+                <EditOutlinedIcon
+                  sx={{ fontSize: "30px" }}
                   className="text-accent-warning"
                 />
               </IconButton>
               <IconButton
-                className="hover:bg-neutral-background transition-transform duration-300 ease-in-out transform hover:scale-110 hover:rotate-3"
+                className="hover:!bg-neutral-background transition-transform duration-300 ease-in-out transform hover:scale-110 hover:rotate-3"
                 onClick={handleDeleteDialogOpen}
               >
-                <DeleteIcon
-                  sx={{ fontSize: "28px" }}
+                <DeleteOutlineOutlinedIcon
+                  sx={{ fontSize: "30px" }}
                   className="text-accent-error"
                 />
               </IconButton>

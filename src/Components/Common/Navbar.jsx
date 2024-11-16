@@ -19,7 +19,7 @@ const Navbar = ({ isOpen, toggleSidebar }) => {
   return (
     <div className="bg-neutral-surface text-primary p-4 flex  justify-between border-b-2 border-neutral-border !shadow-sm !shadow-neutral-border pl-2">
       {/* Left: Site logo */}
-      <div className="flex items-center space-x-3">
+      <div className="flex items-center ">
         <div>
           {/* handle toggle sidebar */}
           <IconButton

@@ -1,114 +1,134 @@
-import { useState, useEffect } from "react";
-import dayjs from "dayjs";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
-import CalendarDay from "./CalendarDay";
+import "./CalendarStyle.css";
+import FullCalendar from "@fullcalendar/react";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import interactionPlugin from "@fullcalendar/interaction";
+import { useState } from "react";
+import { useEffect } from "react";
+import PostDialog from "./PostTableDialog.jsx";
 
-const calendarStyle = {
-  ".MuiDayPicker-weekContainer": { marginBottom: 1 },
-  ".MuiPickersDay-root": { fontSize: "1.2rem" },
+const rows = [
+  { studentID: 1, fullName: "John Doe" },
+  { studentID: 2, fullName: "Jane Smith" },
+  { studentID: 1, fullName: "John Doe" },
+  { studentID: 2, fullName: "Jane Smith" },
+  { studentID: 1, fullName: "John Doe" },
+  { studentID: 2, fullName: "Jane Smith" },
+  { studentID: 1, fullName: "John Doe" },
+  { studentID: 2, fullName: "Jane Smith" },
+  { studentID: 1, fullName: "John Doe" },
+  { studentID: 2, fullName: "Jane Smith" },
+  { studentID: 1, fullName: "John Doe" },
+  { studentID: 2, fullName: "Jane Smith" },
+];
+const formatDate = (dateString) => {
+  if (!dateString) return "N/A";
+  const date = new Date(dateString);
 
-  "& .MuiDateCalendar-root": {
-    height: "100% !important",
-    maxHeight: "none !important",
-  },
-  "& .MuiPickersLayout-contentWrapper": {
-    height: "100% !important",
-    maxHeight: "none !important",
-  },
-  "& .MuiDayCalendar-monthContainer": {
-    height: "100% !important",
-    maxHeight: "none !important",
-  },
-  "& *": {
-    overflow: "visible !important",
-  },
-  "& .MuiDayCalendar-weekContainer": {
-    justifyContent: "space-around",
-    flex: 1,
-  },
-
-  "& .MuiDayCalendar-header": {
-    justifyContent: "space-around",
-    flex: 1,
-    fontSize: "300px !important",
-  },
-
-  "& .MuiDayCalendar-weekDayLabel": {
-    color: "#3B7A70 !important",
-    // fontSize: "1.2rem !important",
-    fontWeight: 700,
-  },
-
-  "& .MuiPickersCalendarHeader-root": {
-    "& .MuiPickersCalendarHeader-label": {
-      // Target the label containing month/year
-      fontSize: "1.25rem !important",
-      fontWeight: 700,
-    },
-    // Style for the arrow buttons if needed
-    "& .MuiIconButton-root": {
-      transform: "scale(1.2)", // Make arrows bigger
-    },
-  },
-
-  height: "70vh", // 70% of viewport height
-  width: "635px",
+  // Extract the date part in 'YYYY-MM-DD' format
+  return date.toISOString().split("T")[0];
 };
 
-function CalendarWithHighlights() {
-  const lectures = [
-    { id: "1", date: "2024-10-1" },
-    { id: "2", date: "2024-10-3" },
-    { id: "3", date: "2024-10-6" },
-    { id: "4", date: "2024-10-31" },
-    { id: "5", date: "2024-11-4" },
-    { id: "6", date: "2024-11-15" },
-  ];
+const App = () => {
+  const [lectureDates, setLectureDates] = useState([]);
+  const [calendarKey, setCalendarKey] = useState(0);
+  const [postDialogOpen, setPostDialogOpen] = useState(false);
+  const [selectedLectureId, setSelectedLectureId] = useState(null);
 
-  const [selectedMonthLectures, setSelectedMonthLectures] = useState([]);
-  const [selectedDate, setSelectedDate] = useState(dayjs());
+  const handleDialogOpen = (id) => {
+    setSelectedLectureId(id);
+    setPostDialogOpen(true);
+  };
 
-  // Filter dates in the highlightDates list to include only those with the same month and year as selectedMonth
-  const filterDatesByMonthAndYear = (date) => {
-    return lectures.filter(
-      (lecture) =>
-        dayjs(lecture.date).isSame(date, "month") &&
-        dayjs(lecture.date).isSame(date, "year")
-    );
+  const handleDialogClose = () => {
+    setPostDialogOpen(false);
   };
 
   useEffect(() => {
-    setSelectedMonthLectures(filterDatesByMonthAndYear(selectedDate));
-  }, [selectedDate]);
+    //lectures is the data response
+    const lectures = [
+      {
+        LectureId: 1,
+        LectureDate: "2024-11-10T21:09:02.814Z",
+      },
+      {
+        LectureId: 2,
+        LectureDate: "2024-11-12T21:09:02.814Z",
+      },
+      {
+        LectureId: 3,
+        LectureDate: "2024-11-15T21:09:02.814Z",
+      },
+      {
+        LectureId: 4,
+        LectureDate: "2024-11-16T21:09:02.814Z",
+      },
+      {
+        LectureId: 5,
+        LectureDate: "2024-12-20T21:09:02.814Z",
+      },
+    ];
+    const formattedLectures = lectures.map((l, index) => ({
+      date: formatDate(l.LectureDate),
+      title: `Lecture ${index + 1}`,
+      extendedProps: { LectureId: l.LectureId },
+    }));
+    setLectureDates(formattedLectures);
+    setCalendarKey((prevKey) => prevKey + 1); // Force re-render of the calendar
+  }, []);
 
-  const handleMonthChange = (date) => {
-    setSelectedDate(date);
+  const eventClassNames = (event) => {
+    // Apply class to today's event or standard event
+    if (event.isToday) {
+      return ["custom-event"]; // Add custom styles for today’s lecture
+    }
+  };
+
+  const handleEventClick = (clickInfo) => {
+    const date = clickInfo.event.start.toLocaleDateString("en-CA"); // 'en-CA' format is 'YYYY-MM-DD'
+    const today = new Date().toLocaleDateString("en-CA"); // Get today's date in 'YYYY-MM-DD' format
+    const isToday = today === date;
+
+    // Check if the event is `isTodayLecture`
+    if (isToday) {
+      // alert(
+      //   `Clicked on today's lecture: ${clickInfo.event.extendedProps.LectureId}`
+      // );
+      handleDialogOpen(clickInfo.event.extendedProps.LectureId);
+    }
   };
 
   return (
-    <div className="">
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <DateCalendar
-          defaultValue={dayjs()}
-          value={selectedDate}
-          onMonthChange={handleMonthChange}
-          slots={{
-            day: CalendarDay,
-          }}
-          slotProps={{
-            day: {
-              highlightedDays: selectedMonthLectures,
-            },
-          }}
-          className=" !bg-neutral-background !border-2 !border-neutral-border !text-secondary-dark
-          !shadow-md !shadow-neutral-border !rounded-xl !pb-2 "
-          sx={calendarStyle}
+    <div
+      style={{ width: "980px", margin: "0 auto" }}
+      className="!border-2 !border-neutral-border !text-secondary-dark  !shadow-neutral-border !shadow-md !rounded-lg"
+    >
+      <FullCalendar
+        key={calendarKey}
+        plugins={[dayGridPlugin, interactionPlugin]}
+        initialView="dayGridMonth"
+        events={lectureDates} // Highlight lecture dates as events
+        headerToolbar={{
+          left: "title",
+          right: "prev,next",
+          center: "",
+        }}
+        dayCellContent={(info) => {
+          // Render the day number
+          return <div>{info.dayNumberText}</div>;
+        }}
+        eventClassNames={eventClassNames}
+        eventClick={handleEventClick}
+      />
+      <div>
+        <PostDialog
+          rows={rows}
+          open={postDialogOpen}
+          onClose={handleDialogClose}
+          lectureId={selectedLectureId}
         />
-      </LocalizationProvider>
+      </div>
     </div>
   );
-}
+};
 
-export default CalendarWithHighlights;
+export default App;

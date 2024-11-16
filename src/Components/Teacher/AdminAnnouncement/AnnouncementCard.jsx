@@ -39,7 +39,7 @@ export default function AnnouncementCard({ title, createdAt, type, content }) {
 
   return (
     <Card
-      className={` container !bg-neutral-surface !rounded-xl !shadow-md !shadow-neutral-border !border-2 !border-neutral-border !p-4 !border-l-4 ${type === "Important" ? "!border-l-accent-error" : type === "Notice" ? "!border-l-accent-warning" : "!border-l-accent-info"} `}
+      className={` container !bg-neutral-surface !rounded-lg !shadow-md !shadow-neutral-border !border-2 !border-neutral-border !p-4 !border-l-4 ${type === "Important" ? "!border-l-accent-error" : type === "Notice" ? "!border-l-accent-warning" : "!border-l-accent-info"} `}
     >
       <CardContent className=" !h-full !justify-between !pb-4">
         <div id="title" className="space-y-2">
@@ -47,11 +47,11 @@ export default function AnnouncementCard({ title, createdAt, type, content }) {
             {title}
             <Chip
               label={type}
-              className={`${type === "Important" ? "!bg-red-200 !text-red-800" : type === "Notice" ? "!bg-yellow-200 !text-yellow-800" : "!bg-blue-200 !text-blue-800"}  `}
+              className={`${type === "Important" ? "!bg-red-100 !text-red-700" : type === "Notice" ? "!bg-yellow-100 !text-yellow-700" : "!bg-blue-100 !text-blue-700"}  `}
             />
           </Typography>
           <Typography className="!text-neutral-textSecondary !text-sm">
-            {showFullDescription ? content : `${content.substring(0, 100)}...`}
+            {showFullDescription ? content : `${content.substring(0, 300)}...`}
           </Typography>
           {content.length > 100 && (
             <Button

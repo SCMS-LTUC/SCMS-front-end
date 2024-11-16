@@ -41,13 +41,14 @@ export default {
 
         accent: {
           // Completion checkmarks, success messages, passed indicators
-          success: "#48BB78",
+          success: "#22c55e",
           // Deadline reminders, important notes, time-sensitive info
-          warning: "#F6B73C",
+          warning: "#eab308",
           // Error messages, required fields, delete buttons
-          error: "#F56565",
+          error: "#ef4444",
           // Hyperlinks, help tooltips, resource downloads
-          info: "#4299E1",
+          info: "#3b82f6",
+          emphasis: "#a855f7",
         },
       },
       fontFamily: {

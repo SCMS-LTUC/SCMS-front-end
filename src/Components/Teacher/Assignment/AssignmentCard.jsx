@@ -26,7 +26,7 @@ export default function AssignmentCard({
   };
 
   return (
-    <Card className="container !bg-neutral-surface !rounded-xl !shadow-md !shadow-neutral-border !border-2 !border-neutral-border !p-4">
+    <Card className="container !bg-neutral-surface !rounded-lg !shadow-md !shadow-neutral-border !border-2 !border-neutral-border !p-4">
       <CardContent className="flex flex-col !h-full !justify-between !pb-4">
         <div id="title" className="space-y-2">
           <Typography className="!text-neutral-textPrimary !font-bold !text-2xl">

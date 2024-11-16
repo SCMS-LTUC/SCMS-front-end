@@ -59,7 +59,7 @@ export default function Classlist() {
   return (
     <div className="flex flex-col justify-between !p-8">
       <div className="container space-y-6 !mx-auto">
-        <div className="flex justify-between">
+        <div className="flex space-x-16">
           <Typography className="!font-bold !text-3xl !text-neutral-textPrimary">
             Class List
           </Typography>

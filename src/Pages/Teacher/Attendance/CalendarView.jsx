@@ -1,8 +1,8 @@
-import CalendarNew from "../../../Components/Teacher/Attendance/CalendarNew.jsx";
+import Calendar from "../../../Components/Teacher/Attendance/Calendar.jsx";
 import { Divider, Typography, Button } from "@mui/material";
 import { useState } from "react";
 import SummarizeOutlinedIcon from "@mui/icons-material/SummarizeOutlined";
-import SummaryDialog from "../../../Components/Teacher/Attendance/SummaryTable.jsx";
+import SummaryDialog from "../../../Components/Teacher/Attendance/SummaryTableDialog.jsx";
 export default function CalendarView() {
   const [summaryDialogOpen, setSummaryDialogOpen] = useState(false);
 
@@ -52,7 +52,7 @@ export default function CalendarView() {
         <Divider className="!my-4" />
         <div>
           <div className="flex flex-col justify-start space-y-6 w-fit">
-            <CalendarNew />
+            <Calendar />
           </div>
         </div>
         <Divider className="!my-4" />

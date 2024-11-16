@@ -57,12 +57,6 @@ export default function Main() {
         >
           <Route path="announcements" element={<CourseAnnouncements />} />
           <Route path="attendance" element={<CalendarView />} />
-
-          {/* <Route path="attendance" element={<AttendanceLayout />}>
-            <Route index element={<CalendarView />} />
-            <Route path="summary" element={<Summary />} />
-            <Route path=":lectureId/post" element={<PostAttendance />} />
-          </Route> */}
           <Route path="assignments">
             <Route index element={<AssignmentList />} />
             <Route path="create" element={<CreateAssignment />} />

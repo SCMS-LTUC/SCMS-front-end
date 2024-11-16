@@ -88,7 +88,7 @@ export default function StickyHeadTable({ quizzes }) {
   return (
     <Paper
       sx={{ width: "100%", overflow: "hidden" }}
-      className="!border-2 !border-neutral-border !text-secondary-dark !shadow-md !shadow-neutral-border !rounded-xl"
+      className="!border-2 !border-neutral-border !text-secondary-dark !shadow-md !shadow-neutral-border !rounded-lg"
     >
       <TableContainer sx={{ maxHeight: 440 }}>
         <Table stickyHeader aria-label="sticky table">
@@ -142,16 +142,16 @@ export default function StickyHeadTable({ quizzes }) {
                   </TableCell>
                   <TableCell className="!text-neutral-textMedium !bg-neutral-surface !text-lg">
                     <IconButton
-                      className="hover:bg-neutral-background transition-transform duration-300 ease-in-out transform hover:scale-110 hover:rotate-3"
+                      className="hover:!bg-neutral-background transition-transform duration-300 ease-in-out transform hover:scale-110 hover:rotate-3"
                       onClick={() => handleSubmissionClick(row.id)}
                     >
                       <AssignmentOutlinedIcon
                         sx={{ fontSize: "28px" }}
-                        className="text-secondary"
+                        className="text-accent-emphasis"
                       />
                     </IconButton>
                     <IconButton
-                      className="hover:bg-neutral-background transition-transform duration-300 ease-in-out transform hover:scale-110 hover:rotate-3"
+                      className="hover:!bg-neutral-background transition-transform duration-300 ease-in-out transform hover:scale-110 hover:rotate-3"
                       onClick={() => handleEditClick(row.id)}
                     >
                       <EditOutlinedIcon
@@ -160,7 +160,7 @@ export default function StickyHeadTable({ quizzes }) {
                       />
                     </IconButton>
                     <IconButton
-                      className="hover:bg-neutral-background transition-transform duration-300 ease-in-out transform hover:scale-110 hover:rotate-3"
+                      className="hover:!bg-neutral-background transition-transform duration-300 ease-in-out transform hover:scale-110 hover:rotate-3"
                       onClick={handleDeleteDialogOpen}
                     >
                       <DeleteOutlineOutlinedIcon
