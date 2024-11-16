@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchTeacherCourses } from "../../Redux/coursesSlice";
 import { Tabs, Tab, Typography /*IconButton*/ } from "@mui/material";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import Card from "@mui/material/Card";
@@ -12,45 +15,58 @@ import QuizOutlinedIcon from "@mui/icons-material/QuizOutlined";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 // import GradeOutlinedIcon from "@mui/icons-material/GradeOutlined";
 import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
-const CourseDetailsLayout = ({ courseName, teacher }) => {
+const CourseDetailsLayout = () => {
+  const { courseId } = useParams();
   const navigate = useNavigate();
   const Location = useLocation();
+
+  const dispatch = useDispatch();
+  const { teacherCourses, status } = useSelector((state) => state.courses);
+
+useEffect(() => {
+    if (status === "idle") {
+      dispatch(fetchTeacherCourses());
+    }
+  }, [status, dispatch]);
+
+  const course = teacherCourses.find((course) => course.courseId === Number(courseId));
+
   const tabs = [
     {
       key: "announcements",
       text: "Announcements",
       icon: <NotificationsNoneOutlinedIcon />,
-      path: "/course-details/:courseName/announcements",
+      path: `/course-details/${courseId}/announcements`,
     },
     {
       key: "classList",
       text: "Class List",
       icon: <PeopleAltOutlinedIcon />,
-      path: "/course-details/:courseName/classlist",
+      path: `/course-details/${courseId}/classlist`,
     },
     {
       key: "assignments",
       text: "Assignments",
       icon: <AssignmentOutlinedIcon />,
-      path: "/course-details/:courseName/assignments",
+      path: `/course-details/${courseId}/assignments`,
     },
     {
       key: "quizzes",
       text: "Quizzes",
       icon: <QuizOutlinedIcon />,
-      path: "/course-details/:courseName/quizzes",
+      path: `/course-details/${courseId}/quizzes`,
     },
     {
       key: "grades",
       text: "Grades",
       icon: <SchoolOutlinedIcon />,
-      path: "/course-details/:courseName/grades",
+      path: `/course-details/${courseId}/grades`,
     },
     {
       key: "attendance",
       text: "Attendance",
       icon: <CalendarTodayOutlinedIcon />,
-      path: "/course-details/:courseName/attendance/",
+      path: `/course-details/${courseId}/attendance/`,
     },
   ];
   function getInitialTab() {
@@ -75,10 +91,10 @@ const CourseDetailsLayout = ({ courseName, teacher }) => {
       <Card className="p-6 !h-auto container !mx-auto !w-full !bg-neutral-surface !rounded-xl !shadow-md !shadow-neutral-border !border-2 !border-neutral-border ">
         <CardContent className=" !border-b-2 !border-neutral-border">
           <Typography className="!font-bold mb-2 text-neutral-textPrimary !text-4xl">
-            {courseName || "Web Development"}
+            {course.subjectName || "Course Name"}
           </Typography>
           <Typography className="text-neutral-textSecondary !text-base">
-            Instructor: {teacher || "Dr. Ahmad Samhan"}
+            Instructor: {course.teacherName || "Unknown Teacher"}
           </Typography>
         </CardContent>
 
