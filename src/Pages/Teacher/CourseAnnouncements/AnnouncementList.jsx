@@ -1,34 +1,58 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchCourseAnnouncements } from '../../../Redux/announcementsSlice';
 import { Typography, Divider, Button, TablePagination } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import AnnouncementCard from "../../../Components/Teacher/CourseAnnouncement/AnnouncementCard";
 import NewAnnouncementDialog from "../../../Components/Teacher/CourseAnnouncement/NewAnnouncementDialog";
+
 export default function AnnouncementList() {
+  const { courseId } = useParams();
+  const dispatch = useDispatch();
+  const { announcements, status, error } = useSelector((state) => state.announcements);
+
+  useEffect(() => {
+    if (status === "idle") {
+      dispatch(fetchCourseAnnouncements(courseId));
+    }
+  }, [status, dispatch, courseId]);
+
+  console.log(announcements);
+
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [newDialogOpen, setNewDialogOpen] = useState(false);
 
-  const announcements = [
-    {
-      title: "Announcement 1",
-      createdAt: "2024-11-10T21:09:02.814Z",
-      type: "Important",
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    },
-    {
-      title: "Announcement 2",
-      createdAt: "2024-11-10T21:09:02.814Z",
-      type: "Notice",
-      content: "Description for Announcement 2",
-    },
-    {
-      title: "Announcement 3",
-      createdAt: "2024-11-10T21:09:02.814Z",
-      type: "Info",
-      content: "Description for Announcement 2",
-    },
-  ];
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
+  
+  if (status === "failed") {
+    return <div>Error: {error}</div>;
+  }
+
+  // const announcements = [
+  //   {
+  //     title: "Announcement 1",
+  //     createdAt: "2024-11-10T21:09:02.814Z",
+  //     type: "Important",
+  //     content:
+  //       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+  //   },
+  //   {
+  //     title: "Announcement 2",
+  //     createdAt: "2024-11-10T21:09:02.814Z",
+  //     type: "Notice",
+  //     content: "Description for Announcement 2",
+  //   },
+  //   {
+  //     title: "Announcement 3",
+  //     createdAt: "2024-11-10T21:09:02.814Z",
+  //     type: "Info",
+  //     content: "Description for Announcement 2",
+  //   },
+  // ];
 
   //handlers
   const handleChangePage = (event, newPage) => {

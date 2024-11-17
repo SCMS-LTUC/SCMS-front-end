@@ -81,10 +81,8 @@ export default function Main() {
           <Route path="classlist" element={<Classlist />} />
           <Route path="grades" element={<Grades />} />
         </Route>
-        <Route
-          path="/announcements"
-          element={<Announcements announcements={announcements} />}
-        />
+
+        <Route path="/announcements" element={<Announcements />} />
         <Route path="/discover" element={<Discover />} />
         <Route
           path="/schedule"

@@ -1,29 +1,49 @@
-import { BrowserRouter as Router } from "react-router-dom";
+﻿import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
+import { Provider, useSelector } from "react-redux";
 import theme from "./Config/muiTheme";
 import Teacher from "./Pages/Teacher/Main";
 import Student from "./Pages/Student/Main";
 import Admin from "./Pages/Admin/Main";
+import Login from "./Pages/Login/Login"; // Import Login component
+import ProtectedRoute from "./Components/Common/ProtectedRoute";
+import store from "./Redux/Store"; // Import your Redux store
 
-const role = "student";
-const renderComponents = (role) => {
+const App = () => {
+  return (
+    <Provider store={store}>
+      <Router>
+        <ThemeProvider theme={theme}>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route
+              path="/*"
+              element={
+                <ProtectedRoute>
+                  <RoleBasedComponent />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </ThemeProvider>
+      </Router>
+    </Provider>
+  );
+};
+
+const RoleBasedComponent = () => {
+  const role = useSelector((state) => state.user.role);
+
   switch (role) {
-    case "teacher":
+    case "Teacher":
       return <Teacher />;
     case "student":
       return <Student />;
     case "admin":
       return <Admin />;
     default:
-      return;
+      return null;
   }
-};
-const App = () => {
-  return (
-    <Router>
-      <ThemeProvider theme={theme}>{renderComponents(role)}</ThemeProvider>
-    </Router>
-  );
 };
 
 export default App;

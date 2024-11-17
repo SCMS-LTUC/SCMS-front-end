@@ -91,12 +91,11 @@ const InfoCard = ({
           </div>
 
           <div id="button" className="flex justify-end items-center ">
-            {console.log("this is the course Id", courseId)}
             <Button
               variant="contained"
               color="primary"
               onClick={() =>
-                navigate(`/course-details/${courseId}/announcements`)
+                navigate(`/course-details/${courseName}/announcements`)
               } // Navigate to course details page
               className="!text-neutral-surface"
             >
@@ -117,7 +116,7 @@ const InfoCard = ({
 };
 
 InfoCard.propTypes = {
-  courseId: PropTypes.number.isRequired,
+  courseId: PropTypes.string.isRequired, // courseId should be a required string
   courseName: PropTypes.string.isRequired, // courseName should be a required string
   teacher: PropTypes.string.isRequired, // teacher should be a required string
   progress: PropTypes.number.isRequired, // progress should be a required number
