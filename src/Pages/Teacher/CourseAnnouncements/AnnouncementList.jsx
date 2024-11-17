@@ -18,6 +18,8 @@ export default function AnnouncementList() {
     }
   }, [status, dispatch, courseId]);
 
+  console.log(announcements);
+
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [newDialogOpen, setNewDialogOpen] = useState(false);

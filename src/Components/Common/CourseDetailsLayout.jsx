@@ -91,7 +91,7 @@ useEffect(() => {
       <Card className="p-6 !h-auto container !mx-auto !w-full !bg-neutral-surface !rounded-xl !shadow-md !shadow-neutral-border !border-2 !border-neutral-border ">
         <CardContent className=" !border-b-2 !border-neutral-border">
           <Typography className="!font-bold mb-2 text-neutral-textPrimary !text-4xl">
-            {course.subjectName || "Course Name"}
+            {course.className || "Course Name"}
           </Typography>
           <Typography className="text-neutral-textSecondary !text-base">
             Instructor: {course.teacherName || "Unknown Teacher"}

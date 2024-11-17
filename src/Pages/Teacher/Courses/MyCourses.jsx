@@ -89,7 +89,7 @@ const MyCourses = () => {
             <InfoCard
               courseId={course.courseId}
               key={index}
-              courseName={course.subjectName}
+              courseName={course.className}
               teacher={course.teacherName}
               progress={course.progress || 0}
               classroom={course.classroomNumber}

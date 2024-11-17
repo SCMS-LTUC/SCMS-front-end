@@ -1,16 +1,21 @@
 // src/Redux/announcementsSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import axios from '../Api/BaseUrl';
 
 // Async thunk to fetch announcements for a specific course
 export const fetchCourseAnnouncements = createAsyncThunk(
   'announcements/fetchCourseAnnouncements',
   async (courseId, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`/Announcement/Course/${courseId}`);
-      
+      const response = await axios.get(`/Announcement/Course/${courseId}`, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+        }
+      );
       // Assuming the API returns an array of announcements
-      return response.data;
+        console.log('Announcements:', response.data.$values); // Debug: Log the fetched announcements
+      return response.data.$values;
     } catch (error) {
       // Return a rejected promise with error message for better error handling
       return rejectWithValue(error.response.data || 'Failed to fetch announcements.');
