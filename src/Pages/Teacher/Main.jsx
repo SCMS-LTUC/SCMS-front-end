@@ -25,7 +25,7 @@ import CampaignIcon from "@mui/icons-material/Campaign";
 import HomeIcon from "@mui/icons-material/Home";
 
 //data
-import { announcements, scheduleCourses } from "../../Logic/Teacher/Data";
+import { scheduleCourses } from "../../Logic/Teacher/Data";
 
 const menuItems = [
   {

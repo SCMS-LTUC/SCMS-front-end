@@ -95,7 +95,7 @@ const InfoCard = ({
               variant="contained"
               color="primary"
               onClick={() =>
-                navigate(`/course-details/${courseName}/announcements`)
+                navigate(`/course-details/${courseId}/announcements`)
               } // Navigate to course details page
               className="!text-neutral-surface"
             >
