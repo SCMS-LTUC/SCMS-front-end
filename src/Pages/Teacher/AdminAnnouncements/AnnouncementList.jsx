@@ -3,38 +3,17 @@ import { Typography, Divider, Button } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import AnnouncementCard from "../../../Components/Teacher/AdminAnnouncement/AnnouncementCard";
+import PropTypes from "prop-types";
 
-export default function AdminAnnouncementList() {
+export default function AdminAnnouncementList({ announcements }) {
   const [visibleAssignments, setVisibleAssignments] = useState(5);
 
   const loadMoreAssignments = () => {
     setVisibleAssignments((prev) => prev + 5);
   };
 
-  const announcements = [
-    {
-      title: "Announcement 1",
-      createdAt: "2024-11-10T21:09:02.814Z",
-      type: "Important",
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    },
-    {
-      title: "Announcement 2",
-      createdAt: "2024-11-10T21:09:02.814Z",
-      type: "Notice",
-      content: "Description for Announcement 2",
-    },
-    {
-      title: "Announcement 3",
-      createdAt: "2024-11-10T21:09:02.814Z",
-      type: "Info",
-      content: "Description for Announcement 2",
-    },
-  ];
-
   return (
-    <div className="p-6">
+    <div className="">
       <Card className="!p-4  !h-auto container !mx-auto !bg-neutral-surface !rounded-lg !shadow-md !shadow-neutral-border !border-2 !border-neutral-border">
         <CardContent>
           <div className="">
@@ -77,3 +56,6 @@ export default function AdminAnnouncementList() {
     </div>
   );
 }
+AdminAnnouncementList.propTypes = {
+  announcements: PropTypes.array.isRequired,
+};

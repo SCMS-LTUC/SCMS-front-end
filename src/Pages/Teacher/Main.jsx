@@ -24,6 +24,9 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import CampaignIcon from "@mui/icons-material/Campaign";
 import HomeIcon from "@mui/icons-material/Home";
 
+//data
+import { announcements, scheduleCourses } from "../../Logic/Teacher/Data";
+
 const menuItems = [
   {
     text: "My Courses",
@@ -78,9 +81,15 @@ export default function Main() {
           <Route path="classlist" element={<Classlist />} />
           <Route path="grades" element={<Grades />} />
         </Route>
-        <Route path="/announcements" element={<Announcements />} />
+        <Route
+          path="/announcements"
+          element={<Announcements announcements={announcements} />}
+        />
         <Route path="/discover" element={<Discover />} />
-        <Route path="/schedule" element={<Schedule />} />
+        <Route
+          path="/schedule"
+          element={<Schedule scheduleCourses={scheduleCourses} />}
+        />
         <Route path="/colorpalette" element={<MainNotification />} />
       </Routes>
     </Layout>

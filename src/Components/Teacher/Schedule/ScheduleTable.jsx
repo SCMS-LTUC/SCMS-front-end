@@ -12,61 +12,9 @@ import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined
 import DateRangeOutlinedIcon from "@mui/icons-material/DateRangeOutlined";
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import GridViewOutlinedIcon from "@mui/icons-material/GridViewOutlined";
-
+import PropTypes from "prop-types";
 // rows is the response data = current courses
-const rows = {
-  $id: "1",
-  $values: [
-    {
-      $id: "2",
-      teacherName: "John Doe",
-      subjectName: "Data Structures",
-      startDate: "2024-09-05T00:00:00",
-      endDate: "2024-12-15T00:00:00",
-      startTime: "10:00:00",
-      endTime: "12:00:00",
-      days: {
-        $id: "3",
-        $values: ["Tuesday", "Thursday"],
-      },
-      className: "Data Structures",
-      capacity: 150,
-      classroomNumber: "2B",
-    },
-    {
-      $id: "4",
-      teacherName: "Jane Smith",
-      subjectName: "Mathematics",
-      startDate: "2024-09-10T00:00:00",
-      endDate: "2024-12-20T00:00:00",
-      startTime: "14:00:00",
-      endTime: "16:00:00",
-      days: {
-        $id: "5",
-        $values: ["Monday", "Friday"],
-      },
-      className: "Mathematics",
-      capacity: 100,
-      classroomNumber: "3C",
-    },
-    {
-      $id: "6",
-      teacherName: "Alice Brown",
-      subjectName: "Physics",
-      startDate: "2024-09-15T00:00:00",
-      endDate: "2024-12-25T00:00:00",
-      startTime: "09:00:00",
-      endTime: "11:30:00",
-      days: {
-        $id: "7",
-        $values: ["Wednesday", "Saturday"],
-      },
-      className: "Physics",
-      capacity: 120,
-      classroomNumber: "4D",
-    },
-  ],
-};
+
 const formattedData = (course) => {
   const formatTime = (time) => {
     let [hour, minute] = time.split(":");
@@ -140,7 +88,7 @@ const formattedData = (course) => {
 //     </TableContainer>
 //   );
 // }
-export default function Schedule() {
+export default function Schedule({ scheduleCourses }) {
   const columns = React.useMemo(
     () => [
       {
@@ -201,7 +149,7 @@ export default function Schedule() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.$values.map((row) => {
+            {scheduleCourses.$values.map((row) => {
               const data = formattedData(row);
               return (
                 <TableRow
@@ -235,3 +183,7 @@ export default function Schedule() {
     </Paper>
   );
 }
+
+Schedule.propTypes = {
+  scheduleCourses: PropTypes.object,
+};

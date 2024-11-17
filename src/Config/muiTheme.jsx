@@ -40,6 +40,12 @@ const theme = createTheme({
     error: {
       main: "#F56565",
     },
+    toggleButton: {
+      main: "#E65D2E",
+    },
+    textMedium: {
+      main: "#4F5C6F",
+    },
   },
 });
 export default theme;

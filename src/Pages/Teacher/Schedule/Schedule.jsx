@@ -3,9 +3,10 @@ import { Typography, Divider } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import ScheduleTable from "../../../Components/Teacher/Schedule/ScheduleTable";
-export default function Schedule() {
+import PropTypes from "prop-types";
+export default function Schedule({ scheduleCourses }) {
   return (
-    <div className="p-6">
+    <div className="">
       <Card className="!p-4 !h-auto container !mx-auto !bg-neutral-surface !rounded-lg !shadow-md !shadow-neutral-border !border-2 !border-neutral-border">
         <CardContent>
           <div className="">
@@ -20,12 +21,7 @@ export default function Schedule() {
         <CardContent>
           <div>
             <div className="flex flex-col justify-start space-y-6">
-              {/* {announcements
-                .slice(0, visibleAssignments)
-                .map((announcment, index) => (
-                  <AnnouncementCard key={index} {...announcment} />
-                ))} */}
-              <ScheduleTable />
+              <ScheduleTable scheduleCourses={scheduleCourses} />
             </div>
           </div>
         </CardContent>
@@ -35,3 +31,6 @@ export default function Schedule() {
     </div>
   );
 }
+Schedule.propTypes = {
+  scheduleCourses: PropTypes.object,
+};
