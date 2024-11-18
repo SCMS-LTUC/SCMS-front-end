@@ -54,7 +54,7 @@ export default function StickyHeadTable({ students, classAverage }) {
                   key={column.id}
                   align={column.align}
                   style={{ minWidth: column.minWidth }}
-                  className="!text-primary !font-bold !bg-neutral-background !text-xl"
+                  className="!text-primary-dark !font-bold !bg-neutral-background !text-xl"
                 >
                   {column.label}
                 </TableCell>

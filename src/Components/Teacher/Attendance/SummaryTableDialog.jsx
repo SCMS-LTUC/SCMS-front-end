@@ -37,11 +37,11 @@ const SummaryDialog = ({ rows, open, onClose }) => {
             <Table stickyHeader>
               <TableHead>
                 <TableRow>
-                  <TableCell className="!text-primary !font-bold !bg-neutral-background !text-xl !w-3/5">
+                  <TableCell className="!text-primary-dark !font-bold !bg-neutral-background !text-xl !w-3/5">
                     Student Name
                   </TableCell>
                   <TableCell
-                    className="!text-primary !font-bold !bg-neutral-background !mx-auto !text-xl !w-2/5"
+                    className="!text-primary-dark !font-bold !bg-neutral-background !mx-auto !text-xl !w-2/5"
                     align="center"
                   >
                     Absence Rate

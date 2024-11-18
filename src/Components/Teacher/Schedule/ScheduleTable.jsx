@@ -42,52 +42,6 @@ const formattedData = (course) => {
   };
 };
 
-// export default function Schedule() {
-//   const columns = React.useMemo(
-//     () => [
-//       { id: "courseName", label: "Course Name", minWidth: 200 },
-//       { id: "datePeriod", label: "Date Period", minWidth: 200 },
-//       { id: "days", label: "Days", minWidth: 200 },
-//       { id: "time", label: "Time", minWidth: 200 },
-//       { id: "classroom", label: "Classroom", minWidth: 100 },
-//     ],
-//     []
-//   );
-//   console.log(columns);
-//   return (
-//     <TableContainer component={Paper}>
-//       <Table sx={{ minWidth: 650 }} aria-label="simple table">
-//         <TableHead>
-//           <TableRow>
-//             {columns.map((column) => (
-//               <TableCell
-//                 key={column.id}
-//                 align={column.align}
-//                 style={{ minWidth: column.minWidth }}
-//               >
-//                 {column.label}
-//               </TableCell>
-//             ))}
-//           </TableRow>
-//         </TableHead>
-//         <TableBody>
-//           {rows.$values.map((row) => {
-//             const data = formattedData(row);
-//             return (
-//               <TableRow hover role="checkbox" tabIndex={-1} key={uuidv4()}>
-//                 <TableCell>{data.courseName}</TableCell>
-//                 <TableCell>{data.datePeriod}</TableCell>
-//                 <TableCell>{data.days}</TableCell>
-//                 <TableCell>{data.time}</TableCell>
-//                 <TableCell>{data.classroom}</TableCell>{" "}
-//               </TableRow>
-//             );
-//           })}
-//         </TableBody>
-//       </Table>
-//     </TableContainer>
-//   );
-// }
 export default function Schedule({ scheduleCourses }) {
   const columns = React.useMemo(
     () => [
@@ -138,7 +92,7 @@ export default function Schedule({ scheduleCourses }) {
                 <TableCell
                   key={column.id}
                   style={{ minWidth: column.minWidth }}
-                  className="!text-primary !font-bold !bg-neutral-background !text-xl"
+                  className="!text-primary-dark !font-bold !bg-neutral-background !text-xl"
                 >
                   <div className="flex items-center gap-2">
                     {column.icon}

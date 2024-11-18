@@ -1,22 +1,23 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchCourseAnnouncements } from '../../../Redux/announcementsSlice';
+import { useSelector, useDispatch } from "react-redux";
+import { fetchCourseAnnouncements } from "../../../Redux/announcementsSlice";
 import { Typography, Divider, Button, TablePagination } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import AnnouncementCard from "../../../Components/Teacher/CourseAnnouncement/AnnouncementCard";
 import NewAnnouncementDialog from "../../../Components/Teacher/CourseAnnouncement/NewAnnouncementDialog";
-
 export default function AnnouncementList() {
   const { courseId } = useParams();
   const dispatch = useDispatch();
-  const { announcements, status, error } = useSelector((state) => state.announcements);
-
+  const { announcements, status, error } = useSelector(
+    (state) => state.announcements
+  );
   useEffect(() => {
-    if (status === "idle") {
-      dispatch(fetchCourseAnnouncements(courseId));
-    }
-  }, [status, dispatch, courseId]);
+    // if (status === "idle") {
+    //   dispatch(fetchCourseAnnouncements(courseId));
+    // }
+    dispatch(fetchCourseAnnouncements(courseId));
+  }, [dispatch, courseId]);
 
   console.log(announcements);
 
@@ -27,7 +28,7 @@ export default function AnnouncementList() {
   if (status === "loading") {
     return <div>Loading...</div>;
   }
-  
+
   if (status === "failed") {
     return <div>Error: {error}</div>;
   }

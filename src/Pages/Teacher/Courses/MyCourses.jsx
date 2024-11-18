@@ -1,64 +1,15 @@
-// import { useNavigate } from "react-router-dom";
-// import InfoCard from "../../../Components/Teacher/Courses/CourseCard.jsx";
-// // import { Box } from "@mui/material";
-// const MyCourses = () => {
-//   const navigate = useNavigate();
-
-//   const navigateToCourse = (path) => navigate(path);
-
-//   return (
-//     <div className="p-6">
-//       {/* <h1 className="text-3xl font-bold mb-4 text-primary">My Courses</h1> */}
-
-//       <div className="container !w-4/6 mx-auto space-y-8">
-//         {inProgressCourses.map((course, index) => (
-//           <InfoCard
-//             courseId={course.courseId}
-//             key={index}
-//             courseName={course.courseName}
-//             teacher={course.teacher}
-//             progress={course.progress}
-//             date={course.date}
-//             classroom={course.classroom}
-//             startTime={course.startTime}
-//             endTime={course.endTime}
-//             days={course.days}
-//             onNavigate={() =>
-//               navigateToCourse(
-//                 `/courses/${course.courseName.toLowerCase().replace(/ /g, "-")}`
-//               )
-//             }
-//           />
-//         ))}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default MyCourses;
-
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchTeacherCourses } from "../../../Redux/coursesSlice.js";
 import { useState } from "react";
 import { TablePagination } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import InfoCard from "../../../Components/Teacher/Courses/CourseCard.jsx";
-
+import { useAllCourses } from "../../../Logic/Teacher/useAllCourses.jsx";
 const MyCourses = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { teacherCourses, status, error } = useSelector(
-    (state) => state.courses
-  );
+
+  const { teacherCourses, status, error } = useAllCourses();
+
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-
-  useEffect(() => {
-    if (status === "idle") {
-      dispatch(fetchTeacherCourses());
-    }
-  }, [status, dispatch]);
 
   if (status === "loading") {
     return <div>Loading...</div>;

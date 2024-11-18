@@ -80,7 +80,7 @@ export default function StickyHeadTable({ rows }) {
                   align={column.align}
                   style={{ minWidth: column.minWidth }}
                   // className="!text-secondary-dark !font-bold !bg-neutral-background !text-xl"
-                  className="!text-primary !font-bold !bg-neutral-background
+                  className="!text-primary-dark !font-bold !bg-neutral-background
                    !text-xl"
                 >
                   {column.label}

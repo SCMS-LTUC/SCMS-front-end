@@ -37,9 +37,9 @@ const RoleBasedComponent = () => {
   switch (role) {
     case "Teacher":
       return <Teacher />;
-    case "student":
+    case "Student":
       return <Student />;
-    case "admin":
+    case "Admin":
       return <Admin />;
     default:
       return null;

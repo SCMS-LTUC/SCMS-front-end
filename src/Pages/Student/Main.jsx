@@ -1,4 +1,5 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 //menu items
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import CampaignIcon from "@mui/icons-material/Campaign";
@@ -36,6 +37,11 @@ const menuItems = [
   },
 ];
 export default function Main() {
+  const location = useLocation();
+  useEffect(() => {
+    // Perform some logic when the route changes
+    console.log("Route changed to", location.pathname);
+  }, [location.pathname]);
   return (
     <Layout menuItems={menuItems}>
       <Routes>

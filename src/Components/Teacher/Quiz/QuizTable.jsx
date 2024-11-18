@@ -99,7 +99,7 @@ export default function StickyHeadTable({ quizzes }) {
                   key={column.id}
                   style={{ minWidth: column.minWidth }}
                   // className="!text-secondary-dark !font-bold !bg-neutral-background !text-xl"
-                  className="!text-primary !font-bold !bg-neutral-background
+                  className="!text-primary-dark !font-bold !bg-neutral-background
                    !text-xl"
                 >
                   {column.label}

@@ -94,6 +94,7 @@ const InfoCard = ({
             <Button
               variant="contained"
               color="primary"
+              to={`/course-details/${courseId}/announcements`}
               onClick={() =>
                 navigate(`/course-details/${courseId}/announcements`)
               } // Navigate to course details page

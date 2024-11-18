@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchTeacherCourses } from "../../Redux/coursesSlice";
-import { Tabs, Tab, Typography /*IconButton*/ } from "@mui/material";
+import { Tabs, Tab, Typography } from "@mui/material";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -13,25 +11,18 @@ import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNone
 import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 import QuizOutlinedIcon from "@mui/icons-material/QuizOutlined";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
-// import GradeOutlinedIcon from "@mui/icons-material/GradeOutlined";
 import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
+import { useCourse } from "../../Logic/Teacher/useAllCourses";
+
 const CourseDetailsLayout = () => {
   const { courseId } = useParams();
   const navigate = useNavigate();
-  const Location = useLocation();
+  const location = useLocation();
 
-  const dispatch = useDispatch();
-  const { teacherCourses, status } = useSelector((state) => state.courses);
-
-  useEffect(() => {
-    if (status === "idle") {
-      dispatch(fetchTeacherCourses());
-    }
-  }, [status, dispatch]);
-
-  const course = teacherCourses.find(
-    (course) => course.courseId === Number(courseId)
-  );
+  // data fetching
+  const { course, status, error, loading } = useCourse(courseId);
+  console.log("this is the teacher course", course);
+  console.log("this is the status", status);
 
   const tabs = [
     {
@@ -71,12 +62,34 @@ const CourseDetailsLayout = () => {
       path: `/course-details/${courseId}/attendance/`,
     },
   ];
+  const [value, setValue] = useState(getInitialTab());
+
   function getInitialTab() {
-    const currentPath = Location.pathname;
+    const currentPath = location.pathname;
     const currentTab = tabs.find((tab) => currentPath.includes(tab.path));
     return currentTab ? currentTab.key : tabs[0].key;
   }
-  const [value, setValue] = useState(getInitialTab());
+  useEffect(() => {
+    setValue(getInitialTab());
+  }, [location.pathname]);
+
+  useEffect(() => {
+    if (!courseId) {
+      navigate("/");
+      return;
+    }
+  }, [courseId, navigate]);
+
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
+
+  if (status === "failed") {
+    if (error === "Request failed with status code 401") {
+      navigate("/login");
+    }
+    return <div>{error}</div>;
+  }
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -84,12 +97,9 @@ const CourseDetailsLayout = () => {
     if (selectedTab) navigate(selectedTab.path);
   };
 
-  useEffect(() => {
-    setValue(getInitialTab());
-  }, [Location.pathname]);
-
   return (
     <div className="">
+      {loading && <div>Loading...</div>}
       <Card className="p-6 !h-auto container !mx-auto !w-full !bg-neutral-surface !rounded-lg !shadow-md !shadow-neutral-border !border-2 !border-neutral-border ">
         <CardContent className=" !border-b-2 !border-neutral-border">
           <Typography className="!font-bold mb-2 text-neutral-textPrimary !text-4xl">

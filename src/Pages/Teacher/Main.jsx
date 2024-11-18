@@ -1,4 +1,5 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 import Layout from "../../Components/Common/Layout";
 import GradeSubmission from "../Teacher/Assignments/GradeSubmission";
 import AssignmentList from "../Teacher/Assignments/AssignmentList";
@@ -25,7 +26,7 @@ import CampaignIcon from "@mui/icons-material/Campaign";
 import HomeIcon from "@mui/icons-material/Home";
 
 //data
-import { scheduleCourses } from "../../Logic/Teacher/Data";
+import { scheduleCourses, announcements } from "../../Logic/Teacher/Data";
 
 const menuItems = [
   {
@@ -46,6 +47,12 @@ const menuItems = [
 ];
 
 export default function Main() {
+  const location = useLocation();
+  useEffect(() => {
+    // Perform some logic when the route changes
+    console.log("Route changed to", location.pathname);
+  }, [location.pathname]);
+
   return (
     <Layout menuItems={menuItems}>
       <Routes>
@@ -82,7 +89,10 @@ export default function Main() {
           <Route path="grades" element={<Grades />} />
         </Route>
 
-        <Route path="/announcements" element={<Announcements />} />
+        <Route
+          path="/announcements"
+          element={<Announcements announcements={announcements} />}
+        />
         <Route path="/discover" element={<Discover />} />
         <Route
           path="/schedule"
