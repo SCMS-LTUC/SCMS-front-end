@@ -15,7 +15,12 @@ const NotificationSnackbar = ({ open, onClose, message, type }) => {
       onClose={onClose}
       anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
     >
-      <Alert onClose={onClose} severity={type} sx={{ width: "100%" }}>
+      <Alert
+        onClose={onClose}
+        severity={type}
+        sx={{ width: "100%" }}
+        className="!text-base"
+      >
         {message}
       </Alert>
     </Snackbar>

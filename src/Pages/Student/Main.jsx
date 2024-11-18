@@ -7,12 +7,13 @@ import HomeIcon from "@mui/icons-material/Home";
 import AutoStoriesIcon from "@mui/icons-material/AutoStories";
 //components
 import Layout from "../../Components/Common/Layout";
-import AdminAnnouncements from "../Teacher/AdminAnnouncements/AnnouncementList";
-import Schedule from "../Teacher/Schedule/Schedule";
+import AdminAnnouncements from "./AdminAnnouncements/AnnouncementsList";
+import Schedule from "./Schedule/Schedule";
 import CoursesLayout from "../../Components/Student/Courses/CoursesLayout";
 import CurrentCourses from "./Courses/CurrentCourses";
 import CompletedCourses from "./Courses/CompletedCourses";
-// data
+import CourseDetailsLayout from "../../Components/Student/Courses/CourseDetailsLayout";
+// data example
 import { announcements, scheduleCourses } from "../../Logic/Student/Data";
 const menuItems = [
   {
@@ -56,6 +57,15 @@ export default function Main() {
         <Route path="/" element={<CoursesLayout />}>
           <Route index element={<CurrentCourses />} />
           <Route path="/completed" element={<CompletedCourses />} />
+        </Route>
+        <Route
+          path="/course-details/:courseId"
+          element={<CourseDetailsLayout />}
+        >
+          <Route
+            path="announcements"
+            element={<AdminAnnouncements announcements={announcements} />}
+          />
         </Route>
       </Routes>
     </Layout>

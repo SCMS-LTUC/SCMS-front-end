@@ -1,21 +1,18 @@
-import { useState } from "react";
-import NotificationSnackbar from "./NotificationDialog";
+import { useDispatch, useSelector } from "react-redux";
+import { showSnackbar, hideSnackbar } from "../../Redux/SnackbarSlice";
+import NotificationSnackbar from "./NotificationSnackbar";
 import { Button } from "@mui/material";
+
 const MainNotification = () => {
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState("");
-  const [snackbarType, setSnackbarType] = useState("");
+  const dispatch = useDispatch();
+  const { open, message, type } = useSelector((state) => state.snackbar);
 
   const handleOpenSnackbar = (message, type) => {
-    setSnackbarMessage(message);
-    setSnackbarType(type);
-    setSnackbarOpen(true);
+    dispatch(showSnackbar({ message, type }));
   };
 
   const handleCloseSnackbar = () => {
-    setSnackbarOpen(false);
-    setSnackbarMessage("");
-    setSnackbarType("");
+    dispatch(hideSnackbar());
   };
 
   return (
@@ -38,10 +35,10 @@ const MainNotification = () => {
       </Button>
 
       <NotificationSnackbar
-        open={snackbarOpen}
+        open={open}
         onClose={handleCloseSnackbar}
-        message={snackbarMessage}
-        type={snackbarType}
+        message={message}
+        type={type}
       />
     </div>
   );

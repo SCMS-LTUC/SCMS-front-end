@@ -49,6 +49,8 @@ const MyCourses = () => {
               startTime={course.startTime}
               endTime={course.endTime}
               days={course.days}
+              startDate={course.startDate}
+              endDate={course.endDate}
               onNavigate={() => navigateToCourse(`/courses/${course.courseId}`)}
             />
           ))}

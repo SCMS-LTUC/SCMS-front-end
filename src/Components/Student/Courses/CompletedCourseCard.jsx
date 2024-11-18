@@ -39,7 +39,7 @@ const InfoCard = ({
             </Typography>
           </div>
           <div className="text-neutral-textMedium">
-            {description.substring(0, 100)}
+            {description?.substring(0, 100)}
           </div>
         </div>
         <div className="flex gap-10">

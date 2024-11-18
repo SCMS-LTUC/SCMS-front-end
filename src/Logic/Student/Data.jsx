@@ -131,7 +131,8 @@ export const completedCourses = [
     numberOfHours: "30",
     certificateId: "123456",
     averagedGrade: 85,
-    description: "",
+    description:
+      "Learn the fundamentals of data structures and algorithmic problem-solving.",
   },
   {
     courseId: "4",

@@ -14,19 +14,41 @@ import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import PlaceIcon from "@mui/icons-material/Place";
 import QueryBuilderIcon from "@mui/icons-material/QueryBuilder"; // import DownloadIcon from "@mui/icons-material/Download";
 
+function calculateProgress(startDate, endDate) {
+  const now = new Date();
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+  console.log("start", start);
+  console.log("end", end);
+  // Ensure the current date is within the range
+  if (now < start) return 0; // Before the start date
+  if (now > end) return 100; // After the end date
+
+  // Calculate the progress percentage
+  const totalDuration = end - start;
+  const elapsedDuration = now - start;
+  const progress = (elapsedDuration / totalDuration) * 100;
+
+  // Return progress as an integer
+  return Math.round(progress);
+}
+
 const InfoCard = ({
   courseId,
   courseName,
   teacher,
-  progress,
+  // progress,
   // date,
   classroom,
   startTime,
   endTime,
   days,
+  startDate,
+  endDate,
   // onDownload,
 }) => {
   const navigate = useNavigate();
+  const progress = calculateProgress(startDate, endDate);
 
   return (
     <Card className="container  !bg-neutral-surface !rounded-lg !shadow-md !shadow-neutral-border !border-2 !border-neutral-border !p-4">
@@ -132,6 +154,8 @@ InfoCard.propTypes = {
   startTime: PropTypes.string.isRequired,
   endTime: PropTypes.string.isRequired,
   days: PropTypes.array.isRequired,
+  startDate: PropTypes.string.isRequired,
+  endDate: PropTypes.string.isRequired,
 };
 
 export default InfoCard;

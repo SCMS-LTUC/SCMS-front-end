@@ -13,7 +13,7 @@ import Schedule from "../Teacher/Schedule/Schedule";
 import MyCourses from "../Teacher/Courses/MyCourses";
 import CourseDetailsLayout from "../../Components/Common/CourseDetailsLayout";
 import CourseAnnouncements from "./CourseAnnouncements/AnnouncementList";
-import MainNotification from "../../Components/Common/NotificationDialogUse";
+import MainNotification from "../../Components/Common/NotificationSnackbarUse";
 import CourseQuizzes from "./Quizzes/QuizList";
 import ViewSubmissions from "./Quizzes/ViewSubmissions";
 import EditQuiz from "./Quizzes/EditQuiz";
@@ -25,7 +25,7 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import CampaignIcon from "@mui/icons-material/Campaign";
 import HomeIcon from "@mui/icons-material/Home";
 
-//data
+// data example
 import { scheduleCourses, announcements } from "../../Logic/Teacher/Data";
 
 const menuItems = [
