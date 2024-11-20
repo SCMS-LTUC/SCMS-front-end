@@ -6,7 +6,7 @@ export const courses = [
     rating: 5,
     price: '$59.99',
     linkImg:
-      'https://imgs.search.brave.com/YrWdDcc30vLk1ujOOb2T7YspGn9p6AsTC4LbTGaWiJI/rs:fit:480:270:1/g:ce/aHR0cHM6Ly93ZWVr/Y291cnNlcmV2aWV3/LmNvbS93cC1jb250/ZW50L3VwbG9hZHMv/MjAxOS8wNS9mbHV0/dGVyLWJvb3RjYW1w/LXdpdGgtZGFydC1p/bWcuanBn'
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwaPivBAnv5vmzC3vPL6FtMMD8LE3-e9zhfg&s'
   },
   {
     id: 2,
@@ -15,7 +15,7 @@ export const courses = [
     rating: 4,
     price: '$59.99',
     linkImg:
-      'https://imgs.search.brave.com/ZkwGbElTOq8Zo7NeRU669-o016O6XSLJftZZ5I--HJg/rs:fit:750:422:1/g:ce/aHR0cHM6Ly9kaXNj/b3VudHNlcmllcy5j/b20vd3AtY29udGVu/dC91cGxvYWRzLzIw/MjAvMTEvMTAwLWRh/eXMtb2YtY29kZS10/aGUtY29tcGxldGUt/cHl0aG9uLXByby1i/b290Y2FtcC1mb3It/MjAyMi1jb3Vyc2Uu/anBn',
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfsUWyPnCChtXTxkgoSO3US5Kv2meExjmk3A&s',
   },
   {
     id: 3,
