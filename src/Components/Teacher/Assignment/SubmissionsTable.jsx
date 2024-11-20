@@ -28,12 +28,13 @@ export default function StickyHeadTable({ rows }) {
   );
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const { assignmentId } = useParams();
+  const { courseId, assignmentId } = useParams();
   const Navigate = useNavigate();
   function handleGradeClick(id) {
+    console.log(id);
     if (assignmentId) {
       Navigate(
-        `/course-details/:courseName/assignments/${assignmentId}/submissions/${id}/`
+        `/course-details/${courseId}/assignments/${assignmentId}/submissions/${id}/`
       );
     }
   }
@@ -126,7 +127,7 @@ export default function StickyHeadTable({ rows }) {
                         color="secondary"
                         style={{ marginLeft: 8 }}
                         className="!text-white"
-                        onClick={() => handleGradeClick(row.studentID)}
+                        onClick={() => handleGradeClick(row.studentAssignment.studentAssignmentId)}
                       >
                         Grade
                       </Button>

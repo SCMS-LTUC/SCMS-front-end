@@ -17,6 +17,7 @@ import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined
 // import DeleteIcon from "@mui/icons-material/Delete";
 import EditAnnouncementDialog from "./EditAnnouncementDialog"; // Import the dialog component
 import ConfirmDeleteDialog from "../../../Components/Common/ConfirmDeleteDialog";
+import { useAnnouncements } from "../../../Logic/Teacher/useAnnouncements";
 
 const formatDate = (dateString) => {
   if (!dateString) return { date: "N/A", time: "N/A" };
@@ -35,10 +36,11 @@ const formatDate = (dateString) => {
   return { date: toDate, time: toTime };
 };
 
-export default function AnnouncementCard({ title, createdAt, type, content }) {
+export default function AnnouncementCard({ announcementId, title, createdAt, type, content }) {
   const [showFullDescription, setShowFullDescription] = useState(false);
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const { updateAnnouncement, removeAnnouncement } = useAnnouncements();
 
   const toggleDescription = () => {
     setShowFullDescription(!showFullDescription);
@@ -53,7 +55,7 @@ export default function AnnouncementCard({ title, createdAt, type, content }) {
     setEditDialogOpen(false);
   };
   const handleSave = (updatedAnnouncement) => {
-    // Handle save logic here
+    updateAnnouncement(announcementId, updatedAnnouncement);
     console.log(updatedAnnouncement);
   };
 
@@ -67,7 +69,8 @@ export default function AnnouncementCard({ title, createdAt, type, content }) {
   };
 
   const handleConfirmDelete = () => {
-    // Handle delete logic here
+    removeAnnouncement(announcementId);
+    handleDeleteDialogClose();
     console.log("deleted successfully");
   };
   return (
@@ -151,6 +154,7 @@ export default function AnnouncementCard({ title, createdAt, type, content }) {
 }
 
 AnnouncementCard.propTypes = {
+  announcementId: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   createdAt: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,

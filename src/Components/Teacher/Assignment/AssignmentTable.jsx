@@ -20,6 +20,8 @@ import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined
 import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 import { useNavigate } from "react-router-dom";
 import ConfirmDeleteDialog from "../../Common/ConfirmDeleteDialog";
+import { useParams } from "react-router-dom";
+
 const formatDate = (dateString) => {
   if (!dateString) return "N/A";
   const date = new Date(dateString);
@@ -35,6 +37,7 @@ StickyHeadTable.propTypes = {
 };
 
 export default function StickyHeadTable({ assignments }) {
+  const { courseId } = useParams();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
@@ -57,13 +60,13 @@ export default function StickyHeadTable({ assignments }) {
     const selectedAssignment = assignments.find(
       (assignment) => assignment.assignmentId === id
     );
-    navigate(`/course-details/:courseName/assignments/${id}/edit`, {
+    navigate(`/course-details/${courseId}/assignments/${id}/edit`, {
       state: { assignment: selectedAssignment },
     });
   }
 
   function handleSubmissionClick(id) {
-    navigate(`/course-details/:courseName/assignments/${id}/submissions`);
+    navigate(`/course-details/${courseId}/assignments/${id}/submissions`);
   }
 
   // Delete dialog
@@ -88,6 +91,8 @@ export default function StickyHeadTable({ assignments }) {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+
+  console.log(assignments);
 
   return (
     <Paper

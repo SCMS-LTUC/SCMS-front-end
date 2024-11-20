@@ -2,14 +2,23 @@
 import { configureStore } from "@reduxjs/toolkit";
 import coursesReducer from "./Teacher/coursesSlice";
 import userReducer from "../reducers/userReducer"; // Import additional reducers as needed
-import announcementsReducer from "./announcementsSlice";
+import announcementsReducer from "./Teacher/announcementsSlice";
 import snackbarReducer from "./SnackbarSlice";
+import classListReducer from "./Teacher/classListSlice";
+import assignmentReducer from "./Teacher/assignmentSlice";
+import assignmentSubmissionReducer from "./Teacher/assignmentSubmissionSlice";
+
+
 const store = configureStore({
   reducer: {
     courses: coursesReducer,
     user: userReducer, // Add other reducers here
     announcements: announcementsReducer,
     snackbar: snackbarReducer,
+    classList: classListReducer,
+    assignments: assignmentReducer,
+    assignmentSubmissions: assignmentSubmissionReducer,
+
   },
 });
 
