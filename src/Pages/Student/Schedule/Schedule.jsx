@@ -3,8 +3,8 @@ import { Typography, Divider } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import ScheduleTable from "../../../Components/Teacher/Schedule/ScheduleTable";
-import PropTypes from "prop-types";
-export default function Schedule({ scheduleCourses }) {
+import { scheduleCourses } from "../../../Logic/Student/Data";
+export default function Schedule() {
   return (
     <div className="">
       <Card className="!p-4 !h-auto container !mx-auto !bg-neutral-surface !rounded-lg !shadow-md !shadow-neutral-border !border-2 !border-neutral-border">
@@ -31,6 +31,3 @@ export default function Schedule({ scheduleCourses }) {
     </div>
   );
 }
-Schedule.propTypes = {
-  scheduleCourses: PropTypes.object,
-};

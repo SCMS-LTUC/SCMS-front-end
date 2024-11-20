@@ -13,9 +13,6 @@ export default function AnnouncementList() {
     (state) => state.announcements
   );
   useEffect(() => {
-    // if (status === "idle") {
-    //   dispatch(fetchCourseAnnouncements(courseId));
-    // }
     dispatch(fetchCourseAnnouncements(courseId));
   }, [dispatch, courseId]);
 

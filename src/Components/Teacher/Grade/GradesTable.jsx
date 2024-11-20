@@ -79,7 +79,7 @@ export default function StickyHeadTable({ students, classAverage }) {
                     key={row.studentId}
                     className="hover:!bg-neutral-background"
                   >
-                    <TableCell className="!text-neutral-textMedium !bg-neutral-surface !text-lg">
+                    <TableCell className="!text-neutral-textPrimary !font-semibold !bg-neutral-surface !text-lg">
                       {row.studentName}
                     </TableCell>
                     <TableCell className="!text-neutral-textMedium !bg-neutral-surface !text-lg">

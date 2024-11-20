@@ -113,7 +113,7 @@ export default function Schedule({ scheduleCourses }) {
                   key={uuidv4()}
                   className="hover:!bg-neutral-background"
                 >
-                  <TableCell className="!text-neutral-textMedium !bg-neutral-surface !text-lg">
+                  <TableCell className="!text-neutral-textPrimary !font-semibold !bg-neutral-surface !text-lg">
                     {data.courseName}
                   </TableCell>
                   <TableCell className="!text-neutral-textMedium !bg-neutral-surface !text-lg">

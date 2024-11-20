@@ -1,5 +1,5 @@
 import { Routes, Route, useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Layout from "../../Components/Common/Layout";
 import GradeSubmission from "../Teacher/Assignments/GradeSubmission";
 import AssignmentList from "../Teacher/Assignments/AssignmentList";
@@ -11,7 +11,7 @@ import Announcements from "./AdminAnnouncements/AnnouncementList";
 import Discover from "../Teacher/Discover/Discover";
 import Schedule from "../Teacher/Schedule/Schedule";
 import MyCourses from "../Teacher/Courses/MyCourses";
-import CourseDetailsLayout from "../../Components/Common/CourseDetailsLayout";
+import CourseDetailsLayout from "../../Components/Teacher/Courses/CourseDetailsLayout";
 import CourseAnnouncements from "./CourseAnnouncements/AnnouncementList";
 import MainNotification from "../../Components/Common/NotificationSnackbarUse";
 import CourseQuizzes from "./Quizzes/QuizList";
@@ -48,9 +48,12 @@ const menuItems = [
 
 export default function Main() {
   const location = useLocation();
+  const [value, setValue] = useState(false);
+
   useEffect(() => {
     // Perform some logic when the route changes
     console.log("Route changed to", location.pathname);
+    setValue(!value);
   }, [location.pathname]);
 
   return (

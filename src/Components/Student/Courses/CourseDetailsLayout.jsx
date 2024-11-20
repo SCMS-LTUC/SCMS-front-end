@@ -4,7 +4,6 @@ import { Tabs, Tab, Typography } from "@mui/material";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import PropTypes from "prop-types";
 
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
@@ -14,15 +13,13 @@ import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined
 import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
 // import { useCourse } from "../../Logic/Teacher/useAllCourses";
 
-const CourseDetailsLayout = ({ course }) => {
+const CourseDetailsLayout = () => {
   const { courseId } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
 
   // data fetching
   // const { course, status, error, loading } = useCourse(courseId);
-  console.log("this is the teacher course", course);
-  console.log("this is the status", status);
 
   const tabs = [
     {
@@ -139,12 +136,6 @@ const CourseDetailsLayout = ({ course }) => {
       </Card>
     </div>
   );
-};
-
-CourseDetailsLayout.propTypes = {
-  courseName: PropTypes.string.isRequired,
-  teacher: PropTypes.string.isRequired,
-  course: PropTypes.object.isRequired,
 };
 
 export default CourseDetailsLayout;

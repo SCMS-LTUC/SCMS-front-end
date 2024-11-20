@@ -12,7 +12,7 @@ import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 import QuizOutlinedIcon from "@mui/icons-material/QuizOutlined";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
-import { useCourse } from "../../Logic/Teacher/useAllCourses";
+import { useCourse } from "../../../Logic/Teacher/useAllCourses";
 
 const CourseDetailsLayout = () => {
   const { courseId } = useParams();

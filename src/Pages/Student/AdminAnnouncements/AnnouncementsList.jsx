@@ -3,9 +3,8 @@ import { Typography, Divider, Button } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import AnnouncementCard from "../../../Components/Teacher/AdminAnnouncement/AnnouncementCard";
-import PropTypes from "prop-types";
-
-export default function AdminAnnouncementList({ announcements }) {
+import { announcements } from "../../../Logic/Student/Data";
+export default function AdminAnnouncementList() {
   const [visibleAssignments, setVisibleAssignments] = useState(5);
 
   const loadMoreAssignments = () => {
@@ -56,6 +55,3 @@ export default function AdminAnnouncementList({ announcements }) {
     </div>
   );
 }
-AdminAnnouncementList.propTypes = {
-  announcements: PropTypes.array.isRequired,
-};
