@@ -6,11 +6,11 @@ import PropTypes from "prop-types";
 export default function AssignmentLayout({ children }) {
   const Navigate = useNavigate();
   return (
-    <div className="flex flex-col justify-between space-y-8">
+    <div className="flex flex-col justify-between space-y-6">
       <div>
         <Button
           onClick={() => Navigate(`/course-details/:courseName/assignments/`)}
-          className="!text-secondary !text-base !py-3 !px-4 space-x-2 hover:!bg-secondary-lighter hover:!text-neutral-surface !transition-all !duration-300"
+          cclassName="!text-secondary !text-base  hover:!bg-secondary-lighter hover:!text-neutral-surface !transition-all !duration-300 !rounded-full"
           variant="text"
           startIcon={<ArrowBackOutlinedIcon />}
         >

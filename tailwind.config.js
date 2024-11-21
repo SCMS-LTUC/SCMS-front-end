@@ -11,6 +11,7 @@ export default {
           dark: "#E65D2E",
           // Highlighted text backgrounds, progress indicators, achievement badges
           light: "#FFA07A",
+          background: "#fae0d7",
         },
 
         secondary: {
@@ -21,7 +22,7 @@ export default {
           // Info box backgrounds, progress tracker bg, decorative elements
           light: "#6BB5AA",
           lighter: "#7EC2B8 ",
-          background: "#f0fcfb",
+          background: "#fff7ed",
         },
 
         neutral: {

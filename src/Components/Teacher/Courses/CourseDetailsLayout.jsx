@@ -132,7 +132,7 @@ const CourseDetailsLayout = () => {
           </Tabs>
         </CardContent>
         <CardContent>
-          <div className="!p-6">
+          <div className="">
             <Outlet />
           </div>
         </CardContent>

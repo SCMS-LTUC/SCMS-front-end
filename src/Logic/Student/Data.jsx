@@ -187,6 +187,18 @@ export const quizzes = {
       },
     },
     {
+      $id: "2",
+      quizId: 3,
+      title: "Midterm",
+      duration: 30,
+      isVisible: true,
+      courseId: 21,
+      mark: 10,
+      startTime: "2024-11-12T13:59:40.333",
+      endTime: "2024-11-30T13:59:40.333",
+      quizResult: null,
+    },
+    {
       $id: "5",
       quizId: 2,
       title: "C# Basics",
@@ -210,17 +222,83 @@ export const quizzes = {
       endTime: "2024-11-14T10:40:00.000",
       quizResult: null,
     },
-    {
-      $id: "2",
-      quizId: 1,
-      title: "Asp.Net",
-      duration: 30,
-      isVisible: true,
-      courseId: 21,
-      mark: 10,
-      startTime: "2024-11-12T13:59:40.333",
-      endTime: "2024-11-30T13:59:40.333",
-      quizResult: null,
-    },
   ],
+};
+export const quiz = {
+  $id: "1",
+  title: "Midterm Exam",
+  duration: 30,
+  mark: 10,
+  startTime: "2024-11-12T13:59:40.333",
+  endTime: "2024-11-13T13:59:40.333",
+  isVisible: true,
+  courseId: 21,
+  questions: {
+    $id: "2",
+    $values: [
+      {
+        $id: "3",
+        questionId: 1,
+        text: "What is the type of application that can be built using asp.net?",
+        quizId: 1,
+        answerOptions: {
+          $id: "4",
+          $values: [
+            {
+              $id: "5",
+              answerOptionId: 1,
+              text: "web app only",
+              isCorrect: false,
+              questionId: 1,
+            },
+            {
+              $id: "6",
+              answerOptionId: 2,
+              text: "mobile app only",
+              isCorrect: false,
+              questionId: 1,
+            },
+            {
+              $id: "7",
+              answerOptionId: 3,
+              text: "desktop app only",
+              isCorrect: false,
+              questionId: 1,
+            },
+            {
+              $id: "8",
+              answerOptionId: 4,
+              text: "desktop, mobile, and web app",
+              isCorrect: true,
+              questionId: 1,
+            },
+          ],
+        },
+      },
+      {
+        $id: "9",
+        questionId: 2,
+        text: "What is your name?",
+        quizId: 1,
+        answerOptions: {
+          $id: "10",
+          $values: [
+            {
+              $id: "11",
+              answerOptionId: 5,
+              text: "Yara",
+              isCorrect: false,
+              questionId: 2,
+            },
+          ],
+        },
+      },
+    ],
+  },
+};
+export const quizResult = {
+  correctAnswersCount: 3,
+  totalQuestionsCount: 5,
+  quizMark: 75,
+  score: 60,
 };

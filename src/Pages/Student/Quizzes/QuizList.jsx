@@ -2,7 +2,10 @@ import { useParams } from "react-router-dom";
 // import { useState } from "react";
 import { Typography, Divider } from "@mui/material";
 import QuizTable from "../../../Components/Student/Quiz/QuizTable";
+
+// the quizzes is the data from api/Quiz/course/{courseId}
 import { quizzes } from "../../../Logic/Student/Data";
+
 export default function AnnouncementList() {
   const { courseId } = useParams();
   console.log(courseId);

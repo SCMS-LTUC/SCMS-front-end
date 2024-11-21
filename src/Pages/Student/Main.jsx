@@ -1,5 +1,5 @@
-import { Routes, Route, useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { Routes, Route } from "react-router-dom";
+// import { useEffect, useState } from "react";
 //menu items
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import CampaignIcon from "@mui/icons-material/Campaign";
@@ -15,7 +15,10 @@ import CurrentCourses from "./Courses/CurrentCourses";
 import CompletedCourses from "./Courses/CompletedCourses";
 import CourseDetailsLayout from "../../Components/Student/Courses/CourseDetailsLayout";
 // import StudentQuizzes from "./Quizzes/StudentQuizzes";
+import QuizInstruction from "./Quizzes/QuizInstructions";
 import QuizList from "./Quizzes/QuizList";
+import TakeQuiz from "./Quizzes/TakeQuiz";
+import ViewResults from "./Quizzes/ViewResults";
 // data example
 const menuItems = [
   {
@@ -40,13 +43,13 @@ const menuItems = [
   },
 ];
 export default function Main() {
-  const location = useLocation();
-  const [value, setValue] = useState(false);
-  useEffect(() => {
-    // Perform some logic when the route changes
-    console.log("Route changed to", location.pathname);
-    setValue(!value);
-  }, [location.pathname]);
+  // const location = useLocation();
+  // const [value, setValue] = useState(false);
+  // useEffect(() => {
+  //   // Perform some logic when the route changes
+  //   console.log("Route changed to", location.pathname);
+  //   setValue(!value);
+  // }, [location.pathname]);
   return (
     <Layout menuItems={menuItems}>
       <Routes>
@@ -61,7 +64,15 @@ export default function Main() {
           element={<CourseDetailsLayout />}
         >
           <Route path="announcements" element={<CourseAnnouncements />} />
-          <Route path="quizzes" element={<QuizList />} />
+          <Route path="quizzes">
+            <Route index element={<QuizList />} />
+            <Route
+              path="quiz-instruction/:quizId"
+              element={<QuizInstruction />}
+            />
+            <Route path="take-quiz/:quizId" element={<TakeQuiz />} />
+            <Route path="view-results/:quizId" element={<ViewResults />} />
+          </Route>
         </Route>
       </Routes>
     </Layout>

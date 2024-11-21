@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
-
+import { useNavigate, useParams } from "react-router-dom";
 const formatDate = (dateString) => {
   if (!dateString) return { date: "N/A", time: "N/A" };
 
@@ -64,7 +64,8 @@ StickyHeadTable.propTypes = {
 export default function StickyHeadTable({ quizzes }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
+  const navigate = useNavigate();
+  const { courseId } = useParams();
   //   const navigate = useNavigate();
   const columns = React.useMemo(
     () => [
@@ -74,6 +75,9 @@ export default function StickyHeadTable({ quizzes }) {
     ],
     []
   );
+  const handleQuizClick = (quizId) => {
+    navigate(`/course-details/${courseId}/quizzes/quiz-instruction/${quizId}`);
+  };
 
   // pagination
   const handleChangePage = (event, newPage) => {
@@ -127,9 +131,11 @@ export default function StickyHeadTable({ quizzes }) {
                     <TableCell className="space-y-2">
                       <div
                         className={`!text-neutral-textPrimary !font-semibold !bg-neutral-surface
-                        !text-lg ${status === "Available" ? "hover:!underline !text-inherit hover:!text-secondary-dark transition-all hover:cursor-pointer" : ""}`}
+                        !text-lg ${status === "Available" ? "hover:!underline !text-inherit hover:!text-accent-info transition-all hover:cursor-pointer" : ""}`}
                         onClick={() => {
-                          if (status === "Available") alert("Quiz clicked");
+                          if (status === "Available") {
+                            handleQuizClick(row.quizId);
+                          }
                         }}
                       >
                         {row.title}

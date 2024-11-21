@@ -1,107 +1,61 @@
+// export default TakeQuiz;
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { quiz } from "../../../Logic/Student/Data";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+// import Avatar from "@mui/material/Avatar";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import {
-  Typography,
-  Button,
-  Box,
-  Radio,
-  RadioGroup,
   FormControlLabel,
-  Paper,
-  Grid,
-  Chip,
+  Radio, // Divider,
+  // Typography,
+  Button,
+  // Box,
+  // Radio,
+  // RadioGroup,
+  // FormControlLabel,
+  // Paper,
+  // Chip,
 } from "@mui/material";
 
-// Mock Quizzes Data
-const mockQuizzes = [
-  {
-    id: 3,
-    title: "React Basics",
-    time: "1 minutes",
-    totalMarks: 100,
-    startDate: "2024-09-01T09:00",
-    endDate: "2024-09-30T23:59",
-    instructions:
-      "Please read each question carefully. You have 30 minutes to complete the quiz.",
-    questions: [
-      {
-        id: 101,
-        questionText: "What is JSX?",
-        options: [
-          "A JavaScript library",
-          "A syntax extension for JavaScript",
-          "A CSS framework",
-          "None of the above",
-        ],
-        correctOption: 1,
-      },
-      {
-        id: 102,
-        questionText: "What is React?",
-        options: [
-          "A back-end framework",
-          "A front-end library",
-          "A database",
-          "All of the above",
-        ],
-        correctOption: 1,
-      },
-      {
-        id: 103,
-        questionText: "What is the purpose of render() in React?",
-        options: [
-          "To render the component in the DOM",
-          "To update the component state",
-          "To perform a side effect in the component",
-          "None of the above",
-        ],
-        correctOption: 0,
-      },
-      {
-        id: 104,
-        questionText: "What is the virtual DOM?",
-        options: [
-          "A lightweight version of the actual DOM",
-          "A representation of the UI in memory",
-          "A type of DOM manipulation",
-          "None of the above",
-        ],
-        correctOption: 1,
-      },
-      // Add more questions as needed
-    ],
-  },
-  // Add more quizzes as needed
-];
-
 const TakeQuiz = () => {
-  const { quizId } = useParams();
+  // Route parameters
+  const { courseId, quizId } = useParams();
   const navigate = useNavigate();
-  const [quiz, setQuiz] = useState(null);
+
+  // State management
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [score, setScore] = useState(null);
-  const [timeLeft, setTimeLeft] = useState(0); // in seconds
+  const [timeLeft, setTimeLeft] = useState(quiz.duration * 60); // Quiz duration in seconds
 
-  // Fetch Quiz Data
-  useEffect(() => {
-    const selectedQuiz = mockQuizzes.find((q) => q.id === parseInt(quizId, 10));
-    if (selectedQuiz) {
-      setQuiz(selectedQuiz);
-      // Initialize Timer
-      const [minutes] = selectedQuiz.time.split(" ");
-      setTimeLeft(parseInt(minutes, 10) * 60);
-    } else {
-      navigate("/student/quizzes");
-    }
-  }, [quizId, navigate]);
+  // important: first of all you have to call route: api/StudentAnswer/get-saved-score
+  // and check if it returns a value (which means the student took the quiz already).
+  // If a student result exist or score exists, navigate to:
+  // navigate(`/course-details/${courseId}/quizzes/view-results/${quizId}`);
+  // Example:
+  // const score = 5;
+  // if (score !== null) {
+  //   navigate(`/course-details/${courseId}/quizzes/view-results/${quizId}`);
+  // }
+
+  // Handle quiz submission
+  const handleSubmit = () => {
+    //1. call route: api/StudentAnswer/post-quiz-result using the following data
+    const quizResult = {
+      quizId: quizId,
+      studentAnswers: answers,
+    };
+    console.log("this is the quiz result", quizResult);
+    //2. then call route: api/StudentAnswer/calculate-score
+    //3. then navigate to the result page
+    navigate(`/course-details/${courseId}/quizzes/view-results/${quizId}`);
+  };
 
   // Timer Effect
   useEffect(() => {
-    if (!quiz || isSubmitted) return;
-
-    if (timeLeft <= 0) {
+    if (timeLeft <= 0 || isSubmitted) {
       handleSubmit();
       return;
     }
@@ -111,194 +65,280 @@ const TakeQuiz = () => {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [timeLeft, quiz, isSubmitted]);
+  }, [timeLeft, isSubmitted]);
 
+  // Handle option selection
   const handleOptionChange = (questionId, optionIndex) => {
     setAnswers({ ...answers, [questionId]: optionIndex });
   };
 
-  const handleSubmit = () => {
-    if (!quiz) return;
-
-    let calculatedScore = 0;
-    quiz.questions.forEach((question) => {
-      if (answers[question.id] === question.correctOption) {
-        calculatedScore += 1; // Assuming 1 mark per correct answer
-      }
-    });
-
-    setScore(calculatedScore);
-    setIsSubmitted(true);
-
-    // Save the result in localStorage
-    const submittedQuizzes =
-      JSON.parse(localStorage.getItem("submittedQuizzes")) || {};
-    submittedQuizzes[quizId] = {
-      score: calculatedScore,
-      total: quiz.totalMarks,
-      date: new Date().toISOString(),
-    };
-    localStorage.setItem("submittedQuizzes", JSON.stringify(submittedQuizzes));
-  };
-
+  // Navigate between questions
   const handleNavigateQuestion = (index) => {
     setCurrentQuestionIndex(index);
   };
 
-  if (!quiz) return null;
-
-  if (isSubmitted && score !== null) {
-    return (
-      <Box
-        sx={{ backgroundColor: "background.default", minHeight: "100vh", p: 5 }}
-      >
-        <Typography variant="h4" gutterBottom>
-          Quiz Submitted
-        </Typography>
-
-        <Paper sx={{ p: 4, mb: 3 }}>
-          <Typography variant="h6">
-            Your Score: {score} / {quiz.totalMarks}
-          </Typography>
-          <Typography variant="body1" sx={{ mt: 2 }}>
-            Date: {new Date().toLocaleString()}
-          </Typography>
-        </Paper>
-
-        <Button
-          variant="contained"
-          onClick={() => navigate("/student/quizzes")}
-          sx={{ mt: 2 }}
-        >
-          Back to Quizzes
-        </Button>
-      </Box>
-    );
-  }
-
-  const currentQuestion = quiz.questions[currentQuestionIndex];
-  const totalQuestions = quiz.questions.length;
+  // Derive quiz details
+  const currentQuestion = quiz.questions.$values[currentQuestionIndex];
+  const totalQuestions = quiz.questions.$values.length;
   const minutes = Math.floor(timeLeft / 60);
   const seconds = timeLeft % 60;
 
-  return (
-    <Box
-      sx={{ backgroundColor: "background.default", minHeight: "100vh", p: 5 }}
-    >
-      <Grid
-        container
-        spacing={2}
-        justifyContent="space-between"
-        alignItems="center"
-      >
-        <Grid item>
-          <Typography variant="h4" gutterBottom>
-            {quiz.title}
-          </Typography>
-        </Grid>
-        <Grid item>
-          <Chip
-            label={`Time Left: ${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`}
-            color={timeLeft <= 60 ? "error" : "primary"}
-          />
-        </Grid>
-      </Grid>
+  //   <>
+  //     {/* layout */}
+  //     <div className="flex flex-col justify-between !p-8 ">
+  //       <div className="container space-y-6 !mx-auto">
+  //         <div id="header" className="flex justify-between">
+  //           <Typography className="!font-bold !text-2xl !text-neutral-textPrimary">
+  //             {quiz.title}
+  //           </Typography>
+  //           <div className="!flex !justify-end">
+  //             <Chip
+  //               icon={<AccessTimeIcon className="!text-neutral-textMedium" />}
+  //               label={` ${minutes}:${seconds.toString().padStart(2, "0")}`}
+  //               // color={timeLeft <= 60 ? "error" : "error"}
+  //               className={`!text-base font-bold !bg-white  ${timeLeft <= 60 ? " !text-accent-error" : "!text-neutral-textMedium"}`}
+  //             />
+  //           </div>
+  //         </div>
 
-      <Grid container spacing={2}>
-        {/* Question Navigator */}
-        <Grid item xs={12} md={3}>
-          <Paper sx={{ p: 2 }}>
-            <Typography variant="h6" gutterBottom>
-              Questions
-            </Typography>
-            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
-              {quiz.questions.map((question, index) => (
-                <Button
-                  key={question.id}
-                  variant={
-                    currentQuestionIndex === index ? "contained" : "outlined"
-                  }
-                  color={
-                    answers[question.id] !== undefined ? "primary" : "default"
-                  }
+  //         <Divider className="!my-4" />
+
+  //         <div className="space-y-5 flex justify-between gap-5">
+  //           <div id="questionNavigator" className="!w-1/4 ">
+  //             <Paper className="p-6 !min-h-80">
+  //               <Typography className="!text-xl !font-semibold ">
+  //                 Questions
+  //               </Typography>
+  //               <div className="flex flex-wrap gap-2 mt-6">
+  //                 {quiz.questions.$values.map((_, index) => (
+  //                   <Avatar
+  //                     variant="rounded"
+  //                     key={index}
+  //                     onClick={() => handleNavigateQuestion(index)}
+  //                     className={`${
+  //                       currentQuestionIndex === index
+  //                         ? "!bg-primary !text-white"
+  //                         : "!bg-neutral-background  !text-neutral-textSecondary"
+  //                       // : "!border-primary !border-2 !text-primary !bg-white"
+  //                     }`}
+  //                   >
+  //                     {index + 1}
+  //                   </Avatar>
+  //                 ))}
+  //               </div>
+  //             </Paper>
+  //           </div>
+
+  //           <div id="currentQuestion" className="!w-3/4 !m-0">
+  //             <div className="">
+  //               <div id="questions ">
+  //                 <Paper className="p-6 !min-h-80 ">
+  //                   <Typography className="!text-xl !font-semibold !mb-6">
+  //                     Question {currentQuestionIndex + 1} of {totalQuestions}
+  //                   </Typography>
+  //                   <Typography className="!text-neutral-textPrimary !text-xl !mb-2 ">
+  //                     {currentQuestion.text}
+  //                   </Typography>
+  //                   <RadioGroup
+  //                     value={answers[currentQuestion.questionId] ?? ""}
+  //                     onChange={(e) =>
+  //                       handleOptionChange(
+  //                         currentQuestion.questionId,
+  //                         parseInt(e.target.value, 10)
+  //                       )
+  //                     }
+  //                   >
+  //                     {currentQuestion.answerOptions.$values.map((option) => (
+  //                       <FormControlLabel
+  //                         key={option.answerOptionId}
+  //                         value={option.answerOptionId}
+  //                         control={<Radio />}
+  //                         label={option.text}
+  //                         className="!text-neutral-textPrimary "
+  //                       />
+  //                     ))}
+  //                   </RadioGroup>
+  //                 </Paper>
+  //               </div>
+  //               <div id="buttons">
+  //                 <div className="flex justify-between mt-4">
+  //                   <Button
+  //                     variant="text"
+  //                     onClick={() =>
+  //                       setCurrentQuestionIndex((prev) => Math.max(0, prev - 1))
+  //                     }
+  //                     disabled={currentQuestionIndex === 0}
+  //                     className="!text-base"
+  //                     startIcon={<ArrowBackIosIcon />}
+  //                   >
+  //                     Previous
+  //                   </Button>
+  //                   {currentQuestionIndex < totalQuestions - 1 ? (
+  //                     <Button
+  //                       variant="text"
+  //                       onClick={() =>
+  //                         setCurrentQuestionIndex((prev) =>
+  //                           Math.min(totalQuestions - 1, prev + 1)
+  //                         )
+  //                       }
+  //                       disabled={
+  //                         answers[currentQuestion.questionId] === undefined
+  //                       }
+  //                       className="!text-base"
+  //                       endIcon={<ArrowForwardIosIcon />}
+  //                     >
+  //                       Next
+  //                     </Button>
+  //                   ) : (
+  //                     <Button
+  //                       variant="contained"
+  //                       color="primary"
+  //                       onClick={() => setIsSubmitted(true)}
+  //                       disabled={
+  //                         Object.keys(answers).length !== totalQuestions
+  //                       }
+  //                       className=" !text-white !text-base"
+  //                     >
+  //                       Submit
+  //                     </Button>
+  //                   )}
+  //                 </div>
+  //               </div>
+  //             </div>
+  //           </div>
+  //         </div>
+
+  //         <Divider className="!my-4" />
+  //       </div>
+  //     </div>
+  //   </>
+  // );
+  return (
+    <div className="min-h-screen flex flex-col bg-neutral-background text-neutral-textPrimary font-poppins">
+      {/* Header Section */}
+      <header className="bg-neutral-surface shadow py-4 px-8">
+        <div className="container mx-auto flex justify-between items-center">
+          <h1 className="text-2xl font-bold text-neutral-textPrimary">
+            {quiz.title}
+          </h1>
+          <div className="flex items-center space-x-2">
+            <AccessTimeIcon className="text-neutral-textSecondary" />
+            <span
+              className={`font-semibold ${
+                timeLeft <= 60
+                  ? "text-accent-warning"
+                  : "text-neutral-textMedium"
+              }`}
+            >
+              {minutes}:{seconds.toString().padStart(2, "0")}
+            </span>
+          </div>
+        </div>
+      </header>
+
+      {/* Main Content */}
+      <main className="container mx-auto flex-1 px-6 py-8">
+        <div className="grid md:grid-cols-4 gap-6">
+          {/* Question Navigator */}
+          <aside className="col-span-1 bg-neutral-surface rounded-lg shadow p-6">
+            <h2 className="text-lg font-semibold mb-4">Questions</h2>
+            <div className="grid grid-cols-5 gap-4">
+              {quiz.questions.$values.map((_, index) => (
+                <button
+                  key={index}
                   onClick={() => handleNavigateQuestion(index)}
+                  className={`w-10 h-10 flex items-center justify-center rounded-lg font-medium ${
+                    currentQuestionIndex === index
+                      ? "bg-primary text-neutral-surface"
+                      : "bg-neutral-background text-neutral-textPrimary hover:bg-orange-100"
+                  }`}
+                  aria-label={`Go to question ${index + 1}`}
                 >
                   {index + 1}
-                </Button>
+                </button>
               ))}
-            </Box>
-          </Paper>
-        </Grid>
+            </div>
+          </aside>
 
-        {/* Current Question */}
-        <Grid item xs={12} md={9}>
-          <Paper sx={{ p: 4 }}>
-            <Typography variant="h6">
+          {/* Current Question */}
+          <section className="col-span-3 bg-neutral-surface rounded-lg shadow p-6">
+            <h2 className="text-xl font-semibold mb-4">
               Question {currentQuestionIndex + 1} of {totalQuestions}
-            </Typography>
-            <Typography variant="body1" sx={{ mt: 2, mb: 2 }}>
-              {currentQuestion.questionText}
-            </Typography>
-            <RadioGroup
-              value={answers[currentQuestion.id] ?? ""}
-              onChange={(e) =>
-                handleOptionChange(
-                  currentQuestion.id,
-                  parseInt(e.target.value, 10)
-                )
-              }
-            >
-              {currentQuestion.options.map((option, index) => (
-                <FormControlLabel
-                  key={index}
-                  value={index}
-                  control={<Radio required />}
-                  label={option}
-                />
-              ))}
-            </RadioGroup>
-          </Paper>
+            </h2>
+            <p className="!text-lg !mb-6">{currentQuestion.text}</p>
+            <form>
+              <div className="space-y-4">
+                {currentQuestion.answerOptions.$values.map((option) => (
+                  <FormControlLabel
+                    key={option.answerOptionId}
+                    control={
+                      <Radio
+                        value={option.answerOptionId}
+                        checked={
+                          answers[currentQuestion.questionId] ===
+                          option.answerOptionId
+                        }
+                        onChange={() =>
+                          handleOptionChange(
+                            currentQuestion.questionId,
+                            option.answerOptionId
+                          )
+                        }
+                        color="primary"
+                      />
+                    }
+                    label={<h1 className="!text-lg">{option.text}</h1>}
+                    className="!flex !items-center space-x-3  cursor-pointer"
+                  />
+                ))}
+              </div>
+            </form>
 
-          {/* Navigation Buttons */}
-          <Box sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}>
-            <Button
-              variant="outlined"
-              onClick={() =>
-                setCurrentQuestionIndex((prev) => (prev > 0 ? prev - 1 : prev))
-              }
-              disabled={currentQuestionIndex === 0}
-            >
-              Previous
-            </Button>
-            {currentQuestionIndex < totalQuestions - 1 ? (
+            {/* Navigation Buttons */}
+            <div className="flex justify-between mt-8">
+              {/* Previous Button */}
               <Button
-                variant="outlined"
+                variant="text"
                 onClick={() =>
-                  setCurrentQuestionIndex((prev) =>
-                    prev < totalQuestions - 1 ? prev + 1 : prev
-                  )
+                  setCurrentQuestionIndex((prev) => Math.max(0, prev - 1))
                 }
-                disabled={answers[currentQuestion.id] === undefined}
+                disabled={currentQuestionIndex === 0}
+                startIcon={<ArrowBackIosIcon />}
+                className=" !text-primary-dark !text-base "
               >
-                Next
+                Previous
               </Button>
-            ) : (
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleSubmit}
-                disabled={quiz.questions.some(
-                  (q) => answers[q.id] === undefined
-                )}
-              >
-                Submit Quiz
-              </Button>
-            )}
-          </Box>
-        </Grid>
-      </Grid>
-    </Box>
+
+              {/* Next Button */}
+              {currentQuestionIndex < totalQuestions - 1 ? (
+                <Button
+                  endIcon={<ArrowForwardIosIcon />}
+                  variant="text"
+                  onClick={() =>
+                    setCurrentQuestionIndex((prev) =>
+                      Math.min(totalQuestions - 1, prev + 1)
+                    )
+                  }
+                  disabled={answers[currentQuestion.questionId] === undefined}
+                  className=" !text-primary-dark !text-base "
+                >
+                  Next
+                </Button>
+              ) : (
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  onClick={() => setIsSubmitted(true)}
+                  disabled={Object.keys(answers).length !== totalQuestions}
+                >
+                  Submit
+                </Button>
+              )}
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
   );
 };
-
 export default TakeQuiz;
