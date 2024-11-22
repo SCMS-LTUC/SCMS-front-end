@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 export default function AssignmentLayout({ children }) {
   const Navigate = useNavigate();
   return (
-    <div className="flex flex-col justify-between space-y-6">
+    <div className="flex flex-col justify-between ">
       <div>
         <Button
           onClick={() => Navigate(`/course-details/:courseName/assignments/`)}
@@ -18,7 +18,7 @@ export default function AssignmentLayout({ children }) {
         </Button>
       </div>
 
-      <div className="container space-y-6 !mx-auto ">{children}</div>
+      <div className="container space-y-6 !mx-auto !p-8">{children}</div>
     </div>
   );
 }

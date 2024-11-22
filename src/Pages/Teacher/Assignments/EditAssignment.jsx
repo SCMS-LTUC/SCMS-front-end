@@ -1,31 +1,3 @@
-// import EditAssignmentForm from "../../../Components/Teacher/Assignment/EditAssignmentForm";
-// import { useNavigate } from "react-router-dom";
-
-// export default function EditAssignment() {
-//   const Navigate = useNavigate();
-
-//   return (
-//     <>
-//       <div className="flex items-center p-4">
-//         <button
-//           className="bg-blue-500 text-white px-4 py-2 rounded-md mr-5"
-//           onClick={() => Navigate("/course-details/:courseName/assignments")}
-//         >
-//           Back to Assignments
-//         </button>
-//         <h1 className="text-xl font-bold">Edit Assignment</h1>
-//       </div>
-//       <div className="p-4">
-//         <EditAssignmentForm />
-//       </div>
-//     </>
-//   );
-// }
-
-// import PropTypes from "prop-types";
-
-// import { useEffect, useState } from "react";
-// import { useParams } from "react-router-dom";
 import { CircularProgress, Box } from "@mui/material";
 import EditAssignmentForm from "../../../Components/Teacher/Assignment/EditAssignmentForm";
 import AssignmentLayout from "../../../Components/Teacher/Assignment/AssignmentLayout";

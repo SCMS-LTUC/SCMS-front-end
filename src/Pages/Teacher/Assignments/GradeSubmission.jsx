@@ -7,7 +7,7 @@ import GradeSubmissionForm from "../../../Components/Teacher/Assignment/GradeSub
 export default function GradeSubmission() {
   const Navigate = useNavigate();
   return (
-    <div className="flex flex-col justify-between space-y-8">
+    <div className="flex flex-col justify-between ">
       <div>
         <Button
           onClick={() =>
@@ -23,7 +23,7 @@ export default function GradeSubmission() {
         </Button>
       </div>
 
-      <div className="container space-y-6 !mx-auto ">
+      <div className="container space-y-6 !mx-auto !p-8">
         <GradeSubmissionForm />
       </div>
     </div>

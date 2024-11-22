@@ -14,7 +14,7 @@ export default function QuizLayout({ children }) {
   console.log(courseId);
 
   return (
-    <div className="flex flex-col justify-between space-y-8 ">
+    <div className="flex flex-col justify-between ">
       <div>
         <Button
           LinkComponent={Link}
@@ -28,7 +28,7 @@ export default function QuizLayout({ children }) {
         </Button>
       </div>
 
-      <div className="container space-y-6 !mx-auto ">{children}</div>
+      <div className="container space-y-6 !mx-auto !p-8">{children}</div>
     </div>
   );
 }

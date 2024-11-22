@@ -17,12 +17,12 @@ const QuizInstructions = () => {
   return (
     <QuizLayout>
       <div>
-        <div className="container space-y-4 !mx-auto">
+        <div className="container !mx-auto">
           <div className=" justify-between">
-            <Typography className="!font-bold !text-2xl !text-neutral-textPrimary !pb-1">
+            <Typography className="!font-bold !text-2xl !text-neutral-textPrimary !mb-4">
               {quiz.title}
             </Typography>
-            <div className="space-x-2">
+            <div className="space-x-2 !mb-3">
               <Chip
                 icon={
                   <AccessAlarmIcon className=" !text-neutral-textSecondary" />

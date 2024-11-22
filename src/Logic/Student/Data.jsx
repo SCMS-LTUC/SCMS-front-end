@@ -302,3 +302,65 @@ export const quizResult = {
   quizMark: 75,
   score: 60,
 };
+export const assignments = {
+  $id: "1",
+  $values: [
+    {
+      $id: "2",
+      assignmentId: 20,
+      assignmentName: "MathAssignment",
+      dueDate: "2024-11-25T23:59:00.000",
+      mark: 20,
+      studentAssignment: {
+        $id: "3",
+        studentAssignmentId: 22,
+        submissionDate: "2024-11-24T18:45:15.123",
+        grade: 18,
+        feedback: "Well done, but needs improvement in presentation.",
+      },
+    },
+    {
+      $id: "4",
+      assignmentId: 21,
+      assignmentName: "ScienceExperiment",
+      dueDate: "2024-11-30T23:59:00.000",
+      mark: 25,
+      studentAssignment: {
+        $id: "5",
+        studentAssignmentId: 23,
+        submissionDate: "2024-11-30T22:15:00.000",
+        grade: null,
+        feedback: "",
+      },
+    },
+    {
+      $id: "6",
+      assignmentId: 22,
+      assignmentName: "HistoryEssay",
+      dueDate: "2024-12-05T23:59:00.000",
+      mark: 30,
+      studentAssignment: null,
+    },
+  ],
+};
+export const assignment = {
+  $id: "1",
+  assignmentId: "1",
+  assignmentName: "MathHomework1",
+  dueDate: "2024-12-01T23:59:59.000",
+  description: "Complete the problems on pages 45-47 from the textbook.",
+  visible: true,
+  fullMark: 20,
+};
+export const studentAssignment = {
+  $id: "1",
+  studentAssignmentId: 20,
+  assignmentId: 18,
+  studentId: 21,
+  submissionDate: "2024-11-22T09:46:05.3006798",
+  submission: "this is dima submission",
+  grade: 15,
+  feedback: "Great job! Keep up the good work.",
+  filePath:
+    "C:\\Users\\LTUC\\source\\repos\\SCMS-back-end\\SCMS-back-end\\Uploads\\commonStyles_117ca74d-8374-4e21-904e-57af9e4de9fe.txt",
+};

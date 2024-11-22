@@ -242,12 +242,12 @@ const TakeQuiz = () => {
           {/* Question Navigator */}
           <aside className="col-span-1 bg-neutral-surface rounded-lg shadow p-6">
             <h2 className="text-lg font-semibold mb-4">Questions</h2>
-            <div className="grid grid-cols-5 gap-4">
+            <div className="grid grid-cols-5 gap-8">
               {quiz.questions.$values.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => handleNavigateQuestion(index)}
-                  className={`w-10 h-10 flex items-center justify-center rounded-lg font-medium ${
+                  className={`w-10 h-10 flex items-center justify-center rounded-lg font-medium  ${
                     currentQuestionIndex === index
                       ? "bg-primary text-neutral-surface"
                       : "bg-neutral-background text-neutral-textPrimary hover:bg-orange-100"
@@ -304,7 +304,7 @@ const TakeQuiz = () => {
                 }
                 disabled={currentQuestionIndex === 0}
                 startIcon={<ArrowBackIosIcon />}
-                className=" !text-primary-dark !text-base "
+                className=" !text-primary-dark !text-base disabled:opacity-50"
               >
                 Previous
               </Button>
@@ -320,7 +320,7 @@ const TakeQuiz = () => {
                     )
                   }
                   disabled={answers[currentQuestion.questionId] === undefined}
-                  className=" !text-primary-dark !text-base "
+                  className=" !text-primary-dark !text-base disabled:opacity-50"
                 >
                   Next
                 </Button>

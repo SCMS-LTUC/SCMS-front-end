@@ -19,6 +19,9 @@ import QuizInstruction from "./Quizzes/QuizInstructions";
 import QuizList from "./Quizzes/QuizList";
 import TakeQuiz from "./Quizzes/TakeQuiz";
 import ViewResults from "./Quizzes/ViewResults";
+import AssignmentList from "./Assignments/AssignmentList";
+import ViewSubmission from "./Assignments/ViewSubmission";
+import SubmitAssignment from "./Assignments/SubmitAssignment";
 // data example
 const menuItems = [
   {
@@ -72,6 +75,17 @@ export default function Main() {
             />
             <Route path="take-quiz/:quizId" element={<TakeQuiz />} />
             <Route path="view-results/:quizId" element={<ViewResults />} />
+          </Route>
+          <Route path="assignments">
+            <Route index element={<AssignmentList />} />
+            <Route
+              path=":assignmentId/view-submission/:studentAssignmentId"
+              element={<ViewSubmission />}
+            />
+            <Route
+              path="submit-assignment/:assignmentId"
+              element={<SubmitAssignment />}
+            />
           </Route>
         </Route>
       </Routes>
