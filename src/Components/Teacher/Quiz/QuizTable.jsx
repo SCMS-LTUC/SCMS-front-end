@@ -21,6 +21,8 @@ import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined
 import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 import { useNavigate } from "react-router-dom";
 import ConfirmDeleteDialog from "../../Common/ConfirmDeleteDialog";
+import { useDeleteQuiz } from "../../../Logic/Teacher/useQuizzes";
+
 const formatDate = (dateString) => {
   if (!dateString) return "N/A";
   const date = new Date(dateString);
@@ -37,8 +39,10 @@ StickyHeadTable.propTypes = {
 
 export default function StickyHeadTable({ quizzes }) {
   const [page, setPage] = React.useState(0);
+  const { removeQuiz } = useDeleteQuiz();
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
+  const [selectedQuiz, setQuizId] = React.useState(null);
   const navigate = useNavigate();
   const columns = React.useMemo(
     () => [
@@ -65,7 +69,8 @@ export default function StickyHeadTable({ quizzes }) {
   };
 
   // Delete dialog
-  const handleDeleteDialogOpen = () => {
+  const handleDeleteDialogOpen = (quizId) => {
+    setQuizId(quizId);
     setDeleteDialogOpen(true);
   };
 
@@ -74,7 +79,7 @@ export default function StickyHeadTable({ quizzes }) {
   };
 
   const handleConfirmDelete = () => {
-    // Handle delete logic here
+    removeQuiz(selectedQuiz);
     console.log("deleted successfully");
   };
 
@@ -161,7 +166,7 @@ export default function StickyHeadTable({ quizzes }) {
                     </IconButton>
                     <IconButton
                       className="hover:!bg-neutral-background transition-transform duration-300 ease-in-out transform hover:scale-110 hover:rotate-3"
-                      onClick={handleDeleteDialogOpen}
+                      onClick={() => handleDeleteDialogOpen(row.id)}
                     >
                       <DeleteOutlineOutlinedIcon
                         sx={{ fontSize: "28px" }}

@@ -212,3 +212,20 @@ export const editQuiz = createAsyncThunk(
       }
     }
 );
+
+export const deleteQuiz = createAsyncThunk(
+    "quizzes/deleteQuiz",
+    async (quizId) => {
+      try {
+        await baseUrl.delete(`/quiz/${quizId}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        });
+        return quizId;
+      } catch (error) {
+        console.error("Error deleting quiz:", error);
+        throw error;
+      }
+    }
+);

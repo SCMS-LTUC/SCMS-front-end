@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { fetchQuizzes, createQuiz } from "../../Api/Teacher/QuizApi";
+import { fetchQuizzes, createQuiz, deleteQuiz } from "../../Api/Teacher/QuizApi";
 import { useEffect } from "react";
 
 export const useQuizzes = () => {
@@ -22,4 +22,15 @@ export const useCreateQuiz = () => {
     };
     
     return { addQuiz, status, error };
+}
+
+export const useDeleteQuiz = () => {
+    const dispatch = useDispatch();
+    const { status, error } = useSelector((state) => state.quizzes);
+    
+    const removeQuiz = async (quizId) => {
+        dispatch(deleteQuiz(quizId));
+    };
+    
+    return { removeQuiz, status, error };
 }
