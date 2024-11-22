@@ -29,9 +29,11 @@
 import { CircularProgress, Box } from "@mui/material";
 import EditAssignmentForm from "../../../Components/Teacher/Assignment/EditAssignmentForm";
 import AssignmentLayout from "../../../Components/Teacher/Assignment/AssignmentLayout";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+
 export default function EditAssignment() {
+  const { courseId } = useParams();
   // const { assignmentId } = useParams();
   // const navigate = useNavigate();
   // const [assignment, setAssignment] = useState(null);
@@ -69,7 +71,7 @@ export default function EditAssignment() {
       setAssignment(existingAssignment);
     } else {
       // If no state is passed, navigate back to quizzes
-      navigate("/course-details/:courseName/assignments/");
+      navigate(`/course-details/${courseId}/assignments`);
     }
   }, [location.state, navigate]);
 

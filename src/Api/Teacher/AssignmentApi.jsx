@@ -64,6 +64,40 @@ export const createAssignment = createAsyncThunk(
   }
 );
 
+export const updateAssignment = createAsyncThunk(
+  "assignments/updateAssignment",
+  async ({ assignmentId, assignment }) => {
+    try {
+      const response = await baseUrl.put(`/Assignment/${assignmentId}`, assignment, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Error updating assignment:", error);
+      throw error;
+    }
+  }
+);
+
+export const deleteAssignment = createAsyncThunk(
+  "assignments/deleteAssignment",
+  async (assignmentId) => {
+    try {
+      await baseUrl.delete(`/Assignment/${assignmentId}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      });
+      return { assignmentId };
+    } catch (error) {
+      console.error("Error deleting assignment:", error);
+      throw error;
+    }
+  }
+);
+
 export const fetchAssignmentSubmissions = createAsyncThunk(
   "assignmentSubmissions/fetchAssignmentSubmissions",
   async (assignmentId) => {
@@ -98,12 +132,12 @@ export const fetchAssignmentSubmissions = createAsyncThunk(
 
 export const gradeSubmission = createAsyncThunk(
   "assignmentSubmissions/gradeSubmission",
-  async ({ studentAssignmentId, grade, feedback }) => {
+  async ({ studentAssignmentId, grade, feedback }, { rejectWithValue }) => {
     try {
-      const response = await baseUrl.post(`/studentAssignments/AddStudentAssignmentFeedback`, {
-        studentAssignmentId,
-        grade,
-        feedback,
+      const response = await baseUrl.post(`/StudentAssignments/AddStudentAssignmentFeedback`, {
+        studentAssignmentId: Number(studentAssignmentId),
+          grade: Number(grade),
+          feedback: feedback,
       }, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -112,7 +146,7 @@ export const gradeSubmission = createAsyncThunk(
       return response.data;
     } catch (error) {
       console.error("Error grading submission:", error);
-      throw error;
+      return rejectWithValue(error.response.data);
     }
   }
 );

@@ -32,9 +32,9 @@ export const useGradeSubmission = () => {
     const dispatch = useDispatch();
     const { status, error } = useSelector((state) => state.assignmentSubmissions);
   
-    const grade =  ( studentAssignmentId, grade, feedback ) => {
-      dispatch(gradeSubmission({ studentAssignmentId, grade, feedback }));
+    const gradesubmit =  ( studentAssignmentId, grade, feedback ) => {
+      dispatch(gradeSubmission(studentAssignmentId, grade, feedback));
     };
   
-    return { grade, status, error };
+    return { gradesubmit, status, error };
 }

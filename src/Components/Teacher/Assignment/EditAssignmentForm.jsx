@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
+import { useUpdateAssignment } from "../../../Logic/Teacher/useAssignment";
 import {
   TextField,
   Button,
@@ -8,23 +9,38 @@ import {
   Checkbox,
   Typography,
 } from "@mui/material";
+import { useParams, useNavigate } from "react-router-dom";
+
+// const formatDate = (dateString) => {
+//   if (!dateString) return "N/A";
+//   const date = new Date(dateString);
+//   return date.toLocaleDateString("en-US", {
+//     year: "numeric",
+//     month: "2-digit",
+//     day: "2-digit",
+//   });
+// };
 
 export default function EditAssignmentForm({ assignment }) {
+  const { courseId } = useParams();
+  const { editAssignment } = useUpdateAssignment();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     assignmentName: "",
     dueDate: "",
     description: "",
-    mark: 0,
+    fullMark: 0,
     visible: false,
   });
 
+  console.log(assignment);
   useEffect(() => {
     if (assignment) {
       setFormData({
         assignmentName: assignment.assignmentName,
         dueDate: assignment.dueDate,
         description: assignment.description,
-        mark: assignment.mark,
+        fullMark: assignment.fullMark,
         visible: assignment.visible || false,
       });
     }
@@ -40,8 +56,10 @@ export default function EditAssignmentForm({ assignment }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(formData); // Check the form data on submit
+    console.log("form data:",formData); // Check the form data on submit
     // Handle form submission logic here
+    editAssignment(assignment.assignmentId, formData);
+    navigate(`/course-details/${courseId}/assignments`);
   };
 
   return (
@@ -67,7 +85,7 @@ export default function EditAssignmentForm({ assignment }) {
         <TextField
           label="Due Date"
           name="dueDate"
-          type="date"
+          type="datetime-local"
           value={formData.dueDate}
           onChange={handleChange}
           fullWidth
@@ -92,7 +110,7 @@ export default function EditAssignmentForm({ assignment }) {
       <Box className="mb-4">
         <TextField
           label="Assignment Mark"
-          name="mark"
+          name="fullMark"
           type="number"
           value={formData.mark}
           onChange={handleChange}
@@ -130,10 +148,11 @@ export default function EditAssignmentForm({ assignment }) {
 
 EditAssignmentForm.propTypes = {
   assignment: PropTypes.shape({
+    assignmentId: PropTypes.number.isRequired,
     assignmentName: PropTypes.string.isRequired,
     dueDate: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
-    mark: PropTypes.number.isRequired,
+    fullMark: PropTypes.number.isRequired,
     visible: PropTypes.bool, // Ensure this is bool
   }).isRequired,
 };

@@ -90,14 +90,15 @@
 import { useState } from "react";
 import { TextField, Button, Box, Typography, Paper } from "@mui/material";
 import PropTypes from "prop-types";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useAssignmentSubmission, useGradeSubmission } from "../../../Logic/Teacher/useAssignmentSubmissions";
 import { useAssignment } from "../../../Logic/Teacher/useAssignment";
 
 export default function GradeSubmissionForm() {
-  const { assignmentId, submissionId } = useParams();
+  const { courseId, assignmentId, submissionId } = useParams();
+  const Navigate = useNavigate();
   const { submission, error, loading } = useAssignmentSubmission(submissionId);
-  const { gradeSubmission } = useGradeSubmission(submissionId);
+  const { gradesubmit } = useGradeSubmission(submissionId);
   const { assignment } = useAssignment(assignmentId);
   //const [submission, setSubmission] = useState(null);
   const [grade, setGrade] = useState("");
@@ -140,7 +141,8 @@ export default function GradeSubmissionForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log({ submissionId, grade, feedback });
-    gradeSubmission({ submissionId, grade, feedback });
+    gradesubmit({ studentAssignmentId: submissionId, grade, feedback });
+    Navigate(`/course-details/${courseId}/assignments/${assignmentId}/submissions/`);
   };
 
   if (!submission) {

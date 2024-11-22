@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchAssignments, createAssignment, fetchAssignment } from "../../Api/Teacher/AssignmentApi";
+import { fetchAssignments, createAssignment, fetchAssignment, updateAssignment, deleteAssignment } from "../../Api/Teacher/AssignmentApi";
 
 const assignmentSlice = createSlice({
     name: "assignments",
@@ -36,7 +36,16 @@ const assignmentSlice = createSlice({
         })
         .addCase(fetchAssignment.pending, (state) => {
           state.status = "loading";
+        })
+        .addCase(updateAssignment.fulfilled, (state, action) => {
+          state.assignment = action.payload;
+        })
+        .addCase(deleteAssignment.fulfilled, (state, action) => {
+          state.assignments = state.assignments.filter(
+            (assignment) => assignment.assignmentId !== action.payload.assignmentId
+          );
         });
+
     },
 });
   

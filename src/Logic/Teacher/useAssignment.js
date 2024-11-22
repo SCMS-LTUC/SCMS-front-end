@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { fetchAssignments, createAssignment, fetchAssignment } from "../../Api/Teacher/AssignmentApi";
+import { fetchAssignments, createAssignment, fetchAssignment, updateAssignment, deleteAssignment } from "../../Api/Teacher/AssignmentApi";
 import { useEffect } from "react";
 
 export const useAssignments = (courseId) => {
@@ -31,3 +31,21 @@ export const useAssignment = (assignmentId) => {
 
   return { assignment, status, error };
 };
+
+export const useUpdateAssignment = () => {
+  const dispatch = useDispatch();
+  const editAssignment = (assignmentId, assignment) => {
+    dispatch(updateAssignment({ assignmentId, assignment }));
+  }
+
+  return { editAssignment };
+}
+
+export const useDeleteAssignment = () => {
+  const dispatch = useDispatch();
+  const removeAssignment = (assignmentId) => {
+    dispatch(deleteAssignment(assignmentId));
+  }
+
+  return { removeAssignment };
+}

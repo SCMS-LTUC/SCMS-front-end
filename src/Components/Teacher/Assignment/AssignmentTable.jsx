@@ -21,6 +21,7 @@ import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 import { useNavigate } from "react-router-dom";
 import ConfirmDeleteDialog from "../../Common/ConfirmDeleteDialog";
 import { useParams } from "react-router-dom";
+import { useDeleteAssignment } from "../../../Logic/Teacher/useAssignment";
 
 const formatDate = (dateString) => {
   if (!dateString) return "N/A";
@@ -38,6 +39,8 @@ StickyHeadTable.propTypes = {
 
 export default function StickyHeadTable({ assignments }) {
   const { courseId } = useParams();
+  const [selectedAssignmentId, setSelectedAssignmentId] = React.useState(0);
+  const { removeAssignment } = useDeleteAssignment();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
@@ -70,7 +73,8 @@ export default function StickyHeadTable({ assignments }) {
   }
 
   // Delete dialog
-  const handleDeleteDialogOpen = () => {
+  const handleDeleteDialogOpen = (assignmentId) => {
+    setSelectedAssignmentId(assignmentId);
     setDeleteDialogOpen(true);
   };
 
@@ -80,7 +84,9 @@ export default function StickyHeadTable({ assignments }) {
 
   const handleConfirmDelete = () => {
     // Handle delete logic here
+    removeAssignment(selectedAssignmentId);
     console.log("deleted successfully");
+    setDeleteDialogOpen(false);
   };
 
   // pagination
@@ -145,7 +151,7 @@ export default function StickyHeadTable({ assignments }) {
                     {row.submissions}
                   </TableCell>
                   <TableCell className="!text-neutral-textMedium !bg-neutral-surface !text-lg">
-                    {row.mark}
+                    {row.fullMark}
                   </TableCell>
                   <TableCell className="!text-neutral-textMedium !bg-neutral-surface !text-lg">
                     <IconButton
@@ -168,7 +174,7 @@ export default function StickyHeadTable({ assignments }) {
                     </IconButton>
                     <IconButton
                       className="hover:!bg-neutral-background transition-transform duration-300 ease-in-out transform hover:scale-110 hover:rotate-3"
-                      onClick={handleDeleteDialogOpen}
+                      onClick={ () => handleDeleteDialogOpen(row.assignmentId)}
                     >
                       <DeleteOutlineOutlinedIcon
                         sx={{ fontSize: "28px" }}
