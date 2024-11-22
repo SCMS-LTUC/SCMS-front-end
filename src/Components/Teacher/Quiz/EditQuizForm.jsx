@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 import {
   TextField,
   Button,
@@ -12,24 +12,47 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import ClearIcon from "@mui/icons-material/Clear";
 import PropTypes from "prop-types";
+import { useDispatch } from "react-redux";
+import {
+  addQuestion,
+  editQuestion,
+  deleteQuestion,
+  addAnswerOption,
+  editAnswerOption,
+  deleteAnswerOption,
+  editQuiz,
+} from "../../../Api/Teacher/QuizApi";
 
 // Component to handle individual options
 const OptionField = ({
   option,
   index,
+  qIndex,
   handleOptionChange,
   handleRemoveOption,
 }) => (
   <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
     <TextField
       label={`Option ${index + 1}`}
-      value={option}
-      onChange={(e) => handleOptionChange(index, e.target.value)}
+      name="text"
+      value={option.text}
+      onChange={(e) => handleOptionChange(qIndex, "answerOptions", e, index)}
       fullWidth
       required
     />
+    <FormControlLabel
+      control={
+        <Checkbox
+          name="isCorrect"
+          checked={option.isCorrect}
+          onChange={(e) => handleOptionChange(qIndex, "answerOptions", e, index)}
+          color="primary"
+        />
+      }
+      label="Correct"
+    />
     <IconButton
-      onClick={() => handleRemoveOption(index)}
+      onClick={() => handleRemoveOption(qIndex, index)}
       aria-label={`Delete Option ${index + 1}`}
       color="error"
     >
@@ -39,8 +62,12 @@ const OptionField = ({
 );
 
 OptionField.propTypes = {
-  option: PropTypes.string.isRequired,
+  option: PropTypes.shape({
+    text: PropTypes.string.isRequired,
+    isCorrect: PropTypes.bool.isRequired,
+  }).isRequired,
   index: PropTypes.number.isRequired,
+  qIndex: PropTypes.number.isRequired,
   handleOptionChange: PropTypes.func.isRequired,
   handleRemoveOption: PropTypes.func.isRequired,
 };
@@ -67,9 +94,9 @@ const QuestionField = ({
     </Box>
     <TextField
       label="Question Text"
-      value={question.questionText}
+      value={question.text}
       onChange={(e) =>
-        handleQuestionChange(index, "questionText", e.target.value)
+        handleQuestionChange(index, "text", e.target.value)
       }
       fullWidth
       required
@@ -78,15 +105,14 @@ const QuestionField = ({
     <Typography variant="subtitle1" sx={{ mb: 1 }}>
       Options:
     </Typography>
-    {question.options.map((option, optIndex) => (
+    {question.answerOptions.map((option, optIndex) => (
       <OptionField
         key={optIndex}
         option={option}
         index={optIndex}
-        handleOptionChange={(optIdx, value) =>
-          handleQuestionChange(index, "options", value, optIdx)
-        }
-        handleRemoveOption={(optIdx) => handleRemoveOption(index, optIdx)}
+        qIndex={index}
+        handleOptionChange={handleQuestionChange}
+        handleRemoveOption={handleRemoveOption}
       />
     ))}
     <Button
@@ -102,9 +128,13 @@ const QuestionField = ({
 
 QuestionField.propTypes = {
   question: PropTypes.shape({
-    questionText: PropTypes.string.isRequired,
-    options: PropTypes.arrayOf(PropTypes.string).isRequired,
-    correctOption: PropTypes.number.isRequired,
+    text: PropTypes.string.isRequired,
+    answerOptions: PropTypes.arrayOf(
+      PropTypes.shape({
+        text: PropTypes.string.isRequired,
+        isCorrect: PropTypes.bool.isRequired,
+      })
+    ).isRequired,
   }).isRequired,
   index: PropTypes.number.isRequired,
   handleQuestionChange: PropTypes.func.isRequired,
@@ -114,7 +144,8 @@ QuestionField.propTypes = {
 };
 
 const EditQuiz = () => {
-  //const { quizId } = useParams();
+  const { courseId } = useParams();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -136,16 +167,16 @@ const EditQuiz = () => {
       setQuiz({
         id: existingQuiz.id,
         title: existingQuiz.title,
-        status: existingQuiz.status === "Visible",
-        startDate: existingQuiz.startDate || "",
-        endDate: existingQuiz.endDate || "",
+        status: existingQuiz.isVisible === true,
+        startDate: existingQuiz.startTime || "",
+        endDate: existingQuiz.endTime || "",
         duration: existingQuiz.duration || "",
-        totalMarks: existingQuiz.totalMarks,
+        totalMarks: existingQuiz.mark,
         questions: existingQuiz.questions || [],
       });
     } else {
       // If no state is passed, navigate back to quizzes
-      navigate("/quizzes");
+      navigate(`/course-details/${courseId}/quizzes`);
     }
   }, [location.state, navigate]);
 
@@ -161,10 +192,20 @@ const EditQuiz = () => {
   // Handle changes within questions and options
   const handleQuestionChange = (qIndex, field, value, optIndex = null) => {
     const updatedQuestions = [...quiz.questions];
-    if (field === "questionText") {
-      updatedQuestions[qIndex].questionText = value;
-    } else if (field === "options") {
-      updatedQuestions[qIndex].options[optIndex] = value;
+    if (field === "text") {
+      updatedQuestions[qIndex].text = value;
+    } else if (field === "answerOptions") {
+      if (optIndex !== null) {
+        if (value.target.name === "isCorrect" && value.target.checked) {
+          // Ensure only one option can be correct
+          updatedQuestions[qIndex].answerOptions = updatedQuestions[qIndex].answerOptions.map((ao, i) => ({
+            ...ao,
+            isCorrect: i === optIndex,
+          }));
+        } else {
+          updatedQuestions[qIndex].answerOptions[optIndex][value.target.name] = value.target.type === "checkbox" ? value.target.checked : value.target.value;
+        }
+      }
     }
     setQuiz((prev) => ({
       ...prev,
@@ -175,7 +216,10 @@ const EditQuiz = () => {
   // Add a new option to a specific question
   const handleAddOption = (qIndex) => {
     const updatedQuestions = [...quiz.questions];
-    updatedQuestions[qIndex].options.push("");
+    updatedQuestions[qIndex].answerOptions.push({
+      text: "",
+      isCorrect: false,
+    });
     setQuiz((prev) => ({
       ...prev,
       questions: updatedQuestions,
@@ -185,7 +229,11 @@ const EditQuiz = () => {
   // Remove an option from a specific question
   const handleRemoveOption = (qIndex, optIndex) => {
     const updatedQuestions = [...quiz.questions];
-    updatedQuestions[qIndex].options = updatedQuestions[qIndex].options.filter(
+    const optionId = updatedQuestions[qIndex].answerOptions[optIndex].answerOptionId;
+    if (optionId) {
+      dispatch(deleteAnswerOption(optionId));
+    }
+    updatedQuestions[qIndex].answerOptions = updatedQuestions[qIndex].answerOptions.filter(
       (_, i) => i !== optIndex
     );
     setQuiz((prev) => ({
@@ -200,63 +248,59 @@ const EditQuiz = () => {
       ...prev,
       questions: [
         ...prev.questions,
-        { questionText: "", options: ["", "", "", ""], correctOption: 0 },
+        { text: "", answerOptions: [{ text: "", isCorrect: false }] },
       ],
     }));
   };
 
   // Remove a question
   const handleRemoveQuestion = (qIndex) => {
+    const questionId = quiz.questions[qIndex].questionId;
+    if (questionId) {
+      dispatch(deleteQuestion(questionId));
+    }
     setQuiz((prev) => ({
       ...prev,
       questions: prev.questions.filter((_, i) => i !== qIndex),
     }));
   };
 
-  // Calculate duration based on start and end dates
-  // useEffect(() => {
-  //   if (quiz.startDate && quiz.endDate) {
-  //     const start = new Date(quiz.startDate);
-  //     const end = new Date(quiz.endDate);
-  //     const diffMs = end - start;
-  //     if (diffMs > 0) {
-  //       const diffMins = Math.floor((diffMs / 1000 / 60) % 60);
-  //       const diffHours = Math.floor((diffMs / (1000 * 60 * 60)) % 24);
-  //       const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-
-  //       let calculatedDuration = "";
-  //       if (diffDays > 0) {
-  //         calculatedDuration += `${diffDays}d `;
-  //       }
-  //       if (diffHours > 0) {
-  //         calculatedDuration += `${diffHours}h `;
-  //       }
-  //       if (diffMins > 0) {
-  //         calculatedDuration += `${diffMins}m`;
-  //       }
-  //       setQuiz((prev) => ({
-  //         ...prev,
-  //         duration: calculatedDuration.trim(),
-  //       }));
-  //     } else {
-  //       setQuiz((prev) => ({
-  //         ...prev,
-  //         duration: "",
-  //       }));
-  //     }
-  //   } else {
-  //     setQuiz((prev) => ({
-  //       ...prev,
-  //       duration: "",
-  //     }));
-  //   }
-  // }, [quiz.startDate, quiz.endDate]);
-
   const handleSubmit = (e) => {
     e.preventDefault();
+    const updatedQuiz = {
+      title: quiz.title,
+      duration: quiz.duration,
+      isVisible: quiz.status,
+      courseId: courseId,
+    };
+    dispatch(editQuiz({ quizId: quiz.id, quiz: updatedQuiz }));
+
+    quiz.questions.forEach((question) => {
+      if (question.questionId) {
+        dispatch(editQuestion({ questionId: question.questionId, question }));
+      } else {
+        dispatch(addQuestion(question));
+      }
+
+      question.answerOptions.forEach((option) => {
+        if (option.answerOptionId) {
+          dispatch(editAnswerOption({ answerOptionId: option.answerOptionId, answerOption: option }));
+        } else {
+          console.log("Adding Answer Option:", option);
+          var newOption = {
+            text: option.text,
+            isCorrect: option.isCorrect,
+            questionId: question.questionId,
+          };
+          dispatch(addAnswerOption(newOption));
+        }
+      });
+    });
+
+    console.log("Updated Quiz:", updatedQuiz);
     console.log("Updated Quiz:", quiz);
     alert("Quiz updated successfully!");
-    navigate("/quizzes");
+    navigate(`/course-details/${courseId}/quizzes`);
   };
 
   return (

@@ -55,6 +55,8 @@ export default function StickyHeadTable({ quizzes }) {
   //handlers
   const handleEditClick = (quizId) => {
     const selectedQuiz = quizzes.find((quiz) => quiz.id === quizId);
+    console.log(selectedQuiz);
+    console.log(quizId);
     navigate(`${quizId}/edit-quiz`, { state: { quiz: selectedQuiz } });
   };
 
@@ -115,7 +117,7 @@ export default function StickyHeadTable({ quizzes }) {
                   hover
                   role="checkbox"
                   tabIndex={-1}
-                  key={row.assignmentId}
+                  key={row.quizId}
                   className="hover:!bg-neutral-background"
                 >
                   <TableCell className="!text-neutral-textMedium !bg-neutral-surface !text-lg">
@@ -125,18 +127,18 @@ export default function StickyHeadTable({ quizzes }) {
                     className={`!text-neutral-textMedium !bg-neutral-surface !text-lg`}
                   >
                     <Chip
-                      label={row.visible ? "Visible" : "Hidden"}
-                      className={`!text-base ${row.visible ? "!bg-green-100 !text-green-700" : "!bg-red-100 !text-red-700"} "`}
+                      label={row.isVisible ? "Visible" : "Hidden"}
+                      className={`!text-base ${row.isVisible ? "!bg-green-100 !text-green-700" : "!bg-red-100 !text-red-700"} "`}
                     />
                   </TableCell>
                   <TableCell className="!text-neutral-textMedium !bg-neutral-surface !text-lg">
-                    {formatDate(row.date)}
+                    {formatDate(row.endTime)}
                   </TableCell>
                   <TableCell className="!text-neutral-textMedium !bg-neutral-surface !text-lg">
                     {row.participants}
                   </TableCell>
                   <TableCell className="!text-neutral-textMedium !bg-neutral-surface !text-lg">
-                    {row.totalMarks}
+                    {row.mark}
                   </TableCell>
                   <TableCell className="!text-neutral-textMedium !bg-neutral-surface !text-lg">
                     <IconButton

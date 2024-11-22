@@ -1,0 +1,62 @@
+import { createSlice } from "@reduxjs/toolkit";
+import { 
+    fetchQuizzes,
+    createQuiz
+} from "../../Api/Teacher/QuizApi";
+
+const quizSlice = createSlice({
+    name: "quizzes",
+    initialState: {
+      quizzes: [],
+      status: "idle",
+      error: null,
+    },
+    reducers: {},
+    extraReducers: (builder) => {
+      builder
+        .addCase(fetchQuizzes.pending, (state) => {
+          state.status = "loading";
+        })
+        .addCase(fetchQuizzes.fulfilled, (state, action) => {
+          state.status = "succeeded";
+          state.quizzes = action.payload;
+        })
+        .addCase(fetchQuizzes.rejected, (state, action) => {
+          state.status = "failed";
+          state.error = action.error.message;
+        })
+        .addCase(createQuiz.pending, (state) => {
+        state.status = "loading";
+        })
+        .addCase(createQuiz.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.quizzes.push(action.payload);
+        })
+        .addCase(createQuiz.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+        })
+        // .addCase(createQuestion.pending, (state) => {
+        // state.status = "loading";
+        // })
+        // .addCase(createQuestion.fulfilled, (state) => {
+        // state.status = "succeeded";
+        // })
+        // .addCase(createQuestion.rejected, (state, action) => {
+        // state.status = "failed";
+        // state.error = action.error.message;
+        // })
+        // .addCase(createAnswerOption.pending, (state) => {
+        // state.status = "loading";
+        // })
+        // .addCase(createAnswerOption.fulfilled, (state) => {
+        // state.status = "succeeded";
+        // })
+        // .addCase(createAnswerOption.rejected, (state, action) => {
+        // state.status = "failed";
+        // state.error = action.error.message;
+        // });
+    },
+});
+  
+export default quizSlice.reducer;
