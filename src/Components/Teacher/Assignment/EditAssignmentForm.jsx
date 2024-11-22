@@ -112,7 +112,7 @@ export default function EditAssignmentForm({ assignment }) {
           label="Assignment Mark"
           name="fullMark"
           type="number"
-          value={formData.mark}
+          value={formData.fullMark}
           onChange={handleChange}
           fullWidth
           variant="outlined"
