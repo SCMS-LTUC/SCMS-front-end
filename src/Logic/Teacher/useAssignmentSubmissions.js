@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { fetchAssignmentSubmissions, fetchAssignmentSubmission, gradeSubmission } from "../../Api/Teacher/AssignmentApi";
+import { fetchAssignmentSubmissions, fetchAssignmentSubmission, gradeSubmission, gradeSubmissionNotSubmitted } from "../../Api/Teacher/AssignmentApi";
 import { useEffect } from "react";
 
 export const useAssignmentSubmissions = (assignmentId) => {
@@ -37,4 +37,16 @@ export const useGradeSubmission = () => {
     };
   
     return { gradesubmit, status, error };
+}
+
+export const useGradeSubmissionNotSubmitted = () => {
+    const dispatch = useDispatch();
+    const { status, error } = useSelector((state) => state.assignmentSubmissions);
+  
+    const gradeNotSubmitted =  ( assignmentId, studentId, grade, feedback ) => {
+      console.log(assignmentId, studentId, grade, feedback);
+      dispatch(gradeSubmissionNotSubmitted({assignmentId, studentId, grade, feedback}));
+    };
+  
+    return { gradeNotSubmitted, status, error };
 }

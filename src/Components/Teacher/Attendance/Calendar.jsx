@@ -5,6 +5,8 @@ import interactionPlugin from "@fullcalendar/interaction";
 import { useState } from "react";
 import { useEffect } from "react";
 import PostDialog from "./PostTableDialog.jsx";
+import { useParams } from "react-router-dom";
+//import { useCourse } from "../../../Logic/Teacher/useAllCourses.jsx";
 
 const rows = [
   { studentID: 1, fullName: "John Doe" },
@@ -29,6 +31,8 @@ const formatDate = (dateString) => {
 };
 
 const App = () => {
+  const { courseId } = useParams();
+  console.log("courseId", courseId);
   const [lectureDates, setLectureDates] = useState([]);
   const [calendarKey, setCalendarKey] = useState(0);
   const [postDialogOpen, setPostDialogOpen] = useState(false);

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchAssignmentSubmissions, fetchAssignmentSubmission, gradeSubmission } from "../../Api/Teacher/AssignmentApi";
+import { fetchAssignmentSubmissions, fetchAssignmentSubmission, gradeSubmission, gradeSubmissionNotSubmitted } from "../../Api/Teacher/AssignmentApi";
 
 const assignmentSubmissionsSlice = createSlice({
     name: "assignmentSubmissions",
@@ -46,6 +46,21 @@ const assignmentSubmissionsSlice = createSlice({
           }
         })
         .addCase(gradeSubmission.rejected, (state, action) => {
+          state.status = "failed";
+          state.error = action.error.message;
+        })
+        .addCase(gradeSubmissionNotSubmitted.pending, (state) => {
+          state.status = "loading";
+        })
+        .addCase(gradeSubmissionNotSubmitted.fulfilled, (state, action) => {
+          const index = state.submissions.findIndex(
+            (submission) => submission.id === action.payload.id
+          );
+          if (index !== -1) {
+            state.submissions[index] = action.payload;
+          }
+        })
+        .addCase(gradeSubmissionNotSubmitted.rejected, (state, action) => {
           state.status = "failed";
           state.error = action.error.message;
         });

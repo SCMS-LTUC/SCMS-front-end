@@ -153,9 +153,12 @@ export const gradeSubmission = createAsyncThunk(
 
 export const gradeSubmissionNotSubmitted = createAsyncThunk(
   "assignmentSubmissions/gradeSubmissionNotSubmitted",
-  async ({ grade, feedback }) => {
+  async ({ assignmentId, studentId, grade, feedback }) => {
     try {
-      const response = await baseUrl.post(`/studentAssignments`, {
+      console.log(assignmentId, studentId, grade, feedback);
+      const response = await baseUrl.post(`/studentAssignments/AddGradeForNonSubmittedAssignment`, {
+        assignmentId,
+        studentId,
         grade,
         feedback,
       }, {

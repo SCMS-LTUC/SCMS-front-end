@@ -10,6 +10,7 @@ import TableRow from "@mui/material/TableRow";
 import PropTypes from "prop-types";
 import { Button } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
+import { useGradeSubmissionNotSubmitted } from "../../../Logic/Teacher/useAssignmentSubmissions";
 
 StickyHeadTable.propTypes = {
   rows: PropTypes.array.isRequired,
@@ -29,13 +30,19 @@ export default function StickyHeadTable({ rows }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const { courseId, assignmentId } = useParams();
-  const Navigate = useNavigate();
-  function handleGradeClick(id) {
-    console.log(id);
-    if (assignmentId) {
-      Navigate(
-        `/course-details/${courseId}/assignments/${assignmentId}/submissions/${id}/`
+  const { gradeNotSubmitted } = useGradeSubmissionNotSubmitted(courseId, assignmentId);
+  const navigate = useNavigate();
+
+  function handleGradeClick(studentId, studentAssignmentId) {
+    if (studentAssignmentId) {
+      navigate(
+        `/course-details/${courseId}/assignments/${assignmentId}/submissions/${studentAssignmentId}/`
       );
+    } else {
+      const grade = 0;
+      const feedback = "Not Submitted";
+      gradeNotSubmitted(assignmentId, studentId, grade, feedback);
+      window.location.reload();
     }
   }
 
@@ -127,7 +134,7 @@ export default function StickyHeadTable({ rows }) {
                         color="secondary"
                         style={{ marginLeft: 8 }}
                         className="!text-white"
-                        onClick={() => handleGradeClick(row.studentAssignment.studentAssignmentId)}
+                        onClick={() => handleGradeClick(row.studentId, assignment ? assignment.studentAssignmentId : null)}
                       >
                         Grade
                       </Button>
