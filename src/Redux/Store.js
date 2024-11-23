@@ -8,6 +8,7 @@ import classListReducer from "./Teacher/classListSlice";
 import assignmentReducer from "./Teacher/assignmentSlice";
 import assignmentSubmissionReducer from "./Teacher/assignmentSubmissionSlice";
 import quizReducer from "./Teacher/quizSlice";
+import lecturesReducer from "./Teacher/LecturesSlice";
 
 
 const store = configureStore({
@@ -20,6 +21,7 @@ const store = configureStore({
     assignments: assignmentReducer,
     assignmentSubmissions: assignmentSubmissionReducer,
     quizzes: quizReducer,
+    lectures: lecturesReducer,
 
   },
 });
