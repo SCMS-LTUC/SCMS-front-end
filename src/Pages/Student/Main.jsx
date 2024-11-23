@@ -22,6 +22,8 @@ import ViewResults from "./Quizzes/ViewResults";
 import AssignmentList from "./Assignments/AssignmentList";
 import ViewSubmission from "./Assignments/ViewSubmission";
 import SubmitAssignment from "./Assignments/SubmitAssignment";
+import Classlist from "../Student/Classlist/Classlist";
+import AttendancePage from "./Attendance/AttendanePage";
 // data example
 const menuItems = [
   {
@@ -87,6 +89,8 @@ export default function Main() {
               element={<SubmitAssignment />}
             />
           </Route>
+          <Route path="classlist" element={<Classlist />} />
+          <Route path="attendance" element={<AttendancePage />} />
         </Route>
       </Routes>
     </Layout>

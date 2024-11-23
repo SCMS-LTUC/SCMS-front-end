@@ -364,3 +364,335 @@ export const studentAssignment = {
   filePath:
     "C:\\Users\\LTUC\\source\\repos\\SCMS-back-end\\SCMS-back-end\\Uploads\\commonStyles_117ca74d-8374-4e21-904e-57af9e4de9fe.txt",
 };
+export const studentAbsenceDates = {
+  $id: "1",
+  $values: [
+    {
+      $id: "2",
+      lectureDate: "2024-11-04T13:00:00",
+    },
+    {
+      $id: "3",
+      lectureDate: "2024-11-09T13:00:00",
+    },
+  ],
+};
+export const courseLectures = {
+  $id: "1",
+  $values: [
+    {
+      $id: "2",
+      lectureId: 178,
+      courseId: 21,
+      lectureDate: "2024-09-04T13:00:00",
+      course: null,
+      lectureAttendances: {
+        $id: "3",
+        $values: [],
+      },
+    },
+    {
+      $id: "4",
+      lectureId: 179,
+      courseId: 21,
+      lectureDate: "2024-09-09T13:00:00",
+      course: null,
+      lectureAttendances: {
+        $id: "5",
+        $values: [],
+      },
+    },
+    {
+      $id: "6",
+      lectureId: 180,
+      courseId: 21,
+      lectureDate: "2024-09-11T13:00:00",
+      course: null,
+      lectureAttendances: {
+        $id: "7",
+        $values: [],
+      },
+    },
+    {
+      $id: "8",
+      lectureId: 181,
+      courseId: 21,
+      lectureDate: "2024-09-16T13:00:00",
+      course: null,
+      lectureAttendances: {
+        $id: "9",
+        $values: [],
+      },
+    },
+    {
+      $id: "10",
+      lectureId: 182,
+      courseId: 21,
+      lectureDate: "2024-09-18T13:00:00",
+      course: null,
+      lectureAttendances: {
+        $id: "11",
+        $values: [],
+      },
+    },
+    {
+      $id: "12",
+      lectureId: 183,
+      courseId: 21,
+      lectureDate: "2024-09-23T13:00:00",
+      course: null,
+      lectureAttendances: {
+        $id: "13",
+        $values: [],
+      },
+    },
+    {
+      $id: "14",
+      lectureId: 184,
+      courseId: 21,
+      lectureDate: "2024-09-25T13:00:00",
+      course: null,
+      lectureAttendances: {
+        $id: "15",
+        $values: [],
+      },
+    },
+    {
+      $id: "16",
+      lectureId: 185,
+      courseId: 21,
+      lectureDate: "2024-09-30T13:00:00",
+      course: null,
+      lectureAttendances: {
+        $id: "17",
+        $values: [],
+      },
+    },
+    {
+      $id: "18",
+      lectureId: 186,
+      courseId: 21,
+      lectureDate: "2024-10-02T13:00:00",
+      course: null,
+      lectureAttendances: {
+        $id: "19",
+        $values: [],
+      },
+    },
+    {
+      $id: "20",
+      lectureId: 187,
+      courseId: 21,
+      lectureDate: "2024-10-07T13:00:00",
+      course: null,
+      lectureAttendances: {
+        $id: "21",
+        $values: [],
+      },
+    },
+    {
+      $id: "22",
+      lectureId: 188,
+      courseId: 21,
+      lectureDate: "2024-10-09T13:00:00",
+      course: null,
+      lectureAttendances: {
+        $id: "23",
+        $values: [],
+      },
+    },
+    {
+      $id: "24",
+      lectureId: 189,
+      courseId: 21,
+      lectureDate: "2024-10-14T13:00:00",
+      course: null,
+      lectureAttendances: {
+        $id: "25",
+        $values: [],
+      },
+    },
+    {
+      $id: "26",
+      lectureId: 190,
+      courseId: 21,
+      lectureDate: "2024-10-16T13:00:00",
+      course: null,
+      lectureAttendances: {
+        $id: "27",
+        $values: [],
+      },
+    },
+    {
+      $id: "28",
+      lectureId: 191,
+      courseId: 21,
+      lectureDate: "2024-10-21T13:00:00",
+      course: null,
+      lectureAttendances: {
+        $id: "29",
+        $values: [],
+      },
+    },
+    {
+      $id: "30",
+      lectureId: 192,
+      courseId: 21,
+      lectureDate: "2024-10-23T13:00:00",
+      course: null,
+      lectureAttendances: {
+        $id: "31",
+        $values: [],
+      },
+    },
+    {
+      $id: "32",
+      lectureId: 193,
+      courseId: 21,
+      lectureDate: "2024-10-28T13:00:00",
+      course: null,
+      lectureAttendances: {
+        $id: "33",
+        $values: [],
+      },
+    },
+    {
+      $id: "34",
+      lectureId: 194,
+      courseId: 21,
+      lectureDate: "2024-10-30T13:00:00",
+      course: null,
+      lectureAttendances: {
+        $id: "35",
+        $values: [],
+      },
+    },
+    {
+      $id: "36",
+      lectureId: 195,
+      courseId: 21,
+      lectureDate: "2024-11-04T13:00:00",
+      course: null,
+      lectureAttendances: {
+        $id: "37",
+        $values: [],
+      },
+    },
+    {
+      $id: "38",
+      lectureId: 196,
+      courseId: 21,
+      lectureDate: "2024-11-06T13:00:00",
+      course: null,
+      lectureAttendances: {
+        $id: "39",
+        $values: [],
+      },
+    },
+    {
+      $id: "40",
+      lectureId: 197,
+      courseId: 21,
+      lectureDate: "2024-11-11T13:00:00",
+      course: null,
+      lectureAttendances: {
+        $id: "41",
+        $values: [],
+      },
+    },
+    {
+      $id: "42",
+      lectureId: 198,
+      courseId: 21,
+      lectureDate: "2024-11-13T13:00:00",
+      course: null,
+      lectureAttendances: {
+        $id: "43",
+        $values: [],
+      },
+    },
+    {
+      $id: "44",
+      lectureId: 199,
+      courseId: 21,
+      lectureDate: "2024-11-18T13:00:00",
+      course: null,
+      lectureAttendances: {
+        $id: "45",
+        $values: [],
+      },
+    },
+    {
+      $id: "46",
+      lectureId: 200,
+      courseId: 21,
+      lectureDate: "2024-11-20T13:00:00",
+      course: null,
+      lectureAttendances: {
+        $id: "47",
+        $values: [],
+      },
+    },
+    {
+      $id: "48",
+      lectureId: 201,
+      courseId: 21,
+      lectureDate: "2024-11-25T13:00:00",
+      course: null,
+      lectureAttendances: {
+        $id: "49",
+        $values: [],
+      },
+    },
+    {
+      $id: "50",
+      lectureId: 202,
+      courseId: 21,
+      lectureDate: "2024-11-27T13:00:00",
+      course: null,
+      lectureAttendances: {
+        $id: "51",
+        $values: [],
+      },
+    },
+  ],
+};
+export const currentCourse = {
+  $id: "1",
+  courseId: 21,
+  teacherName: "Rana",
+  teacherId: 3,
+  teacherDepartment: "Computer Science",
+  subjectName: "Web Development",
+  startDate: "2024-09-01T00:00:00",
+  endDate: "2024-12-01T00:00:00",
+  startTime: "13:30:00",
+  endTime: "15:00:00",
+  days: {
+    $id: "2",
+    $values: ["Monday", "Wednesday"],
+  },
+  className: "Web Development",
+  capacity: 200,
+  classroomNumber: "1A",
+};
+export const students = [
+  {
+    studentId: 1,
+    studentName: "John Doe",
+    studentUserName: "johndoe",
+    studentEmail: "johndoe@gmail.com",
+  },
+  {
+    studentId: 2,
+    studentName: "Dima Salem",
+    studentUserName: "DimaSalem",
+    studentEmail: "johndoe@gmail.com",
+  },
+  {
+    studentId: 3,
+    studentName: "Leen Yasir",
+    studentUserName: "LeenYasir",
+    studentEmail: "LeenYasir@gmail.com",
+  },
+];

@@ -46,6 +46,12 @@ const theme = createTheme({
     textMedium: {
       main: "#4F5C6F",
     },
+    success: {
+      main: "#22c55e",
+    },
+    info: {
+      main: "#3b82f6",
+    },
   },
 });
 export default theme;

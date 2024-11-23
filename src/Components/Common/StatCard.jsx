@@ -9,9 +9,9 @@ export default function StatCard({ stat }) {
       <CardContent className="pt-6">
         <div className="flex justify-between items-start">
           <div className="space-y-2">
-            <p className="text-sm text-gray-500">{stat.title}</p>
+            <p className="text-base text-neutral-textSecondary">{stat.title}</p>
             <p className="text-3xl font-bold">{stat.value}</p>
-            <p className="text-sm text-gray-500">{stat.trend}</p>
+            <p className="text-sm text-neutral-textSecondary">{stat.trend}</p>
           </div>
           <div className="p-2">{stat.icon}</div>
         </div>
