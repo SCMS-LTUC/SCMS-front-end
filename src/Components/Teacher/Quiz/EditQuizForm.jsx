@@ -22,6 +22,7 @@ import {
   deleteAnswerOption,
   editQuiz,
 } from "../../../Api/Teacher/QuizApi";
+import NotificationSnackbar from "../../../Components/Common/NotificationSnackbar";
 
 // Component to handle individual options
 const OptionField = ({
@@ -148,6 +149,13 @@ const EditQuiz = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [snackbarType, setSnackbarType] = useState("success");
+
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
+  };
 
   // Retrieve quiz data from navigation state
   const [quiz, setQuiz] = useState({
@@ -299,7 +307,9 @@ const EditQuiz = () => {
 
     console.log("Updated Quiz:", updatedQuiz);
     console.log("Updated Quiz:", quiz);
-    alert("Quiz updated successfully!");
+    setSnackbarMessage("Quiz updated successfully!");
+    setSnackbarType("success");
+    setSnackbarOpen(true);
     navigate(`/course-details/${courseId}/quizzes`);
   };
 
@@ -429,6 +439,12 @@ const EditQuiz = () => {
         >
           Save Changes
         </Button>
+        <NotificationSnackbar
+        open={snackbarOpen}
+        onClose={handleSnackbarClose}
+        message={snackbarMessage}
+        type={snackbarType}
+      />
       </Box>
     </form>
   );
