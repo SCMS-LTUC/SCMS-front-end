@@ -14,8 +14,15 @@ import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import logo from "./../../Assets/Images/no-back-80.png";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MenuOpenOutlinedIcon from "@mui/icons-material/MenuOpenOutlined";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = ({ isOpen, toggleSidebar }) => {
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    navigate("/login");
+    console.log("Logout clicked");
+  }
   return (
     <div className="bg-neutral-surface text-primary p-4 flex  justify-between border-b-2 border-neutral-border !shadow-sm !shadow-neutral-border pl-2">
       {/* Left: Site logo */}
@@ -70,6 +77,7 @@ const Navbar = ({ isOpen, toggleSidebar }) => {
         <IconButton className=" hover:!bg-neutral-background">
           <LogoutOutlinedIcon
             className="text-neutral-textMedium hover:!text-primary"
+            onClick={handleLogout}
             sx={{ fontSize: "28px" }}
           />
         </IconButton>
