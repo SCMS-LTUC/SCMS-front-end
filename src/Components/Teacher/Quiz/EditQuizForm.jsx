@@ -262,10 +262,21 @@ const EditQuiz = () => {
   };
 
   // Remove a question
-  const handleRemoveQuestion = (qIndex) => {
-    const questionId = quiz.questions[qIndex].questionId;
-    if (questionId) {
-      dispatch(deleteQuestion(questionId));
+  const handleRemoveQuestion = async (qIndex) => {
+    const questionToRemove = quiz.questions[qIndex];
+    if (questionToRemove.questionId) {
+      // Delete associated answer options
+      if (
+        questionToRemove.answerOptions &&
+        questionToRemove.answerOptions.length > 0
+      ) {
+        for (const option of questionToRemove.answerOptions) {
+          if (option.answerOptionId) {
+            await dispatch(deleteAnswerOption(option.answerOptionId));
+          }
+        }
+      }
+      await dispatch(deleteQuestion(questionToRemove.questionId));
     }
     setQuiz((prev) => ({
       ...prev,
@@ -273,7 +284,7 @@ const EditQuiz = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const updatedQuiz = {
       title: quiz.title,
@@ -283,11 +294,16 @@ const EditQuiz = () => {
     };
     dispatch(editQuiz({ quizId: quiz.id, quiz: updatedQuiz }));
 
-    quiz.questions.forEach((question) => {
+   await quiz.questions.forEach((question) => {
       if (question.questionId) {
         dispatch(editQuestion({ questionId: question.questionId, question }));
       } else {
-        dispatch(addQuestion(question));
+        var newQuestion = {
+          text: question.text,
+          quizId: quiz.id,
+          answerOptions: question.answerOptions,
+        };
+       dispatch(addQuestion(newQuestion));
       }
 
       question.answerOptions.forEach((option) => {
