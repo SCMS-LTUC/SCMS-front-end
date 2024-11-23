@@ -1,11 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "../Api/BaseUrl";
+import BaseUrl from "../../Api/BaseUrl";
 
 export const fetchTeacherAnnouncements = createAsyncThunk(
     "teacherAnnouncements/fetchTeacherAnnouncements",
     async () => {
         try {
-        const response = await axios.get("/Announcement/Teachers", {
+        const response = await BaseUrl.get("/Announcement/Teachers", {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
             },

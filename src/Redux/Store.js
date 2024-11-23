@@ -9,6 +9,7 @@ import assignmentReducer from "./Teacher/assignmentSlice";
 import assignmentSubmissionReducer from "./Teacher/assignmentSubmissionSlice";
 import quizReducer from "./Teacher/quizSlice";
 import lecturesReducer from "./Teacher/LecturesSlice";
+import teacherAnnouncementsReducer from "./Teacher/teacherAnnouncementsSlice";
 
 
 const store = configureStore({
@@ -22,6 +23,7 @@ const store = configureStore({
     assignmentSubmissions: assignmentSubmissionReducer,
     quizzes: quizReducer,
     lectures: lecturesReducer,
+    teacherAnnouncements: teacherAnnouncementsReducer,
 
   },
 });

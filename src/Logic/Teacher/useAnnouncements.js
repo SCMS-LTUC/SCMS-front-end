@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCourseAnnouncements, createAnnouncement, editAnnouncement, deleteAnnouncement } from "../../Api/Teacher/AnnouncementsApi";
+import { fetchTeacherAnnouncements } from "../../Redux/Teacher/teacherAnnouncementsSlice";
 import { useEffect } from "react";
 
 export const useAnnouncements = (courseId) => {
@@ -25,4 +26,15 @@ export const useAnnouncements = (courseId) => {
     };
     
     return { announcements, status, error, addAnnouncement, updateAnnouncement, removeAnnouncement };
+}
+
+export const useTeacherAnnouncements = () => {
+    const dispatch = useDispatch();
+    const { teacherAnnouncements, status, error } = useSelector((state) => state.teacherAnnouncements);
+
+    useEffect(() => {
+        dispatch(fetchTeacherAnnouncements());
+    }, [dispatch]);
+
+    return { teacherAnnouncements, status, error };
 }
