@@ -229,3 +229,30 @@ export const deleteQuiz = createAsyncThunk(
       }
     }
 );
+
+export const fetchQuizSubmissions = createAsyncThunk(
+    "quizzes/fetchQuizSubmissions",
+    async (quizId) => {
+      try {
+        const response = await baseUrl.get(`/Quiz/quizSubmission/${quizId}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        });
+        if (!response.data.$values || !Array.isArray(response.data.$values)) {
+          throw new Error("Invalid API response format");
+        }
+        const mappedSubmissions = response.data.$values.map((submission) => ({
+          id: submission.id,
+          studentName: submission.studentName,
+          grade: submission.grade,
+          submittedAt: submission.submissionDate,
+        }));
+        console.log("Quiz submissions fetched:", mappedSubmissions);
+        return mappedSubmissions;
+      } catch (error) {
+        console.error("Error fetching quiz submissions:", error);
+        throw error;
+      }
+    }
+);

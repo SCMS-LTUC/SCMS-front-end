@@ -2,13 +2,15 @@ import { createSlice } from "@reduxjs/toolkit";
 import { 
     fetchQuizzes,
     createQuiz,
-    deleteQuiz
+    deleteQuiz,
+    fetchQuizSubmissions
 } from "../../Api/Teacher/QuizApi";
 
 const quizSlice = createSlice({
     name: "quizzes",
     initialState: {
       quizzes: [],
+      submissions: [],
       status: "idle",
       error: null,
     },
@@ -45,6 +47,18 @@ const quizSlice = createSlice({
         state.quizzes = state.quizzes.filter((quiz) => quiz.id !== action.payload);
         })
         .addCase(deleteQuiz.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+        })
+        .addCase(fetchQuizSubmissions.pending, (state) => {
+        state.status = "loading";
+        })
+        .addCase(fetchQuizSubmissions.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        console.log("Submissions fetched:", action.payload);
+        state.submissions = action.payload;
+        })
+        .addCase(fetchQuizSubmissions.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
         });

@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { fetchQuizzes, createQuiz, deleteQuiz } from "../../Api/Teacher/QuizApi";
+import { fetchQuizzes, createQuiz, deleteQuiz, fetchQuizSubmissions } from "../../Api/Teacher/QuizApi";
 import { useEffect } from "react";
 
 export const useQuizzes = () => {
@@ -33,4 +33,15 @@ export const useDeleteQuiz = () => {
     };
     
     return { removeQuiz, status, error };
+}
+
+export const useQuizSubmissions = (quizId) => {
+  const dispatch = useDispatch();
+  const { submissions, status, error } = useSelector((state) => state.quizzes);
+
+  useEffect(() => {
+    dispatch(fetchQuizSubmissions(quizId));
+  }, [dispatch, quizId]);
+
+  return { submissions, status, error };
 }
