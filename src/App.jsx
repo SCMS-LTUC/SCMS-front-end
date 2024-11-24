@@ -23,6 +23,8 @@ const App = () => {
         <ThemeProvider theme={theme}>
           <Routes>
             <Route path="/login" element={<Login />} />
+            {/* <Route path="/" element={<HomePage />} /> */}
+
             <Route
               path="/*"
               element={
