@@ -16,9 +16,24 @@ const Navbar = () => {
   return (
     <div className="w-full h-[80px] bg-white border-b">
       <div className="md:max-w-[1480px] max-w-[600px] m-auto w-full h-full flex justify-between items-center md:px-0 px-4">
-        <span onClick={() => handleNavigation("/")}>
+        {/* Left: Site logo */}
+        <div className="flex items-center ">
+          <div className="flex items-center justify-between ">
+            <img src={logo} alt="Fusion Learn Logo" className="h-14 !w-20" />
+            <h1
+              className="text-primary-dark font-medium	text-3xl !font-poppins"
+              style={{
+                fontFamily: "Source Sans Pro, sans-serif",
+                // fontWeight: 500,
+              }}
+            >
+              Learnify
+            </h1>
+          </div>
+        </div>
+        {/* <span onClick={() => handleNavigation("/")}>
           <img src={logo} className=" h-14 !w-20" />{" "}
-        </span>
+        </span> */}
         <div className="hidden md:flex items-center">
           <ul className="flex gap-4">
             <li onClick={() => handleNavigation("/")}>Home</li>
