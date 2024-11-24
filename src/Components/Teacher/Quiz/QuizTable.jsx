@@ -118,7 +118,7 @@ export default function StickyHeadTable({ quizzes }) {
                   key={row.assignmentId}
                   className="hover:!bg-neutral-background"
                 >
-                  <TableCell className="!text-neutral-textPrimary !font-semibold !bg-neutral-surface !text-lg">
+                  <TableCell className="!text-neutral-textPrimary !font-medium !bg-neutral-surface !text-lg">
                     {row.title}
                   </TableCell>
                   <TableCell

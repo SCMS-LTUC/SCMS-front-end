@@ -12,7 +12,7 @@ export default function InstructionCard({ duration }) {
   return (
     <Card className="container !bg-neutral-surface !rounded-lg !shadow-md !shadow-neutral-border !border-2 !border-neutral-border !p-4  ">
       <CardContent className="!h-full space-y-4  !pb-4">
-        <h1 className="text-2xl !font-semibold">Quiz Instruction</h1>
+        <h1 className="text-2xl !font-medium">Quiz Instruction</h1>
         <div className="flex items-center border-2 border-neutral-border rounded-md p-3 space-x-2 text-neutral-textPrimary">
           <InfoOutlinedIcon />
           <h1 className="!text-base">

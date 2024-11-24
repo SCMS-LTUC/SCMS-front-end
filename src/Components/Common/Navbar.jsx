@@ -17,7 +17,7 @@ import MenuOpenOutlinedIcon from "@mui/icons-material/MenuOpenOutlined";
 
 const Navbar = ({ isOpen, toggleSidebar }) => {
   return (
-    <div className="bg-neutral-surface text-primary p-4 flex  justify-between border-b-2 border-neutral-border !shadow-sm !shadow-neutral-border pl-2">
+    <div className="bg-neutral-surface text-primary p-2 flex  justify-between border-b-2 border-neutral-border !shadow-sm  !shadow-neutral-border pl-2">
       {/* Left: Site logo */}
       <div className="flex items-center ">
         <div>
@@ -39,8 +39,11 @@ const Navbar = ({ isOpen, toggleSidebar }) => {
         <div className="flex items-center justify-between ">
           <img src={logo} alt="Fusion Learn Logo" className="h-14 !w-20" />
           <h1
-            className="text-primary-dark !font-semibold text-3xl !font-poppins"
-            style={{ fontFamily: "Source Sans Pro, sans-serif" }}
+            className="text-primary-dark font-medium	text-3xl !font-poppins"
+            style={{
+              fontFamily: "Source Sans Pro, sans-serif",
+              // fontWeight: 500,
+            }}
           >
             Learnify
           </h1>

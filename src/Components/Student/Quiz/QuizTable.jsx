@@ -130,7 +130,7 @@ export default function StickyHeadTable({ quizzes }) {
                   >
                     <TableCell className="space-y-2">
                       <div
-                        className={`!text-neutral-textPrimary !font-semibold !bg-neutral-surface
+                        className={`!text-neutral-textPrimary !font-medium !bg-neutral-surface
                         !text-lg ${status === "Available" ? "hover:!underline !text-inherit hover:!text-accent-info transition-all hover:cursor-pointer" : ""}`}
                         onClick={() => {
                           if (status === "Available") {
