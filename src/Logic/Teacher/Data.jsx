@@ -72,3 +72,36 @@ export const scheduleCourses = {
     },
   ],
 };
+export const students = {
+  $id: "1",
+  $values: [
+    {
+      $id: "2",
+      studentId: 1,
+      studentName: "Dima Mohamad Hasan Salem",
+      averageGrades: 41,
+      assignments: 35,
+      quizzes: 6,
+    },
+  ],
+};
+export const currentCourse = {
+  $id: "1",
+  courseId: 1,
+  teacherName: "Rana Raed Hasan Salem",
+  teacherId: 1,
+  teacherDepartment: "Web development",
+  subjectName: "C# basic",
+  startDate: "2024-11-01T08:00:00",
+  endDate: "2024-12-30T08:31:09.309",
+  startTime: "08:00:00",
+  endTime: "09:00:00",
+  days: {
+    $id: "2",
+    $values: ["Sunday", "Tuesday", "Thursday"],
+  },
+  className: "C# 101",
+  capacity: 30,
+  classroomNumber: "Lab 1A",
+  isComplete: false,
+};

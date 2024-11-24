@@ -10,127 +10,23 @@ import StatCard from "../../../Components/Common/StatCard";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 // variables
 // student array and isComplete are the response data
-const students = [
-  {
-    studentId: 1,
-    studentName: "John Doe",
-    assignments: 90.0,
-    quizzes: 70.0,
-    averageGrades: 80.0,
-  },
-  {
-    studentId: 2,
-    studentName: "Dima Salem",
-    assignments: 90.0,
-    quizzes: 70.0,
-    averageGrades: 90.0,
-  },
-  {
-    studentId: 3,
-    studentName: "Leen Yasir",
-    assignments: 90.0,
-    quizzes: 70.0,
-    averageGrades: 70.0,
-  },
-  {
-    studentId: 4,
-    studentName: "Sara Ahmed",
-    assignments: 85.0,
-    quizzes: 75.0,
-    averageGrades: 80.0,
-  },
-  {
-    studentId: 5,
-    studentName: "Omar Kassem",
-    assignments: 88.0,
-    quizzes: 76.0,
-    averageGrades: 82.0,
-  },
-  {
-    studentId: 6,
-    studentName: "Maya Fadel",
-    assignments: 91.0,
-    quizzes: 78.0,
-    averageGrades: 84.5,
-  },
-  {
-    studentId: 7,
-    studentName: "Zain Alabed",
-    assignments: 80.0,
-    quizzes: 65.0,
-    averageGrades: 72.5,
-  },
-  {
-    studentId: 8,
-    studentName: "Fayza Al-Zahra",
-    assignments: 95.0,
-    quizzes: 80.0,
-    averageGrades: 87.5,
-  },
-  {
-    studentId: 9,
-    studentName: "Ahmed Farouk",
-    assignments: 78.0,
-    quizzes: 72.0,
-    averageGrades: 75.0,
-  },
-  {
-    studentId: 10,
-    studentName: "Laila Mansour",
-    assignments: 85.0,
-    quizzes: 70.0,
-    averageGrades: 77.5,
-  },
-  {
-    studentId: 11,
-    studentName: "Noor Saeed",
-    assignments: 88.0,
-    quizzes: 82.0,
-    averageGrades: 85.0,
-  },
-  {
-    studentId: 12,
-    studentName: "Ali Khalil",
-    assignments: 92.0,
-    quizzes: 78.0,
-    averageGrades: 85.0,
-  },
-  {
-    studentId: 13,
-    studentName: "Samira Ismail",
-    assignments: 70.0,
-    quizzes: 60.0,
-    averageGrades: 65.0,
-  },
-  {
-    studentId: 14,
-    studentName: "Rami Salah",
-    assignments: 80.0,
-    quizzes: 77.0,
-    averageGrades: 78.5,
-  },
-  {
-    studentId: 15,
-    studentName: "Khaled Jamal",
-    assignments: 88.0,
-    quizzes: 85.0,
-    averageGrades: 86.5,
-  },
-];
-const isComplete = false;
+// get the data from this endpoint: api/Courses/{courseId}/grades
+import { students, currentCourse } from "../../../Logic/Teacher/Data";
+const courseStudents = students.$values;
+const isComplete = currentCourse.isComplete;
 ////////////////
-const totalGrades = students.reduce(
+const totalGrades = courseStudents.reduce(
   (sum, student) => sum + student.averageGrades,
   0
 );
-const classAverage = Math.round(totalGrades / students.length);
+const classAverage = Math.round(totalGrades / courseStudents.length);
 const topPerformance = Math.max(
-  ...students.map((student) => student.averageGrades)
+  ...courseStudents.map((student) => student.averageGrades)
 );
-const studentsNeedingHelp = students.filter(
+const studentsNeedingHelp = courseStudents.filter(
   (student) => student.averageGrades <= classAverage - 10
 );
-const totalStudents = students.length;
+const totalStudents = courseStudents.length;
 const stats = [
   {
     title: "Class Average",
@@ -213,7 +109,10 @@ export default function Classlist() {
 
         <div>
           <div className="flex flex-col justify-start space-y-2">
-            <GradesTable students={students} classAverage={classAverage} />
+            <GradesTable
+              students={courseStudents}
+              classAverage={classAverage}
+            />
           </div>
         </div>
         <Divider className="!my-4" />
