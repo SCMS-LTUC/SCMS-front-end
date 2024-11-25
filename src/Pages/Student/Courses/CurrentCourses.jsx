@@ -2,10 +2,12 @@ import { useState } from "react";
 import { TablePagination } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import InfoCard from "../../../Components/Student/Courses/CurrentCourseCard.jsx";
+import { useCurrentStudentCourses } from "../../../Logic/Student/useAllCourses.js";
 
 // data
-import { currentCourses } from "../../../Logic/Student/Data.jsx";
+//import { currentCourses } from "../../../Logic/Student/Data.jsx";
 const MyCourses = () => {
+  const { currentCourses } = useCurrentStudentCourses();
   const navigate = useNavigate();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -30,9 +32,9 @@ const MyCourses = () => {
             <InfoCard
               courseId={course.courseId}
               key={index}
-              courseName={course.courseName}
-              teacher={course.teacher}
-              classroom={course.classroom}
+              courseName={course.className}
+              teacher={course.teacherName}
+              classroom={course.classroomNumber}
               startTime={course.startTime}
               endTime={course.endTime}
               days={course.days}

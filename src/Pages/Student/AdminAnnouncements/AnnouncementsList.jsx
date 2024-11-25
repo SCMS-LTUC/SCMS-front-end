@@ -3,9 +3,12 @@ import { Typography, Divider, Button } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import AnnouncementCard from "../../../Components/Teacher/AdminAnnouncement/AnnouncementCard";
-import { announcements } from "../../../Logic/Student/Data";
+//import { announcements } from "../../../Logic/Student/Data";
+import { useStudentAnnouncements } from "../../../Logic/Student/useAnnouncements";
+
 export default function AdminAnnouncementList() {
   const [visibleAssignments, setVisibleAssignments] = useState(5);
+  const { announcements  } = useStudentAnnouncements();
 
   const loadMoreAssignments = () => {
     setVisibleAssignments((prev) => prev + 5);

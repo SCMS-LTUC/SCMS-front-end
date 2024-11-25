@@ -6,14 +6,24 @@ import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import QuizResultCard from "../../../Components/Student/Quiz/QuizResultCard";
 // the quiz is the data from api/Quiz/{quizId}
 // the quizResult is the data from api/Quiz/get-saved-score
-import { quizResult, quiz } from "../../../Logic/Student/Data";
+//import { quizResult } from "../../../Logic/Student/Data";
+import { useQuiz } from "../../../Logic/Student/useQuizzes";
+import { useCalculateScore } from "../../../Logic/Student/useQuizzes";
+import { useEffect } from "react";
 
 const QuizInstructions = () => {
   const { quizId } = useParams();
-  console.log(quizId);
+  const { quiz } = useQuiz(quizId);
+  const { quizResult, calculate } = useCalculateScore(quizId);
 
+  useEffect(() => {
+    calculate(quizId);
+  }
+  , 1);
+  //call the calculate function to get the quiz result
   if (!quizResult) return null;
 
+  const questions = quiz.questions || [];
   return (
     <QuizLayout>
       <div>
@@ -34,14 +44,14 @@ const QuizInstructions = () => {
                 icon={
                   <HelpOutlineOutlinedIcon className=" !text-neutral-textSecondary" />
                 }
-                label={quiz.questions.$values.length + " questions"}
+                label={questions.length + " questions"}
                 className="!bg-white !text-base !text-neutral-textSecondary"
               />
             </div>
           </div>
           <div>
             <div className="flex flex-col justify-start space-y-6">
-              <QuizResultCard quizResult={quizResult} />
+              <QuizResultCard quizResult={quizResult} quizMark={quiz.mark} />
             </div>
           </div>
           <Divider className="!my-4" />
