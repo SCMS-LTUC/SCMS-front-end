@@ -2,9 +2,8 @@ import { useState } from "react";
 import { TablePagination } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import InfoCard from "../../../Components/Student/Courses/CurrentCourseCard.jsx";
-
-// data
 import { currentCourses } from "../../../Logic/Student/Data.jsx";
+
 const MyCourses = () => {
   const navigate = useNavigate();
   const [page, setPage] = useState(0);
@@ -22,25 +21,31 @@ const MyCourses = () => {
   };
 
   return (
-    <div>
-      <div className="container !w-3/5 !mx-auto space-y-8">
-        {currentCourses
-          .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-          .map((course, index) => (
-            <InfoCard
-              courseId={course.courseId}
-              key={index}
-              courseName={course.courseName}
-              teacher={course.teacher}
-              classroom={course.classroom}
-              startTime={course.startTime}
-              endTime={course.endTime}
-              days={course.days}
-              startDate={course.startDate}
-              endDate={course.endDate}
-              onNavigate={() => navigateToCourse(`/courses/${course.courseId}`)}
-            />
-          ))}
+    <div className="">
+      <div className="container  !mx-auto space-y-8 !min-h-screen">
+        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {currentCourses
+            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            .map((course, index) => (
+              <InfoCard
+                courseId={course.courseId}
+                key={index}
+                courseName={course.courseName}
+                teacher={course.teacher}
+                classroom={course.classroom}
+                startTime={course.startTime}
+                endTime={course.endTime}
+                days={course.days}
+                startDate={course.startDate}
+                endDate={course.endDate}
+                onNavigate={() =>
+                  navigateToCourse(
+                    `/course-details/${course.courseId}/announcements`
+                  )
+                }
+              />
+            ))}
+        </div>
       </div>
       <TablePagination
         component="div"

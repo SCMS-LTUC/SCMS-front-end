@@ -1,8 +1,3 @@
-// import { useState } from "react";
-// import Tabs from "@mui/material/Tabs";
-// import Tab from "@mui/material/Tab";
-// import Box from "@mui/material/Box";
-// import { Link } from "react-router-dom";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
@@ -32,7 +27,7 @@ export default function CoursesLayout() {
     }
   }
   return (
-    <div className="space-y-8">
+    <div className="">
       <div className="flex ">
         <ToggleButtonGroup
           value={value}
@@ -69,7 +64,7 @@ export default function CoursesLayout() {
           </ToggleButton>
         </ToggleButtonGroup>
       </div>
-      <div>
+      <div className="!p-8">
         <Outlet />
       </div>
     </div>

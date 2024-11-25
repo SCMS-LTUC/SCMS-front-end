@@ -7,7 +7,7 @@ const MyCourses = () => {
   const navigate = useNavigate();
 
   const { teacherCourses, status, error } = useAllCourses();
-
+  console.log(teacherCourses);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -34,26 +34,32 @@ const MyCourses = () => {
   };
 
   return (
-    <div className="p-6">
-      <div className="container !w-4/6 mx-auto space-y-8">
-        {teacherCourses
-          .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-          .map((course, index) => (
-            <InfoCard
-              courseId={course.courseId}
-              key={index}
-              courseName={course.className}
-              teacher={course.teacherName}
-              progress={course.progress || 0}
-              classroom={course.classroomNumber}
-              startTime={course.startTime}
-              endTime={course.endTime}
-              days={course.days}
-              startDate={course.startDate}
-              endDate={course.endDate}
-              onNavigate={() => navigateToCourse(`/courses/${course.courseId}`)}
-            />
-          ))}
+    <div className="">
+      <div className="container !mx-auto space-y-8 !min-h-screen ">
+        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {teacherCourses
+            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            .map((course, index) => (
+              <InfoCard
+                courseId={course.courseId}
+                key={index}
+                courseName={course.className}
+                teacher={course.teacherName}
+                progress={course.progress || 0}
+                classroom={course.classroomNumber}
+                startTime={course.startTime}
+                endTime={course.endTime}
+                days={course.days}
+                startDate={course.startDate}
+                endDate={course.endDate}
+                onNavigate={() =>
+                  navigateToCourse(
+                    `/course-details/${course.courseId}/announcements`
+                  )
+                }
+              />
+            ))}
+        </div>
       </div>
       <TablePagination
         component="div"

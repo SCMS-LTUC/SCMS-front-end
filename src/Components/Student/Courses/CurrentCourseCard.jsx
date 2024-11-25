@@ -1,151 +1,138 @@
-import { useNavigate } from "react-router-dom";
-import PropTypes from "prop-types";
-
+import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
+import PlaceIcon from "@mui/icons-material/Place";
+import QueryBuilderIcon from "@mui/icons-material/QueryBuilder";
+import PropTypes from "prop-types"; // Import PropTypes
 import {
+  Chip,
   Card,
   CardContent,
   Typography,
-  Button,
   LinearProgress,
-  Chip,
-  // IconButton,
+  Tooltip,
 } from "@mui/material";
-import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
-import PlaceIcon from "@mui/icons-material/Place";
-import QueryBuilderIcon from "@mui/icons-material/QueryBuilder"; // import DownloadIcon from "@mui/icons-material/Download";
+import { styled } from "@mui/material/styles";
 
-function calculateProgress(startDate, endDate) {
+// Styled Material-UI Card
+const StyledCard = styled(Card)`
+  &:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+    transition: all 0.2s ease-in-out;
+  }
+  cursor: pointer;
+`;
+
+const calculateProgress = (startDate, endDate) => {
   const now = new Date();
   const start = new Date(startDate);
   const end = new Date(endDate);
-  console.log("start", start);
-  console.log("end", end);
-  // Ensure the current date is within the range
-  if (now < start) return 0; // Before the start date
-  if (now > end) return 100; // After the end date
 
-  // Calculate the progress percentage
+  if (now < start) return 0;
+  if (now > end) return 100;
+
   const totalDuration = end - start;
   const elapsedDuration = now - start;
-  const progress = (elapsedDuration / totalDuration) * 100;
-
-  // Return progress as an integer
-  return Math.round(progress);
-}
+  return Math.round((elapsedDuration / totalDuration) * 100);
+};
 
 const InfoCard = ({
-  courseId,
   courseName,
   teacher,
-  startDate,
-  endDate,
   classroom,
   startTime,
   endTime,
   days,
-  // onDownload,
+  startDate,
+  endDate,
+  onNavigate,
 }) => {
-  const navigate = useNavigate();
   const progress = calculateProgress(startDate, endDate);
 
   return (
-    <Card className="container  !bg-neutral-surface !rounded-lg !shadow-md !shadow-neutral-border !border-2 !border-neutral-border !p-4">
-      <CardContent className="flex flex-col !h-full !justify-between !pb-4 !space-y-4">
-        <div id="title" className="flex justify-between items-center">
-          <Typography className=" !text-neutral-textPrimary !font-bold !text-3xl">
-            {courseName}
-          </Typography>
-          <Typography className="text-secondary !font-medium">
-            {teacher}
-          </Typography>
-        </div>
+    <StyledCard
+      onClick={onNavigate}
+      className="bg-white shadow-lg rounded-lg border"
+    >
+      <CardContent>
+        <div className="space-y-6 ">
+          {/* Course Name */}
+          <div className="!space-y-0">
+            <Tooltip title={courseName} arrow>
+              <Typography
+                // variant="h6"
+                noWrap
+                className="overflow-hidden text-ellipsis whitespace-nowrap !font-semibold !p-0 !m-0 !text-2xl"
+              >
+                {courseName}
+                {/* Introduction to Computer Science */}
+              </Typography>
+            </Tooltip>
+            <Typography
+              // variant="body2"
+              className="text-neutral-textSecondary !p-0 !m-0 !text-base"
+            >
+              {teacher}
+            </Typography>
+          </div>
 
-        <div id="progress">
-          <Typography className="text-secondary mb-1 flex justify-between !text-base !font-medium">
-            <h1>Progress</h1>
-            {progress}%
-          </Typography>
-          <LinearProgress
-            variant="determinate"
-            value={progress}
-            className="mt-2 rounded-lg !h-2 !font-medium"
-            color="primary"
-          />
-        </div>
-
-        <div className="flex justify-between items-end !font-medium">
-          <div id="icons" className="">
-            <div>
+          <div className=" flex-col space-y-2">
+            <div className="flex justify-between  items-center space-x- ">
               <Chip
-                icon={
-                  <CalendarTodayIcon className="!text-neutral-textMedium " />
-                }
+                icon={<CalendarTodayIcon className="!text-primary " />}
                 label={days.map((day, index) => (
                   <span key={index}>
-                    {day} {index !== days.length - 1 ? "," : " "}
+                    {day.slice(0, 3)}
+                    {index !== days.length - 1 ? ", " : " "}
                   </span>
                 ))}
-                className="!bg-neutral-surface !text-secondary !text-base"
+                className="!bg-neutral-surface !text-neutral-textMedium !text-base"
+              />
+              <Chip
+                icon={<QueryBuilderIcon className="!text-primary" />}
+                label={`${startTime.split(":").slice(0, 2).join(":")} - ${endTime.split(":").slice(0, 2).join(":")}`}
+                className="!bg-neutral-surface !text-neutral-textMedium !text-base"
               />
             </div>
 
             <div>
               <Chip
-                icon={<QueryBuilderIcon className="!text-neutral-textMedium" />}
-                label={
-                  <h1>
-                    {startTime} - {endTime}
-                  </h1>
-                }
-                className="!bg-neutral-surface !text-secondary !text-base"
-              />
-            </div>
-
-            <div>
-              <Chip
-                icon={<PlaceIcon className="!text-neutral-textMedium" />}
+                icon={<PlaceIcon className="!text-primary" />}
                 label={classroom}
-                className="!bg-neutral-surface !text-secondary !text-base"
+                className="!bg-neutral-surface !text-neutral-textMedium !text-base "
               />
             </div>
           </div>
-
-          <div id="button" className="flex justify-end items-center ">
-            {console.log("this is the course Id", courseId)}
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() =>
-                navigate(`/course-details/${courseId}/announcements`)
-              }
-              className="!text-neutral-surface"
+          {/* Progress Bar */}
+          <div className="mt-4 space-y-1">
+            <LinearProgress
+              variant="determinate"
+              value={progress}
+              className="rounded-lg h-2"
+            />
+            <Typography
+              variant="body2"
+              className="!text-neutral-textMedium mb-1 !text-base"
             >
-              Go to Course
-            </Button>
+              {progress}% Complete
+            </Typography>
           </div>
         </div>
       </CardContent>
-    </Card>
+    </StyledCard>
   );
 };
 
+// PropTypes for validation
 InfoCard.propTypes = {
-  courseId: PropTypes.number.isRequired,
-  courseName: PropTypes.string.isRequired, // courseName should be a required string
-  teacher: PropTypes.string.isRequired, // teacher should be a required string
-  date: PropTypes.oneOfType([
-    // date should be a required date object or string
-    PropTypes.instanceOf(Date),
-    PropTypes.string,
-  ]).isRequired,
-  classroom: PropTypes.string, // classroom is an optional string
-  onNavigate: PropTypes.func.isRequired, // onNavigate should be a required function
-  onDownload: PropTypes.func.isRequired, // onDownload should be a required function
+  courseName: PropTypes.string.isRequired,
+  teacher: PropTypes.string.isRequired,
+  classroom: PropTypes.string.isRequired,
   startTime: PropTypes.string.isRequired,
   endTime: PropTypes.string.isRequired,
-  days: PropTypes.array.isRequired,
+  days: PropTypes.arrayOf(PropTypes.string).isRequired,
   startDate: PropTypes.string.isRequired,
   endDate: PropTypes.string.isRequired,
+  onNavigate: PropTypes.func.isRequired,
 };
 
 export default InfoCard;

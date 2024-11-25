@@ -25,6 +25,7 @@ import SubmitAssignment from "./Assignments/SubmitAssignment";
 import Classlist from "../Student/Classlist/Classlist";
 import AttendancePage from "./Attendance/AttendanePage";
 import Grades from "./Grades/Grades";
+import DiscoverPage from "./Discover/DiscoverPage";
 // data example
 const menuItems = [
   {
@@ -65,6 +66,7 @@ export default function Main() {
           <Route index element={<CurrentCourses />} />
           <Route path="/completed" element={<CompletedCourses />} />
         </Route>
+        <Route path="discover" element={<DiscoverPage />} />
         <Route
           path="/course-details/:courseId"
           element={<CourseDetailsLayout />}

@@ -1,15 +1,15 @@
 import { useState } from "react";
 import { TablePagination } from "@mui/material";
-import InfoCard from "../../../Components/Student/Courses/CompletedCourseCard";
+import InfoCard from "../../../Components/Student/Discover/CourseCard.jsx";
 // make sure to filter this to the completed courses only
-import { studentCourses } from "../../../Logic/Student/Data.jsx";
+import { notStartedCourses } from "../../../Logic/Student/Data.jsx";
 const MyCourses = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
-  function handleDownload(certificateId) {
-    console.log(`Downloading certificate for course ${certificateId}`);
-  }
+  const handleOnClickEnroll = (certificateId) => {
+    console.log(certificateId);
+  };
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -23,29 +23,34 @@ const MyCourses = () => {
     <div>
       <div className="container  !mx-auto space-y-8 !min-h-screen">
         <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {studentCourses.$values
+          {notStartedCourses.$values
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             .map((course, index) => (
               <InfoCard
-                courseId={course.courseId}
                 key={index}
+                courseId={course.courseId}
                 courseName={course.className}
-                // description={course.description}
-                teacher={course.teacher}
-                classroom={course.classroom}
+                teacher={course.teacherName}
+                department={course.department}
                 startDate={course.startDate}
                 endDate={course.endDate}
+                startTime={course.startTime}
+                endTime={course.endTime}
+                days={course.days.$values}
+                description={course.description}
+                level={course.level}
+                capacity={course.capacity}
+                numberOfEnrolledStudents={course.numberOfEnrolledStudents}
+                price={course.price}
                 numberOfHours={course.numberOfHours}
-                certificateId={course.certificateId}
-                averagedGrade={course.averageGrades}
-                handleDownload={handleDownload}
+                handleOnClickEnroll={handleOnClickEnroll}
               />
             ))}
         </div>
       </div>
       <TablePagination
         component="div"
-        count={studentCourses.$values.length}
+        count={notStartedCourses.$values.length}
         page={page}
         onPageChange={handleChangePage}
         rowsPerPage={rowsPerPage}

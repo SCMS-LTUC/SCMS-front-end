@@ -106,7 +106,7 @@ const CourseDetailsLayout = () => {
             {course.className || "Course Name"}
           </Typography>
           <Typography className="text-neutral-textSecondary !text-base">
-            Instructor: {course.teacherName || "Unknown Teacher"}
+            {/* Instructor: {course.teacherName || "Unknown Teacher"} */}
           </Typography>
         </CardContent>
 

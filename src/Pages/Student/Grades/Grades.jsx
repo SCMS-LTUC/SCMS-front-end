@@ -1,5 +1,61 @@
 import GradesTable from "../../../Components/Student/Grades/GradesTable";
+import OverallGradeCard from "../../../Components/Student/Grades/OverallGradeCard";
 import { Typography, Divider } from "@mui/material";
+
+// the studentGrades is the data from this route:api/Courses/{courseId}/grades/student
+import { studentGrades } from "../../../Logic/Student/Data.jsx";
+console.log(studentGrades);
+
+const convertDataFormat = (data) => {
+  // Calculate the course full mark
+  const courseFullMark =
+    data.assignments.reduce((sum, item) => sum + item.fullMark, 0) +
+    data.quizzes.reduce((sum, item) => sum + item.fullMark, 0);
+
+  const calculateWeight = (mark) =>
+    ((mark / courseFullMark) * 100).toFixed(2) + "%";
+
+  const convertItems = (items) => {
+    return items.map((item) => ({
+      name: item.title,
+      grade: `${item.achievedMark}/${item.fullMark}`,
+      weight: calculateWeight(item.fullMark),
+      achievedWeight: calculateWeight(item.achievedMark),
+    }));
+  };
+
+  const calculateOverallAchievedWeight = (items) => {
+    const totalAchievedMarks = items.reduce(
+      (sum, item) => sum + item.achievedMark,
+      0
+    );
+    return calculateWeight(totalAchievedMarks);
+  };
+
+  const assignments = {
+    category: "Assignments",
+    overallGrade: calculateOverallAchievedWeight(data.assignments),
+    weight: calculateWeight(
+      data.assignments.reduce((sum, item) => sum + item.fullMark, 0)
+    ),
+    items: convertItems(data.assignments),
+  };
+
+  const quizzes = {
+    category: "Quizzes",
+    overallGrade: calculateOverallAchievedWeight(data.quizzes),
+    weight: calculateWeight(
+      data.quizzes.reduce((sum, item) => sum + item.fullMark, 0)
+    ),
+    items: convertItems(data.quizzes),
+  };
+
+  return [assignments, quizzes];
+};
+
+const convertedData = convertDataFormat(studentGrades);
+console.log(convertedData);
+
 export default function Grades() {
   return (
     <div className="flex flex-col justify-between !p-8">
@@ -11,10 +67,13 @@ export default function Grades() {
         </div>
         <Divider className="!my-4" />
         <div>
-          <div className="flex flex-col justify-start space-y-6">
-            <GradesTable />
-          </div>
+          <OverallGradeCard overallGrade={70} />
         </div>
+
+        <div className="flex flex-col justify-start space-y-6">
+          <GradesTable data={convertedData} />
+        </div>
+
         <Divider className="!my-4" />
       </div>
     </div>
