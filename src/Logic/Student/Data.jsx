@@ -785,7 +785,7 @@ export const notStartedCourses = {
     {
       $id: "2",
       courseId: 3,
-      teacherName: "N/A",
+      teacherName: "Rana Salem",
       teacherId: null,
       teacherDepartment: "",
       subjectName: "Database",
@@ -809,7 +809,7 @@ export const notStartedCourses = {
       numberOfEnrolledStudents: 0,
       description:
         "Master the fundamentals of Transact-SQL (T-SQL), the powerful query language used in Microsoft SQL Server. This beginner-friendly course introduces essential concepts like creating and querying databases, writing SELECT statements, using joins, filtering data with WHERE clauses, and manipulating data with INSERT, UPDATE, and DELETE commands. Gain practical skills through hands-on exercises and real-world examples, preparing you to work confidently with SQL Server databases in any environment. Perfect for aspiring database administrators, developers, and data analysts!",
-      department: "Web development",
+      department: "Web Development",
       price: 60,
     },
     {
@@ -835,12 +835,42 @@ export const notStartedCourses = {
       numberOfHours: 48,
       certificateId: 0,
       averageGrades: 0,
-      level: "Beginner",
+      level: "Intermediate",
       numberOfEnrolledStudents: 0,
       description:
         "Learn the basics of Python programming in this introductory course. Designed for beginners, this course covers Python syntax, data types, loops, functions, and file handling. Gain hands-on experience through practical exercises and projects to build a solid foundation in Python, preparing you for advanced programming concepts or career opportunities in software development and data science.",
-      department: "Software Engineering",
+      department: "Cloud Computing",
       price: 75,
+    },
+  ],
+};
+export const departments = {
+  $id: "1",
+  $values: [
+    {
+      $id: "2",
+      departmentId: 1,
+      departmentName: "Web Development",
+    },
+    {
+      $id: "3",
+      departmentId: 2,
+      departmentName: "Data Science",
+    },
+    {
+      $id: "4",
+      departmentId: 3,
+      departmentName: "Cybersecurity",
+    },
+    {
+      $id: "5",
+      departmentId: 4,
+      departmentName: "Cloud Computing",
+    },
+    {
+      $id: "6",
+      departmentId: 5,
+      departmentName: "UI/UX Design",
     },
   ],
 };

@@ -1,9 +1,14 @@
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
 import HourglassEmptyOutlinedIcon from "@mui/icons-material/HourglassEmptyOutlined";
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
+import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
+// import courseImage from "../../../Assets/Images/CourseImages/4804267.jpg";
 import PropTypes from "prop-types"; // Import PropTypes
-import { Chip, Card, CardContent, Typography, Tooltip } from "@mui/material";
+import { Chip, Card, CardContent, Tooltip } from "@mui/material";
 import { styled } from "@mui/material/styles";
+import { useState } from "react";
+import CourseDetailsDialog from "./CourseDetailsDialog";
+import { Button, Typography, Divider } from "@mui/material";
 
 // Styled Material-UI Card
 const StyledCard = styled(Card)`
@@ -22,29 +27,50 @@ const formatDate = (dateString) => {
     year: "numeric",
   });
 };
-
+const truncateText = (text, wordLimit) => {
+  const words = text.split(" ");
+  if (words.length > wordLimit) {
+    return words.slice(0, wordLimit).join(" ") + "...";
+  }
+  return text;
+};
 const InfoCard = ({
-  // courseId,
+  courseId,
   courseName,
   teacher,
   // department,
   startDate,
   endDate,
-  // startTime,
-  // endTime,
-  // days,
-  // description,
+  startTime,
+  endTime,
+  days,
+  description,
   // level,
   capacity,
   numberOfEnrolledStudents,
-  // price,
+  price,
   numberOfHours,
-  // handleOnClickEnroll,
+  handleOnClickEnroll,
 }) => {
+  const [open, setOpen] = useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const time =
+    startTime.split(":").slice(0, 2).join(":") +
+    " - " +
+    endTime.split(":").slice(0, 2).join(":");
+
+  const duration = formatDate(startDate) + " - " + formatDate(endDate);
+
   return (
-    <StyledCard className="bg-white shadow-lg rounded-lg border">
-      <CardContent>
-        <div className="space-y-6 ">
+    <StyledCard className="bg-white shadow-lg rounded-lg !border !border-neutral-border">
+      <CardContent className=" !pb-4">
+        <div className="space-y-4 p-2">
           {/* Course Name */}
           <div className="!space-y-0">
             <Tooltip title={courseName} arrow>
@@ -59,9 +85,9 @@ const InfoCard = ({
             </Tooltip>
             <Typography
               // variant="body2"
-              className={`${teacher === "N/A" ? "text-white" : "text-neutral-textSecondary"} !p-0 !m-0 !text-base`}
+              className={`${description === "N/A" ? "text-white" : "text-neutral-textSecondary"} !p-0 !m-0 !text-base`}
             >
-              {teacher}
+              {truncateText(description, 13)}
             </Typography>
           </div>
 
@@ -83,9 +109,40 @@ const InfoCard = ({
             <Chip
               icon={<PeopleAltOutlinedIcon className="!text-secondary-dark" />}
               label={`${capacity - numberOfEnrolledStudents} seats left`}
-              className="!bg-neutral-surface !text-neutral-textMedium !text-base "
+              className="!bg-neutral-surface !text-accent-error !text-base "
             />
           </div>
+          <Divider className="!px-0 !mx-0" />
+
+          {/* Price + View */}
+          <div className="flex justify-between items-center">
+            <Typography className="!font-bold !text-xl">
+              {/* <span className="!font-semibold">Price:</span> */}${price}
+            </Typography>
+            <Button
+              color="secondary"
+              variant="contained"
+              // className="!text-white"
+              endIcon={<ArrowForwardIosOutlinedIcon className="!text-white" />}
+              onClick={handleClickOpen}
+            >
+              Course Details
+            </Button>
+          </div>
+          <CourseDetailsDialog
+            open={open}
+            onClose={handleClose}
+            handleOnClickEnroll={handleOnClickEnroll}
+            courseId={courseId}
+            name={courseName}
+            teacher={teacher}
+            description={description}
+            duration={duration}
+            time={time}
+            days={days}
+            hours={numberOfHours}
+            price={price}
+          />
         </div>
       </CardContent>
     </StyledCard>

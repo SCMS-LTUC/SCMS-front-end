@@ -27,7 +27,7 @@ export default function CoursesLayout() {
     }
   }
   return (
-    <div className="">
+    <div className="space-y-8">
       <div className="flex ">
         <ToggleButtonGroup
           value={value}
@@ -64,7 +64,7 @@ export default function CoursesLayout() {
           </ToggleButton>
         </ToggleButtonGroup>
       </div>
-      <div className="!p-8">
+      <div className="">
         <Outlet />
       </div>
     </div>

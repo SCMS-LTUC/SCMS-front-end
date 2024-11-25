@@ -12,7 +12,7 @@ import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
 import HourglassEmptyOutlinedIcon from "@mui/icons-material/HourglassEmptyOutlined";
-import { styled } from "@mui/material/styles";
+// import { styled } from "@mui/material/styles";
 
 const formatDate = (dateString) => {
   const date = new Date(dateString);
@@ -22,14 +22,14 @@ const formatDate = (dateString) => {
     year: "numeric",
   });
 };
-const StyledCard = styled(Card)`
-  &:hover {
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    transform: translateY(-5px);
-    transition: all 0.2s ease-in-out;
-  }
-  cursor: pointer;
-`;
+// const StyledCard = styled(Card)`
+//   &:hover {
+//     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+//     transform: translateY(-5px);
+//     transition: all 0.2s ease-in-out;
+//   }
+//   cursor: pointer;
+// `;
 const InfoCard = ({
   courseId,
   courseName,
@@ -44,7 +44,7 @@ const InfoCard = ({
 }) => {
   console.log(courseId);
   return (
-    <StyledCard
+    <Card
       // onClick={onNavigate}
       className="bg-white shadow-lg rounded-lg border"
     >
@@ -116,7 +116,7 @@ const InfoCard = ({
           </div>
         </div>
       </CardContent>
-    </StyledCard>
+    </Card>
   );
 };
 
