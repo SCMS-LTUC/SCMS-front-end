@@ -17,10 +17,12 @@ import {
   MenuItem,
 } from "@mui/material";
 import PropTypes from "prop-types";
+import { useSubmitAttendance } from "../../../Logic/Teacher/useLectures";
 
 const statusOptions = ["Present", "Absent"];
 
-const PostTable = ({ rows, open, onClose, lectureId }) => {
+const PostTableDialog = ({ rows, open, onClose, lectureId }) => {
+  const submitAttendance = useSubmitAttendance();
   const initialRequest = {
     lectureId: lectureId,
     lectureAttendance: rows.map((student) => ({
@@ -30,6 +32,10 @@ const PostTable = ({ rows, open, onClose, lectureId }) => {
   };
 
   const [requestData, setRequestData] = React.useState(initialRequest);
+
+  React.useEffect(() => {
+    setRequestData(initialRequest);
+  }, [lectureId, rows]);
 
   const handleStatusChange = (event, studentID) => {
     const newStatus = event.target.value;
@@ -42,7 +48,16 @@ const PostTable = ({ rows, open, onClose, lectureId }) => {
       ),
     }));
   };
-  // PostTable.jsx
+
+  const handleSubmit =  () => {
+    try {
+      submitAttendance(initialRequest);
+      onClose();
+    } catch (error) {
+      console.error("Error submitting attendance:", error);
+    }
+  };
+
   return (
     <Dialog
       open={open}
@@ -130,14 +145,22 @@ const PostTable = ({ rows, open, onClose, lectureId }) => {
           color="secondary"
           className="!text-neutral-surface"
         >
-          Save
+          Cancel
+        </Button>
+        <Button
+          onClick={handleSubmit}
+          variant="contained"
+          color="primary"
+          className="!text-neutral-surface"
+        >
+          Submit
         </Button>
       </DialogActions>
     </Dialog>
   );
 };
 
-PostTable.propTypes = {
+PostTableDialog.propTypes = {
   rows: PropTypes.arrayOf(
     PropTypes.shape({
       studentID: PropTypes.number.isRequired,
@@ -146,7 +169,7 @@ PostTable.propTypes = {
   ).isRequired,
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  lectureId: PropTypes.string.isRequired,
+  lectureId: PropTypes.number.isRequired,
 };
 
-export default PostTable;
+export default PostTableDialog;

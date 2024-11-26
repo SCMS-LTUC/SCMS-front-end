@@ -21,6 +21,8 @@ import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined
 import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 import { useNavigate } from "react-router-dom";
 import ConfirmDeleteDialog from "../../Common/ConfirmDeleteDialog";
+import { useDeleteQuiz } from "../../../Logic/Teacher/useQuizzes";
+
 const formatDate = (dateString) => {
   if (!dateString) return "N/A";
   const date = new Date(dateString);
@@ -37,8 +39,10 @@ StickyHeadTable.propTypes = {
 
 export default function StickyHeadTable({ quizzes }) {
   const [page, setPage] = React.useState(0);
+  const { removeQuiz } = useDeleteQuiz();
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
+  const [selectedQuiz, setQuizId] = React.useState(null);
   const navigate = useNavigate();
   const columns = React.useMemo(
     () => [
@@ -55,6 +59,8 @@ export default function StickyHeadTable({ quizzes }) {
   //handlers
   const handleEditClick = (quizId) => {
     const selectedQuiz = quizzes.find((quiz) => quiz.id === quizId);
+    console.log(selectedQuiz);
+    console.log(quizId);
     navigate(`${quizId}/edit-quiz`, { state: { quiz: selectedQuiz } });
   };
 
@@ -63,7 +69,8 @@ export default function StickyHeadTable({ quizzes }) {
   };
 
   // Delete dialog
-  const handleDeleteDialogOpen = () => {
+  const handleDeleteDialogOpen = (quizId) => {
+    setQuizId(quizId);
     setDeleteDialogOpen(true);
   };
 
@@ -72,7 +79,7 @@ export default function StickyHeadTable({ quizzes }) {
   };
 
   const handleConfirmDelete = () => {
-    // Handle delete logic here
+    removeQuiz(selectedQuiz);
     console.log("deleted successfully");
   };
 
@@ -115,7 +122,7 @@ export default function StickyHeadTable({ quizzes }) {
                   hover
                   role="checkbox"
                   tabIndex={-1}
-                  key={row.assignmentId}
+                  key={row.quizId}
                   className="hover:!bg-neutral-background"
                 >
                   <TableCell className="!text-neutral-textPrimary !font-medium !bg-neutral-surface !text-lg">
@@ -125,18 +132,18 @@ export default function StickyHeadTable({ quizzes }) {
                     className={`!text-neutral-textMedium !bg-neutral-surface !text-lg`}
                   >
                     <Chip
-                      label={row.visible ? "Visible" : "Hidden"}
-                      className={`!text-base ${row.visible ? "!bg-green-100 !text-green-700" : "!bg-red-100 !text-red-700"} "`}
+                      label={row.isVisible ? "Visible" : "Hidden"}
+                      className={`!text-base ${row.isVisible ? "!bg-green-100 !text-green-700" : "!bg-red-100 !text-red-700"} "`}
                     />
                   </TableCell>
                   <TableCell className="!text-neutral-textMedium !bg-neutral-surface !text-lg">
-                    {formatDate(row.date)}
+                    {formatDate(row.endTime)}
                   </TableCell>
                   <TableCell className="!text-neutral-textMedium !bg-neutral-surface !text-lg">
                     {row.participants}
                   </TableCell>
                   <TableCell className="!text-neutral-textMedium !bg-neutral-surface !text-lg">
-                    {row.totalMarks}
+                    {row.mark}
                   </TableCell>
                   <TableCell className="!text-neutral-textMedium !bg-neutral-surface !text-lg">
                     <IconButton
@@ -159,7 +166,7 @@ export default function StickyHeadTable({ quizzes }) {
                     </IconButton>
                     <IconButton
                       className="hover:!bg-neutral-background transition-transform duration-300 ease-in-out transform hover:scale-110 hover:rotate-3"
-                      onClick={handleDeleteDialogOpen}
+                      onClick={() => handleDeleteDialogOpen(row.id)}
                     >
                       <DeleteOutlineOutlinedIcon
                         sx={{ fontSize: "28px" }}

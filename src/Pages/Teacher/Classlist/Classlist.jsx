@@ -9,32 +9,44 @@ import { useState } from "react";
 import ClasslistCard from "../../../Components/Teacher/Classlist/ClasslistCard";
 import { TextField } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import { useClassList } from "../../../Logic/Teacher/useClassList";
+import { useParams } from "react-router-dom";
 
-const students = [
-  {
-    studentId: 1,
-    studentName: "John Doe",
-    studentUserName: "johndoe",
-    studentEmail: "johndoe@gmail.com",
-  },
-  {
-    studentId: 2,
-    studentName: "Dima Salem",
-    studentUserName: "DimaSalem",
-    studentEmail: "johndoe@gmail.com",
-  },
-  {
-    studentId: 3,
-    studentName: "Leen Yasir",
-    studentUserName: "LeenYasir",
-    studentEmail: "LeenYasir@gmail.com",
-  },
-];
+// const students = [
+//   {
+//     studentId: 1,
+//     studentName: "John Doe",
+//     studentUserName: "johndoe",
+//     studentEmail: "johndoe@gmail.com",
+//   },
+//   {
+//     studentId: 2,
+//     studentName: "Dima Salem",
+//     studentUserName: "DimaSalem",
+//     studentEmail: "johndoe@gmail.com",
+//   },
+//   {
+//     studentId: 3,
+//     studentName: "Leen Yasir",
+//     studentUserName: "LeenYasir",
+//     studentEmail: "LeenYasir@gmail.com",
+//   },
+// ];
 
 export default function Classlist() {
+  const { courseId } = useParams();
+  const { students, status, error } = useClassList(courseId);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [searchQuery, setSearchQuery] = useState("");
+
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
+
+  if (status === "failed") {
+    return <div>{error}</div>;
+  }
 
   // Search handler
   const handleSearch = (event) => {

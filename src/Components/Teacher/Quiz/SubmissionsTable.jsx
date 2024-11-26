@@ -9,29 +9,32 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import PropTypes from "prop-types";
 import { useParams } from "react-router-dom";
+import { useQuizSubmissions } from "../../../Logic/Teacher/useQuizzes";
 
 StickyHeadTable.propTypes = {
   rows: PropTypes.array.isRequired,
 };
 // Mock Submissions Data
-const mockSubmissions = {
-  1: [
-    { id: 101, studentName: "John Doe", score: 85, date: "2024-10-02" },
-    { id: 102, studentName: "Jane Smith", score: 92, date: "2024-10-03" },
-  ],
-  2: [
-    { id: 201, studentName: "Alice Johnson", score: 78, date: "2024-10-16" },
-    { id: 202, studentName: "Bob Brown", score: 88, date: "2024-10-17" },
-  ],
-  3: [
-    { id: 301, studentName: "Charlie Davis", score: 95, date: "2024-11-06" },
-    { id: 302, studentName: "Diana Evans", score: 89, date: "2024-11-07" },
-  ],
-};
+// const mockSubmissions = {
+//   1: [
+//     { id: 101, studentName: "John Doe", score: 85, date: "2024-10-02" },
+//     { id: 102, studentName: "Jane Smith", score: 92, date: "2024-10-03" },
+//   ],
+//   2: [
+//     { id: 201, studentName: "Alice Johnson", score: 78, date: "2024-10-16" },
+//     { id: 202, studentName: "Bob Brown", score: 88, date: "2024-10-17" },
+//   ],
+//   3: [
+//     { id: 301, studentName: "Charlie Davis", score: 95, date: "2024-11-06" },
+//     { id: 302, studentName: "Diana Evans", score: 89, date: "2024-11-07" },
+//   ],
+// };
 
 export default function StickyHeadTable() {
   const { quizId } = useParams();
-  const submissions = mockSubmissions[quizId] || [];
+  const { submissions, status, error } = useQuizSubmissions(quizId);
+  // const submissions = mockSubmissions[quizId] || [];
+  console.log("submissions", submissions);
   const columns = React.useMemo(
     () => [
       { id: "studentName", label: "Student Name", minWidth: 170 },
@@ -72,6 +75,14 @@ export default function StickyHeadTable() {
     );
   };
 
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
+
+  if (status === "failed") {
+    return <div>Error: {error.message}</div>;
+  }
+
   return (
     <Paper
       sx={{ width: "100%", overflow: "hidden" }}
@@ -99,8 +110,8 @@ export default function StickyHeadTable() {
             {submissions
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
-                const submittedDate = formatDate(row.date);
-                const grade = row.score ? row.score : "0";
+                const submittedDate = formatDate(row.submittedAt);
+                const grade = row.grade ? row.grade : "0";
 
                 return (
                   <TableRow

@@ -4,8 +4,10 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import AnnouncementCard from "../../../Components/Teacher/AdminAnnouncement/AnnouncementCard";
 import PropTypes from "prop-types";
+import { useTeacherAnnouncements } from "../../../Logic/Teacher/useAnnouncements";
 
-export default function AdminAnnouncementList({ announcements }) {
+export default function AdminAnnouncementList() {
+  const {teacherAnnouncements } = useTeacherAnnouncements();
   const [visibleAssignments, setVisibleAssignments] = useState(5);
 
   const loadMoreAssignments = () => {
@@ -28,7 +30,7 @@ export default function AdminAnnouncementList({ announcements }) {
         <CardContent>
           <div>
             <div className="flex flex-col justify-start space-y-6">
-              {announcements
+              {teacherAnnouncements
                 .slice(0, visibleAssignments)
                 .map((announcment, index) => (
                   <AnnouncementCard key={index} {...announcment} />
@@ -41,7 +43,7 @@ export default function AdminAnnouncementList({ announcements }) {
 
         <CardContent>
           <div className="flex justify-end">
-            {visibleAssignments < announcements.length && (
+            {visibleAssignments < teacherAnnouncements.length && (
               <Button
                 variant="outlined"
                 color="primary"

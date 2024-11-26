@@ -5,21 +5,12 @@ import interactionPlugin from "@fullcalendar/interaction";
 import { useState } from "react";
 import { useEffect } from "react";
 import PostDialog from "./PostTableDialog.jsx";
+import { useParams } from "react-router-dom";
+import { useLectures } from "../../../Logic/Teacher/useLectures.js";
+//import { useCourse } from "../../../Logic/Teacher/useAllCourses.jsx";
+import { useClassList } from "../../../Logic/Teacher/useClassList.js";
 
-const rows = [
-  { studentID: 1, fullName: "John Doe" },
-  { studentID: 2, fullName: "Jane Smith" },
-  { studentID: 1, fullName: "John Doe" },
-  { studentID: 2, fullName: "Jane Smith" },
-  { studentID: 1, fullName: "John Doe" },
-  { studentID: 2, fullName: "Jane Smith" },
-  { studentID: 1, fullName: "John Doe" },
-  { studentID: 2, fullName: "Jane Smith" },
-  { studentID: 1, fullName: "John Doe" },
-  { studentID: 2, fullName: "Jane Smith" },
-  { studentID: 1, fullName: "John Doe" },
-  { studentID: 2, fullName: "Jane Smith" },
-];
+
 const formatDate = (dateString) => {
   if (!dateString) return "N/A";
   const date = new Date(dateString);
@@ -29,13 +20,24 @@ const formatDate = (dateString) => {
 };
 
 const App = () => {
+  const { courseId } = useParams();
+  const { students } = useClassList(courseId);
+  console.log(students);
+  const { lectures, status, error } = useLectures(courseId);
+  console.log(lectures);
   const [lectureDates, setLectureDates] = useState([]);
   const [calendarKey, setCalendarKey] = useState(0);
   const [postDialogOpen, setPostDialogOpen] = useState(false);
   const [selectedLectureId, setSelectedLectureId] = useState(null);
 
+  const rows = students.map((student) => ({
+    studentID: student.studentId,
+    fullName: student.studentName,
+  }));
+
   const handleDialogOpen = (id) => {
     setSelectedLectureId(id);
+    console.log(selectedLectureId);
     setPostDialogOpen(true);
   };
 
@@ -44,37 +46,10 @@ const App = () => {
   };
 
   useEffect(() => {
-    //lectures is the data response
-    const lectures = [
-      {
-        LectureId: 1,
-        LectureDate: "2024-11-10T21:09:02.814Z",
-      },
-      {
-        LectureId: 2,
-        LectureDate: "2024-11-12T21:09:02.814Z",
-      },
-      {
-        LectureId: 3,
-        LectureDate: "2024-11-15T21:09:02.814Z",
-      },
-      {
-        LectureId: 4,
-        LectureDate: "2024-11-17T21:09:02.814Z",
-      },
-      {
-        LectureId: 5,
-        LectureDate: "2024-11-18T21:09:02.814Z",
-      },
-      {
-        LectureId: 6,
-        LectureDate: "2024-12-20T21:09:02.814Z",
-      },
-    ];
     const formattedLectures = lectures.map((l, index) => ({
-      date: formatDate(l.LectureDate),
+      date: formatDate(l.lectureDate),
       title: `Lecture ${index + 1}`,
-      extendedProps: { LectureId: l.LectureId },
+      extendedProps: { LectureId: l.lectureId },
     }));
     setLectureDates(formattedLectures);
     setCalendarKey((prevKey) => prevKey + 1); // Force re-render of the calendar
@@ -98,8 +73,17 @@ const App = () => {
       //   `Clicked on today's lecture: ${clickInfo.event.extendedProps.LectureId}`
       // );
       handleDialogOpen(clickInfo.event.extendedProps.LectureId);
+      console.log(clickInfo.event.extendedProps.LectureId);
     }
   };
+
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
+
+  if (status === "error") {
+    return <div>Error: {error.message}</div>;
+  }
 
   return (
     <div

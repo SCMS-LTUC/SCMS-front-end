@@ -87,44 +87,62 @@
 //   );
 // }
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { TextField, Button, Box, Typography, Paper } from "@mui/material";
 import PropTypes from "prop-types";
+import { useParams, useNavigate } from "react-router-dom";
+import { useAssignmentSubmission, useGradeSubmission } from "../../../Logic/Teacher/useAssignmentSubmissions";
+import { useAssignment } from "../../../Logic/Teacher/useAssignment";
 
-export default function GradeSubmissionForm({ submissionId }) {
-  const [submission, setSubmission] = useState(null);
+export default function GradeSubmissionForm() {
+  const { courseId, assignmentId, submissionId } = useParams();
+  const Navigate = useNavigate();
+  const { submission, error, loading } = useAssignmentSubmission(submissionId);
+  const { gradesubmit } = useGradeSubmission(submissionId);
+  const { assignment } = useAssignment(assignmentId);
+  //const [submission, setSubmission] = useState(null);
   const [grade, setGrade] = useState("");
   const [feedback, setFeedback] = useState("");
-  const [assignment] = useState({
-    name: "Assignment 1",
-    due: "2023-10-01",
-    submissions: 10,
-    description: "Description for Assignment 1",
-    mark: 20,
-  });
+  // const [assignment] = useState({
+  //   name: "Assignment 1",
+  //   due: "2023-10-01",
+  //   submissions: 10,
+  //   description: "Description for Assignment 1",
+  //   mark: 20,
+  // });
 
-  useEffect(() => {
-    // Fetch submission details using submissionId
-    // Replace with actual API call
-    const fetchedSubmission = {
-      id: submissionId,
-      text: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-      Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-      Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
-      nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in 
-      reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla 
-      pariatur. Excepteur sint occaecat cupidatat non proident, sunt in 
-      culpa qui officia deserunt mollit anim id est laborum.`,
-      fileUrl: "/path/to/uploaded/file.pdf",
-      grade: "",
-      feedback: "",
-    };
-    setSubmission(fetchedSubmission);
-  }, [submissionId]);
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
+  // useEffect(() => {
+  //   // Fetch submission details using submissionId
+  //   // Replace with actual API call
+  //   const fetchedSubmission = {
+  //     id: submissionId,
+  //     text: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+  //     Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+  //     Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
+  //     nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in 
+  //     reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla 
+  //     pariatur. Excepteur sint occaecat cupidatat non proident, sunt in 
+  //     culpa qui officia deserunt mollit anim id est laborum.`,
+  //     fileUrl: "/path/to/uploaded/file.pdf",
+  //     grade: "",
+  //     feedback: "",
+  //   };
+  //   setSubmission(fetchedSubmission);
+  // }, [submissionId]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add logic to save grade and feedback
+    console.log({ submissionId, grade, feedback });
+    gradesubmit({ studentAssignmentId: submissionId, grade, feedback });
+    Navigate(`/course-details/${courseId}/assignments/${assignmentId}/submissions/`);
   };
 
   if (!submission) {
@@ -143,7 +161,7 @@ export default function GradeSubmissionForm({ submissionId }) {
           </Typography>
           <Box className="mt-1 p-2 border rounded-md max-h-60 overflow-y-auto">
             <Typography className="whitespace-pre-wrap">
-              {submission.text}
+              {submission.submission}
             </Typography>
           </Box>
         </Box>
@@ -153,7 +171,7 @@ export default function GradeSubmissionForm({ submissionId }) {
             <Button
               variant="outlined"
               color="primary"
-              href={submission.fileUrl}
+              href={submission.filepath}
               download
               className="border rounded-md shadow-sm text-black"
             >
@@ -173,7 +191,7 @@ export default function GradeSubmissionForm({ submissionId }) {
             required
           />
           <Typography className="ml-3 text-base text-gray-500">
-            / {assignment.mark}
+            / {assignment.fullMark}
           </Typography>
         </Box>
         <Box className="mb-4">
