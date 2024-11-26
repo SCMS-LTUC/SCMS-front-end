@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "../Api/BaseUrl";
+import axios from "../../Api/BaseUrl";
 
 export const fetchTeacherAnnouncements = createAsyncThunk(
   "teacherAnnouncements/fetchTeacherAnnouncements",

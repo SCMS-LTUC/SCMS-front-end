@@ -2,7 +2,7 @@ import AssignmentLayout from "../../../Components/Student/Assignments/Assignment
 import { useParams } from "react-router-dom";
 import { Card, CardContent } from "@mui/material";
 // the assignments is the data from api/assignments/courses/{courseId}/student/assignments
-import { studentAssignmentt } from "../../../Logic/Student/Data";
+// import { studentAssignmentt } from "../../../Logic/Student/Data";
 import {
   useAssignment,
   useAssignmentSubmission,
@@ -31,7 +31,7 @@ const downloadFile = async (studentAssignmentId) => {
   try {
     // Replace with your actual backend URL and the student's assignment ID
     const response = await fetch(
-      `https://localhost:7219/api/studentAssignments/download/${studentAssignmentId}/`,
+      `http://localhost:5128/api/studentAssignments/download/${studentAssignmentId}/`,
       {
         method: "GET",
         headers: {
@@ -177,12 +177,12 @@ export default function ViewSubmission() {
                       onClick={() => downloadFile(studentAssignmentId)}
                     >
                       {
-                        extractFileInfo(studentAssignmentt.filePath)
+                        extractFileInfo(studentAssignment.filePath)
                           .fileNameWithoutGuid
                       }
                       .
                       {
-                        extractFileInfo(studentAssignmentt.filePath)
+                        extractFileInfo(studentAssignment.filePath)
                           .fileExtension
                       }
                     </div>
