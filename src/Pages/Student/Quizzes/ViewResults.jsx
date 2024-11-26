@@ -18,8 +18,7 @@ const QuizInstructions = () => {
 
   useEffect(() => {
     calculate(quizId);
-  }
-  , 1);
+  }, []);
   //call the calculate function to get the quiz result
   if (!quizResult) return null;
 

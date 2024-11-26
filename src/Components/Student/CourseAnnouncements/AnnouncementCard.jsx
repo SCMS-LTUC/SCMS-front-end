@@ -48,7 +48,7 @@ export default function AnnouncementCard({
       className={` container !bg-neutral-surface !rounded-lg !shadow-md !shadow-neutral-border !border-2 !border-neutral-border !p-4 !border-l-4 ${type === "Important" ? "!border-l-accent-error" : type === "Notice" ? "!border-l-accent-warning" : "!border-l-accent-info"} `}
     >
       <CardContent className=" !h-full !justify-between !pb-4">
-        <div id="title" className="space-y-2">
+        <div id="title" className="space-y-4">
           <Typography className="flex justify-between !text-neutral-textPrimary !font-bold !text-2xl">
             {title}
             <Chip
@@ -56,7 +56,7 @@ export default function AnnouncementCard({
               className={`${type === "Important" ? "!bg-red-100 !text-red-700" : type === "Notice" ? "!bg-yellow-100 !text-yellow-700" : "!bg-blue-100 !text-blue-700"}  `}
             />
           </Typography>
-          <Typography className="!text-neutral-textSecondary !text-sm">
+          <Typography className="!text-neutral-textPrimary !text-base">
             {showFullDescription ? content : `${content.substring(0, 300)}...`}
           </Typography>
           {content.length > 100 && (

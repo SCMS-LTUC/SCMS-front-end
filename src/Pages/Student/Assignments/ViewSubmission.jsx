@@ -3,7 +3,10 @@ import { useParams } from "react-router-dom";
 import { Card, CardContent } from "@mui/material";
 // the assignments is the data from api/assignments/courses/{courseId}/student/assignments
 import { studentAssignmentt } from "../../../Logic/Student/Data";
-import { useAssignment, useAssignmentSubmission } from "../../../Logic/Student/useAssignments";
+import {
+  useAssignment,
+  useAssignmentSubmission,
+} from "../../../Logic/Student/useAssignments";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import FeedOutlinedIcon from "@mui/icons-material/FeedOutlined";
 
@@ -56,9 +59,11 @@ const downloadFile = async (studentAssignmentId) => {
     const contentDisposition = response.headers.get("content-disposition");
     let fileName = "file";
     if (contentDisposition) {
-      const fileNameMatch = contentDisposition.match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/);
+      const fileNameMatch = contentDisposition.match(
+        /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/
+      );
       if (fileNameMatch != null && fileNameMatch[1]) {
-        fileName = fileNameMatch[1].replace(/['"]/g, '');
+        fileName = fileNameMatch[1].replace(/['"]/g, "");
       }
     }
     link.setAttribute("download", fileName);
@@ -82,12 +87,13 @@ const extractFileInfo = (filePath) => {
 export default function ViewSubmission() {
   const { assignmentId, studentAssignmentId } = useParams();
   const { assignment, status: assignmentStatus } = useAssignment(assignmentId);
-  const { studentAssignment, status: studentAssignmentStatus } = useAssignmentSubmission(studentAssignmentId);
+  const { studentAssignment, status: studentAssignmentStatus } =
+    useAssignmentSubmission(studentAssignmentId);
 
   console.log(assignment);
   console.log(studentAssignment);
-  console.log("assignment id",assignmentId);
-  console.log("student assignment id",studentAssignmentId);
+  console.log("assignment id", assignmentId);
+  console.log("student assignment id", studentAssignmentId);
   console.log(studentAssignment.filePath);
 
   if (assignmentStatus === "loading" || studentAssignmentStatus === "loading") {
@@ -112,7 +118,7 @@ export default function ViewSubmission() {
                 <h1 className="text-xl font-semibold !mb-5">
                   Assignment Details
                 </h1>
-                <p>{assignment.description}</p>
+                <p className="text-base">{assignment.description}</p>
               </CardContent>
             </Card>
           </div>
