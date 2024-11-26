@@ -4,7 +4,7 @@ import ClassOutlinedIcon from "@mui/icons-material/ClassOutlined";
 // import TrendingUpOutlinedIcon from "@mui/icons-material/TrendingUpOutlined";
 import InsertChartOutlinedIcon from "@mui/icons-material/InsertChartOutlined";
 const AttendanceSummary = ({ totalClasses, absenceDates }) => {
-  const totalAbsences = absenceDates.length;
+  const totalAbsences = absenceDates ? absenceDates.length : 0;
   const attendanceRate = ((totalClasses - totalAbsences) / totalClasses) * 100;
 
   const stats = [

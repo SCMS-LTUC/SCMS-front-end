@@ -29,7 +29,7 @@ const AbsenceTable = ({ absenceDates }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {absenceDates.map((record, index) => {
+            {absenceDates?.map((record, index) => {
               const date = new Date(record.lectureDate);
               return (
                 <TableRow

@@ -12,14 +12,8 @@ export const useAttendance = (courseId) => {
   );
 
   useEffect(() => {
-    if (courseId) {
-      dispatch(getStudentAbsenceDates(courseId));
-    }
+    dispatch(getStudentAbsenceDates(courseId));
   }, [dispatch, courseId]);
-  console.log(
-    "this is the absence dates from logic folder",
-    studentAbsenceDates
-  );
 
   return { studentAbsenceDates, status, error };
 };
@@ -29,14 +23,13 @@ export const useCourseLectures = (courseId) => {
   const { courseLectures, status, error } = useSelector(
     (state) => state.studentAttendance
   );
+  //   dispatch(getCourseLectures(courseId));
 
   useEffect(() => {
-    console.log("this iss the useEffect");
     if (courseId) {
       dispatch(getCourseLectures(courseId));
     }
   }, [dispatch, courseId]);
-  console.log("this is the course lectures from logic folder", courseLectures);
 
   return { courseLectures, status, error };
 };

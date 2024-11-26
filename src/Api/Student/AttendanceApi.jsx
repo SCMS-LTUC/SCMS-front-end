@@ -13,9 +13,9 @@ export const getCourseLectures = createAsyncThunk(
           },
         }
       );
-      console.log("this is the course lectures", response.data);
+      //   console.log("this is the course lectures", response.data);
 
-      return response.data;
+      return response.data.$values;
     } catch (error) {
       console.log(error);
     }
@@ -34,7 +34,7 @@ export const getStudentAbsenceDates = createAsyncThunk(
           },
         }
       );
-      console.log("this is the absence dates", response.data);
+      //   console.log("this is the absence dates", response.data);
       return response.data;
     } catch (error) {
       console.log(error);

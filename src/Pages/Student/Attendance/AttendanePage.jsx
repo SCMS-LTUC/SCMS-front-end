@@ -22,7 +22,9 @@ const AttendancePage = () => {
   // console.log("courseLecturess", courseLecturess);
 
   const absenceDates = studentAbsenceDates.$values;
-  const totalClasses = courseLectures.$values.length;
+  // const totalClasses = courseLectures.$values.length;
+  const totalClasses = courseLectures ? courseLectures.length : 0;
+
   console.log(courseId);
 
   return (
