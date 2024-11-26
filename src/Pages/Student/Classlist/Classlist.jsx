@@ -10,8 +10,12 @@ import ClasslistCard from "../../../Components/Teacher/Classlist/ClasslistCard";
 import TeacherCard from "../../../Components/Student/Classlist/TeacherCard";
 import SearchIcon from "@mui/icons-material/Search";
 import { students, currentCourse } from "../../../Logic/Student/Data";
+//import { useParams } from "react-router-dom";
+//import { useClassList } from "../../../Logic/Teacher/useClassList";
 
 export default function Classlist() {
+  //  const { courseId } = useParams();
+  //  const { students } = useClassList(courseId);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [searchQuery, setSearchQuery] = useState("");

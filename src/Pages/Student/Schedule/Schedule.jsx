@@ -3,8 +3,11 @@ import { Typography, Divider } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import ScheduleTable from "../../../Components/Teacher/Schedule/ScheduleTable";
-import { scheduleCourses } from "../../../Logic/Student/Data";
+//import { scheduleCourses } from "../../../Logic/Student/Data";
+import { useCurrentStudentCourses } from "../../../Logic/Student/useAllCourses";
+
 export default function Schedule() {
+  const { currentCourses } = useCurrentStudentCourses();
   return (
     <div className="">
       <Card className="!p-4 !h-auto container !mx-auto !bg-neutral-surface !rounded-lg !shadow-md !shadow-neutral-border !border-2 !border-neutral-border">
@@ -21,7 +24,7 @@ export default function Schedule() {
         <CardContent>
           <div>
             <div className="flex flex-col justify-start space-y-6">
-              <ScheduleTable scheduleCourses={scheduleCourses} />
+              <ScheduleTable scheduleCourses={currentCourses} />
             </div>
           </div>
         </CardContent>

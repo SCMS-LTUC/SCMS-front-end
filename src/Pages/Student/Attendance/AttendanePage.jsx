@@ -4,14 +4,25 @@ import AbsenceTable from "../../../Components/Student/Attendance/AbsenceTable";
 import AttendancePolicy from "../../../Components/Student/Attendance/AttendancePolicy";
 import { useParams } from "react-router-dom";
 import {
-  courseLectures,
-  studentAbsenceDates,
+  courseLecturess,
+  studentAbsenceDatess,
 } from "../../../Logic/Student/Data";
+import {
+  useAttendance,
+  useCourseLectures,
+} from "../../../Logic/Student/useAttendance";
 
 const AttendancePage = () => {
   const { courseId } = useParams();
-  const absenceDates = studentAbsenceDates.$values;
-  const totalClasses = courseLectures.$values.length;
+  const { studentAbsenceDates } = useAttendance(courseId);
+  console.log("studentAbsenceDates", studentAbsenceDates);
+  console.log("studentAbsenceDatess", studentAbsenceDatess);
+  const { courseLectures } = useCourseLectures(courseId);
+  console.log("courseLectures", courseLectures);
+  console.log("courseLecturess", courseLecturess);
+
+  const absenceDates = studentAbsenceDatess.$values;
+  const totalClasses = courseLecturess.$values.length;
   console.log(courseId);
 
   return (

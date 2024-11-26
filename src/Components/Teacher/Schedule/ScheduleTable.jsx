@@ -34,9 +34,9 @@ const formattedData = (course) => {
   };
 
   return {
-    courseName: course.subjectName,
+    courseName: course.className,
     datePeriod: `${formatDate(course.startDate)} - ${formatDate(course.endDate)}`,
-    days: `${course.days.$values.join(", ")}`,
+    days: course.days,
     time: `${formatTime(course.startTime)} - ${formatTime(course.endTime)}`,
     classroom: course.classroomNumber,
   };
@@ -103,7 +103,7 @@ export default function Schedule({ scheduleCourses }) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {scheduleCourses.$values.map((row) => {
+            {scheduleCourses.map((row) => {
               const data = formattedData(row);
               return (
                 <TableRow

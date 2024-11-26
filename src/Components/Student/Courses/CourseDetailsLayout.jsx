@@ -11,12 +11,14 @@ import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 import QuizOutlinedIcon from "@mui/icons-material/QuizOutlined";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
+import { useCourse } from "../../../Logic/Student/useAllCourses";
 // import { useCourse } from "../../Logic/Teacher/useAllCourses";
 
 const CourseDetailsLayout = () => {
   const { courseId } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
+  const { course } = useCourse(courseId);
 
   // data fetching
   // const { course, status, error, loading } = useCourse(courseId);
@@ -100,10 +102,10 @@ const CourseDetailsLayout = () => {
       <Card className="p-6 !h-auto container !mx-auto !w-full !bg-neutral-surface !rounded-lg !shadow-md !shadow-neutral-border !border-2 !border-neutral-border ">
         <CardContent className=" !border-b-2 !border-neutral-border">
           <Typography className="!font-semibold mb-2 text-neutral-textPrimary !text-4xl">
-            {/*course.className ||*/ "Course Name"}
+            course.className || "Course Name"
           </Typography>
           <Typography className="text-neutral-textSecondary !text-base">
-            Instructor: {/*course.teacherName ||*/ "Unknown Teacher"}
+            Instructor: {course.teacherName || "Unknown Teacher"}
           </Typography>
         </CardContent>
 

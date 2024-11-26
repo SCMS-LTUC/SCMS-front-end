@@ -15,6 +15,8 @@ import {
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import { useNavigate, useParams } from "react-router-dom";
+import { useAssignments } from "../../../Logic/Student/useAssignments";
+
 const formatDate = (dateString) => {
   if (!dateString) return { date: "N/A", time: "N/A" };
 
@@ -36,12 +38,13 @@ StickyHeadTable.propTypes = {
   assignments: PropTypes.array.isRequired,
 };
 
-export default function StickyHeadTable({ assignments }) {
+export default function StickyHeadTable( ) {
+  const { courseId } = useParams();
+  const { assignments } = useAssignments(courseId);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const navigate = useNavigate();
-  const { courseId } = useParams();
-  //   const navigate = useNavigate();
+
   const columns = React.useMemo(
     () => [
       { id: "quizName", label: "Quiz", minWidth: 100 },

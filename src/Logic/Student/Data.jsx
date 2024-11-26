@@ -343,7 +343,7 @@ export const assignments = {
     },
   ],
 };
-export const assignment = {
+export const assignmentt = {
   $id: "1",
   assignmentId: "1",
   assignmentName: "MathHomework1",
@@ -352,7 +352,7 @@ export const assignment = {
   visible: true,
   fullMark: 20,
 };
-export const studentAssignment = {
+export const studentAssignmentt = {
   $id: "1",
   studentAssignmentId: 20,
   assignmentId: 18,
@@ -364,7 +364,7 @@ export const studentAssignment = {
   filePath:
     "C:\\Users\\LTUC\\source\\repos\\SCMS-back-end\\SCMS-back-end\\Uploads\\commonStyles_117ca74d-8374-4e21-904e-57af9e4de9fe.txt",
 };
-export const studentAbsenceDates = {
+export const studentAbsenceDatess = {
   $id: "1",
   $values: [
     {
@@ -377,7 +377,7 @@ export const studentAbsenceDates = {
     },
   ],
 };
-export const courseLectures = {
+export const courseLecturess = {
   $id: "1",
   $values: [
     {

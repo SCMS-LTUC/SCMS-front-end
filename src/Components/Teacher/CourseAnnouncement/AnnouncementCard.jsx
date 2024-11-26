@@ -81,7 +81,7 @@ export default function AnnouncementCard({ title, createdAt, type, content }) {
       }`}
     >
       <CardContent className="!h-full !justify-between !pb-4">
-        <div id="title" className="space-y-2">
+        <div id="title" className="space-y-4">
           <Typography className="flex justify-between !text-neutral-textPrimary !font-bold !text-2xl">
             {title}
             <div id="actions" className="!space-x-3">
@@ -105,7 +105,7 @@ export default function AnnouncementCard({ title, createdAt, type, content }) {
               </IconButton>
             </div>
           </Typography>
-          <Typography className="!text-neutral-textSecondary !text-sm">
+          <Typography className="!text-neutral-textPrimary !text-base">
             {showFullDescription ? content : `${content.substring(0, 200)}...`}
           </Typography>
           {content.length > 100 && (

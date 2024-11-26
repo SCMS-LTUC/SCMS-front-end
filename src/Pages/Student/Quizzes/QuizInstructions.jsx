@@ -6,12 +6,21 @@ import AccessAlarmIcon from "@mui/icons-material/AccessAlarm";
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 
 // the quiz is the data from api/Quiz/{quizId}
-import { quiz } from "../../../Logic/Student/Data";
+//import { quiz } from "../../../Logic/Student/Data";
+import { useQuiz } from "../../../Logic/Student/useQuizzes";
 
 const QuizInstructions = () => {
   const { quizId } = useParams();
-  console.log(quizId);
+  const { quiz , status, error } = useQuiz(quizId);
 
+ if (status === "loading") {
+    return <div>Loading...</div>;
+  }
+
+  if (status === "error") {
+    return <div>Error: {error.message}</div>;
+  }
+ const questions = quiz.questions || [];
   if (!quiz) return null;
 
   return (
@@ -34,7 +43,7 @@ const QuizInstructions = () => {
                 icon={
                   <HelpOutlineOutlinedIcon className=" !text-neutral-textSecondary" />
                 }
-                label={quiz.questions.$values.length + " questions"}
+                label={questions.length + " questions"}
                 className="!bg-white !text-base !text-neutral-textSecondary"
               />
             </div>

@@ -1,7 +1,9 @@
 // export default TakeQuiz;
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { quiz } from "../../../Logic/Student/Data";
+//import { quiz } from "../../../Logic/Student/Data";
+import { useQuiz } from "../../../Logic/Student/useQuizzes";
+import { useSubmitQuiz } from "../../../Logic/Student/useQuizzes";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 // import Avatar from "@mui/material/Avatar";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
@@ -12,6 +14,8 @@ const TakeQuiz = () => {
   // Route parameters
   const { courseId, quizId } = useParams();
   const navigate = useNavigate();
+  const { quiz } = useQuiz(quizId);
+  const { submit } = useSubmitQuiz();
 
   // State management
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -34,9 +38,16 @@ const TakeQuiz = () => {
     //1. call route: api/StudentAnswer/post-quiz-result using the following data
     const quizResult = {
       quizId: quizId,
-      studentAnswers: answers,
+      studentAnswers: Object.entries(answers).map(
+        ([questionId, selectedAnswerOptionId]) => ({
+          questionId,
+          selectedAnswerOptionId,
+        })
+      ),
     };
     console.log("this is the quiz result", quizResult);
+    submit(quizResult);
+
     //2. then call route: api/StudentAnswer/calculate-score
     //3. then navigate to the result page
     navigate(`/course-details/${courseId}/quizzes/view-results/${quizId}`);
@@ -67,8 +78,8 @@ const TakeQuiz = () => {
   };
 
   // Derive quiz details
-  const currentQuestion = quiz.questions.$values[currentQuestionIndex];
-  const totalQuestions = quiz.questions.$values.length;
+  const currentQuestion = quiz.questions[currentQuestionIndex];
+  const totalQuestions = quiz.questions.length;
   const minutes = Math.floor(timeLeft / 60);
   const seconds = timeLeft % 60;
 
@@ -127,7 +138,7 @@ const TakeQuiz = () => {
             <p className="!text-lg !mb-6">{currentQuestion.text}</p>
             <form>
               <div className="space-y-4">
-                {currentQuestion.answerOptions.$values.map((option) => (
+                {currentQuestion.answerOptions.map((option) => (
                   <FormControlLabel
                     key={option.answerOptionId}
                     control={

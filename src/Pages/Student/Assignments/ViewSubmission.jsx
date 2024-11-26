@@ -2,7 +2,11 @@ import AssignmentLayout from "../../../Components/Student/Assignments/Assignment
 import { useParams } from "react-router-dom";
 import { Card, CardContent } from "@mui/material";
 // the assignments is the data from api/assignments/courses/{courseId}/student/assignments
-import { assignment, studentAssignment } from "../../../Logic/Student/Data";
+import { studentAssignmentt } from "../../../Logic/Student/Data";
+import {
+  useAssignment,
+  useAssignmentSubmission,
+} from "../../../Logic/Student/useAssignments";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import FeedOutlinedIcon from "@mui/icons-material/FeedOutlined";
 
@@ -26,25 +30,43 @@ const formatDate = (dateString) => {
 const downloadFile = async (studentAssignmentId) => {
   try {
     // Replace with your actual backend URL and the student's assignment ID
-    // const response = await axios.get(
-    //   `http://localhost:5000/api/studentAssignments/downloadFile/${studentAssignmentId}`,
-    //   {
-    //     responseType: "blob", // Ensure the response is treated as a file (binary data)
-    //   }
-    // );
-    console.log(studentAssignmentId);
-    const response = {};
+    const response = await fetch(
+      `https://localhost:7219/api/studentAssignments/download/${studentAssignmentId}/`,
+      {
+        method: "GET",
+        headers: {
+          accept: "*/*",
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    console.log(response);
+
     // Create a Blob from the response data
-    const fileBlob = new Blob([response.data]);
+    const fileBlob = await response.blob();
 
     // Create an object URL for the Blob and trigger the download
     const downloadUrl = window.URL.createObjectURL(fileBlob);
     const link = document.createElement("a");
     link.href = downloadUrl;
-    link.setAttribute(
-      "download",
-      response.headers["content-disposition"].split("filename=")[1] || "file"
-    ); // Use file name from the response or fallback to 'file'
+
+    // Check if the content-disposition header is present
+    const contentDisposition = response.headers.get("content-disposition");
+    let fileName = "file";
+    if (contentDisposition) {
+      const fileNameMatch = contentDisposition.match(
+        /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/
+      );
+      if (fileNameMatch != null && fileNameMatch[1]) {
+        fileName = fileNameMatch[1].replace(/['"]/g, "");
+      }
+    }
+    link.setAttribute("download", fileName);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -64,8 +86,23 @@ const extractFileInfo = (filePath) => {
 
 export default function ViewSubmission() {
   const { assignmentId, studentAssignmentId } = useParams();
-  console.log(assignmentId);
-  console.log(studentAssignmentId);
+  const { assignment, status: assignmentStatus } = useAssignment(assignmentId);
+  const { studentAssignment, status: studentAssignmentStatus } =
+    useAssignmentSubmission(studentAssignmentId);
+
+  console.log(assignment);
+  console.log(studentAssignment);
+  console.log("assignment id", assignmentId);
+  console.log("student assignment id", studentAssignmentId);
+  console.log(studentAssignment.filePath);
+
+  if (assignmentStatus === "loading" || studentAssignmentStatus === "loading") {
+    return <div>Loading...</div>;
+  }
+
+  if (assignmentStatus === "failed" || studentAssignmentStatus === "failed") {
+    return <div>Error loading data</div>;
+  }
 
   return (
     <div>
@@ -81,7 +118,7 @@ export default function ViewSubmission() {
                 <h1 className="text-xl font-semibold !mb-5">
                   Assignment Details
                 </h1>
-                <p>{assignment.description}</p>
+                <p className="text-base">{assignment.description}</p>
               </CardContent>
             </Card>
           </div>
@@ -140,12 +177,12 @@ export default function ViewSubmission() {
                       onClick={() => downloadFile(studentAssignmentId)}
                     >
                       {
-                        extractFileInfo(studentAssignment.filePath)
+                        extractFileInfo(studentAssignmentt.filePath)
                           .fileNameWithoutGuid
                       }
                       .
                       {
-                        extractFileInfo(studentAssignment.filePath)
+                        extractFileInfo(studentAssignmentt.filePath)
                           .fileExtension
                       }
                     </div>

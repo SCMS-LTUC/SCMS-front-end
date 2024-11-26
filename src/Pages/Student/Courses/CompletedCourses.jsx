@@ -6,6 +6,8 @@ import { studentCourses } from "../../../Logic/Student/Data.jsx";
 const MyCourses = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const { previousCourses } = usePreviousStudentCourses();
+  console.log(previousCourses);
 
   function handleDownload(certificateId) {
     console.log(`Downloading certificate for course ${certificateId}`);
