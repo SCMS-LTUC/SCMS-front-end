@@ -696,7 +696,7 @@ export const students = [
     studentEmail: "LeenYasir@gmail.com",
   },
 ];
-export const studentGradess = {
+export const studentGrades = {
   overallGrade: 72.31,
   quizzesGrade: 21.03,
   assignmentsGrade: 51.28,

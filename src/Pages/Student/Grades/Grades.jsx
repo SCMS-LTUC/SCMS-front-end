@@ -3,7 +3,6 @@ import OverallGradeCard from "../../../Components/Student/Grades/OverallGradeCar
 import { Typography, Divider } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { useGrades } from "../../../Logic/Student/useGrades";
-import { studentGradess } from "../../../Logic/Student/Data";
 
 const convertDataFormat = (data) => {
   // Calculate the course full mark
@@ -55,8 +54,6 @@ const convertDataFormat = (data) => {
 export default function Grades() {
   const { courseId } = useParams();
   const {studentGrades, status, error } = useGrades(courseId);
-  console.log(studentGrades);
-  console.log(studentGradess);
 
   if (status === "loading") {
     return <div>Loading...</div>;
@@ -66,11 +63,11 @@ export default function Grades() {
     return <div>Error: {error}</div>;
   }
 
-  if (!studentGradess) {
+  if (!studentGrades) {
     return null;
   }
 
-  const convertedData = convertDataFormat(studentGradess);
+  const convertedData = convertDataFormat(studentGrades);
 
   return (
     <div className="flex flex-col justify-between !p-8">
@@ -82,7 +79,7 @@ export default function Grades() {
         </div>
         <Divider className="!my-4" />
         <div>
-          <OverallGradeCard overallGrade={70} />
+          <OverallGradeCard overallGrade={studentGrades.overallGrade} />
         </div>
 
         <div className="flex flex-col justify-start space-y-6">
