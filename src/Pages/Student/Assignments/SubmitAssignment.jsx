@@ -9,7 +9,8 @@ import {
   CardContent,
 } from "@mui/material";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
-import { assignment } from "../../../Logic/Student/Data";
+//import { assignment } from "../../../Logic/Student/Data";
+import { useAssignment, useSubmitAssignment } from "../../../Logic/Student/useAssignments";
 // if student try to submit twice this would give this error message:Submission already exists. You cannot submit more than once.
 // consider view a suitable error message in the notification snap bar for this case.
 
@@ -17,12 +18,15 @@ export default function SubmitAssignment() {
   const [submissionText, setSubmissionText] = useState("");
   const [file, setFile] = useState(null);
   const { assignmentId } = useParams();
+  const { assignment } = useAssignment(assignmentId);
+  const { submit } = useSubmitAssignment();
   console.log(assignmentId);
   console.log(file);
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
   };
   const handleSubmit = () => {
+    submit(assignmentId, submissionText, file);
     // implement the submit functionality here
   };
   return (
