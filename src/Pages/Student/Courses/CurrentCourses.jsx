@@ -33,9 +33,9 @@ const MyCourses = () => {
               <InfoCard
                 courseId={course.courseId}
                 key={index}
-                courseName={course.courseName}
-                teacher={course.teacher}
-                classroom={course.classroom}
+                courseName={course.className}
+                teacher={course.teacherName}
+                classroom={course.classroomNumber}
                 startTime={course.startTime}
                 endTime={course.endTime}
                 days={course.days}

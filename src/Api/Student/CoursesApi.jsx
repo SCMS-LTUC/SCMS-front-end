@@ -10,7 +10,6 @@ export const fetchStudentCurrentCourses = createAsyncThunk(
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
       });
-      console.log("response data:", response); // Debug: Log the mapped courses
 
       // Ensure response.data.$values is an array
       if (!response.data.$values || !Array.isArray(response.data.$values)) {
@@ -38,7 +37,7 @@ export const fetchStudentPreviousCourses = createAsyncThunk(
   "studentCourses/fetchStudentPreviousCourses",
   async () => {
     try {
-      const response = await baseUrl.get("/Courses/Student/l/PreviousCourses", {
+      const response = await baseUrl.get("/Courses/Student/l/AllCourses", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
@@ -47,11 +46,13 @@ export const fetchStudentPreviousCourses = createAsyncThunk(
       if (!response.data.$values || !Array.isArray(response.data.$values)) {
         throw new Error("Invalid API response format");
       }
-      const mappedCourses = response.data.$values.map((course) => ({
-        ...course,
-        courseId: Number(course.courseId), // Ensure 'courseId' is a number
-        days: Array.isArray(course.days?.$values) ? course.days.$values : [], // Extract 'days' as an array
-      }));
+      const mappedCourses = response.data.$values
+        .filter((course) => course.isComplete) // Filter for courses where IsCompleted is false
+        .map((course) => ({
+          ...course,
+          courseId: Number(course.courseId), // Ensure 'courseId' is a number
+          days: Array.isArray(course.days?.$values) ? course.days.$values : [], // Extract 'days' as an array
+        }));
 
       console.log("Mapped Courses:", mappedCourses); // Debug: Log the mapped courses
       return mappedCourses;

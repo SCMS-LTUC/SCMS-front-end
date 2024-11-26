@@ -2,7 +2,8 @@ import { useState } from "react";
 import { TablePagination } from "@mui/material";
 import InfoCard from "../../../Components/Student/Courses/CompletedCourseCard";
 // make sure to filter this to the completed courses only
-import { studentCourses } from "../../../Logic/Student/Data.jsx";
+// import { studentCourses } from "../../../Logic/Student/Data.jsx";
+import { usePreviousStudentCourses } from "../../../Logic/Student/useAllCourses.js";
 const MyCourses = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -25,7 +26,7 @@ const MyCourses = () => {
     <div>
       <div className="container  !mx-auto space-y-8 !min-h-screen">
         <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {studentCourses.$values
+          {previousCourses
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             .map((course, index) => (
               <InfoCard
@@ -47,7 +48,7 @@ const MyCourses = () => {
       </div>
       <TablePagination
         component="div"
-        count={studentCourses.$values.length}
+        count={previousCourses.length}
         page={page}
         onPageChange={handleChangePage}
         rowsPerPage={rowsPerPage}
