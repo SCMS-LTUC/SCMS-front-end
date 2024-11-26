@@ -24,6 +24,7 @@ import ViewSubmission from "./Assignments/ViewSubmission";
 import SubmitAssignment from "./Assignments/SubmitAssignment";
 import Classlist from "../Student/Classlist/Classlist";
 import AttendancePage from "./Attendance/AttendanePage";
+import Grades from "./Grades/Grades";
 // data example
 const menuItems = [
   {
@@ -91,6 +92,7 @@ export default function Main() {
           </Route>
           <Route path="classlist" element={<Classlist />} />
           <Route path="attendance" element={<AttendancePage />} />
+          <Route path="grades" element={<Grades />} />
         </Route>
       </Routes>
     </Layout>

@@ -9,6 +9,7 @@ import studentAnnouncementsReducer from "./Student/announcementsSlice";
 import studentQuizzesReducer from "./Student/quizzesSlice";
 import studentAssignmentsReducer from "./Student/assignmentsSlice";
 import studentAttendanceReducer from "./Student/attendanceSLice";
+import studentGradesReducer from "./Student/gradesSlice";
 
 const store = configureStore({
   reducer: {
@@ -21,6 +22,7 @@ const store = configureStore({
     studentQuizzes: studentQuizzesReducer,
     studentAssignments: studentAssignmentsReducer,
     studentAttendance: studentAttendanceReducer,
+    studentGrades: studentGradesReducer,
   },
 });
 

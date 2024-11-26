@@ -696,3 +696,32 @@ export const students = [
     studentEmail: "LeenYasir@gmail.com",
   },
 ];
+export const studentGradess = {
+  overallGrade: 72.31,
+  quizzesGrade: 21.03,
+  assignmentsGrade: 51.28,
+  assignments: [
+    {
+      title: "Math Homework 1",
+      fullMark: 100,
+      achievedMark: 60,
+    },
+    {
+      title: "Science Project",
+      fullMark: 50,
+      achievedMark: 40,
+    },
+  ],
+  quizzes: [
+    {
+      title: "History Quiz 1",
+      fullMark: 20,
+      achievedMark: 18,
+    },
+    {
+      title: "Math Quiz 2",
+      fullMark: 25,
+      achievedMark: 23,
+    },
+  ],
+};
