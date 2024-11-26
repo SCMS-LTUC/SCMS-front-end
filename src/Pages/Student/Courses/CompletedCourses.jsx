@@ -2,7 +2,7 @@ import { useState } from "react";
 import { TablePagination } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import InfoCard from "../../../Components/Student/Courses/CompletedCourseCard";
-import { completedCourses } from "../../../Logic/Student/Data.jsx";
+//import { completedCourses } from "../../../Logic/Student/Data.jsx";
 import { usePreviousStudentCourses } from "../../../Logic/Student/useAllCourses.js";
 
 const MyCourses = () => {
@@ -11,7 +11,6 @@ const MyCourses = () => {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const {previousCourses} = usePreviousStudentCourses();
   console.log(previousCourses);
-  console.log(completedCourses);
 
   const navigateToCourse = (path) => navigate(path);
 
@@ -57,7 +56,7 @@ const MyCourses = () => {
       </div>
       <TablePagination
         component="div"
-        count={completedCourses.length}
+        count={previousCourses.length}
         page={page}
         onPageChange={handleChangePage}
         rowsPerPage={rowsPerPage}
