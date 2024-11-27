@@ -7,18 +7,17 @@ import QuizResultCard from "../../../Components/Student/Quiz/QuizResultCard";
 // the quiz is the data from api/Quiz/{quizId}
 // the quizResult is the data from api/Quiz/get-saved-score
 //import { quizResult } from "../../../Logic/Student/Data";
-import { useQuiz } from "../../../Logic/Student/useQuizzes";
-import { useCalculateScore } from "../../../Logic/Student/useQuizzes";
+import { useQuiz, useQuizResult } from "../../../Logic/Student/useQuizzes";
 import { useEffect } from "react";
 
 const QuizInstructions = () => {
   const { quizId } = useParams();
   const { quiz } = useQuiz(quizId);
-  const { quizResult, calculate } = useCalculateScore(quizId);
+  const { quizResult } = useQuizResult(quizId);
 
   useEffect(() => {
-    calculate(quizId);
-  }, []);
+    // quizResult(quizId);
+  }, [quizResult, quizId]);
   //call the calculate function to get the quiz result
   if (!quizResult) return null;
 
@@ -43,7 +42,7 @@ const QuizInstructions = () => {
                 icon={
                   <HelpOutlineOutlinedIcon className=" !text-neutral-textSecondary" />
                 }
-                label={questions.length + " questions"}
+                label={questions?.$values?.length + " questions"}
                 className="!bg-white !text-base !text-neutral-textSecondary"
               />
             </div>

@@ -11,16 +11,16 @@ import { useQuiz } from "../../../Logic/Student/useQuizzes";
 
 const QuizInstructions = () => {
   const { quizId } = useParams();
-  const { quiz , status, error } = useQuiz(quizId);
+  const { quiz, status, error } = useQuiz(quizId);
 
- if (status === "loading") {
+  if (status === "loading") {
     return <div>Loading...</div>;
   }
 
   if (status === "error") {
     return <div>Error: {error.message}</div>;
   }
- const questions = quiz.questions || [];
+  const questions = quiz?.questions?.$values || [];
   if (!quiz) return null;
 
   return (

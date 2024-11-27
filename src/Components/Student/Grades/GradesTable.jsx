@@ -15,49 +15,6 @@ import {
 } from "@mui/material";
 import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
 import PropsTypes from "prop-types";
-// // Sample data
-// const data = [
-//   {
-//     category: "Assignments",
-//     overallGrade: "75%",
-//     weight: "45%",
-//     items: [
-//       {
-//         name: "Assignment 1",
-//         grade: "18/20",
-//         weight: "10%",
-//         achievedWeight: "9%",
-//       },
-//       {
-//         name: "Midterm Assignment",
-//         grade: "25/30",
-//         weight: "15%",
-//         achievedWeight: "12.5%",
-//       },
-//       {
-//         name: "Final Assignment",
-//         grade: "28/35",
-//         weight: "20%",
-//         achievedWeight: "16%",
-//       },
-//     ],
-//   },
-//   {
-//     category: "Quizzes",
-//     overallGrade: "80%",
-//     weight: "25%",
-//     items: [
-//       { name: "Quiz 1", grade: "15/20", weight: "5%", achievedWeight: "3.75%" },
-//       { name: "Quiz 2", grade: "12/15", weight: "10%", achievedWeight: "8%" },
-//       {
-//         name: "Final Quiz",
-//         grade: "18/25",
-//         weight: "10%",
-//         achievedWeight: "7.2%",
-//       },
-//     ],
-//   },
-// ];
 
 const CollapsibleTable = ({ data }) => {
   const [openRows, setOpenRows] = useState({});
@@ -94,7 +51,7 @@ const CollapsibleTable = ({ data }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((row) => (
+          {data?.map((row) => (
             <React.Fragment key={row.category}>
               {/* Collapsible Row */}
               <TableRow hover className="hover:!bg-white">
@@ -152,15 +109,15 @@ const CollapsibleTable = ({ data }) => {
                               <strong>Grade</strong>
                             </TableCell>
                             <TableCell align="center" className="!text-base">
-                              <strong>Weight</strong>
+                              <strong>Achieved Weight</strong>
                             </TableCell>
                             <TableCell align="center" className="!text-base">
-                              <strong>Achieved Weight</strong>
+                              <strong>Weight</strong>
                             </TableCell>
                           </TableRow>
                         </TableHead>
                         <TableBody>
-                          {row.items.map((item) => (
+                          {row.items?.map((item) => (
                             <TableRow
                               key={item.name}
                               className="hover:!bg-neutral-background"
@@ -178,13 +135,13 @@ const CollapsibleTable = ({ data }) => {
                                 align="center"
                                 className="!text-neutral-textMedium !bg-neutral-surface !text-base"
                               >
-                                {item.weight}
+                                {item.achievedWeight}
                               </TableCell>
                               <TableCell
                                 align="center"
                                 className="!text-neutral-textMedium !bg-neutral-surface !text-base"
                               >
-                                {item.achievedWeight}
+                                {item.weight}
                               </TableCell>
                             </TableRow>
                           ))}

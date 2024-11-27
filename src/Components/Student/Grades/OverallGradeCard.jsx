@@ -15,7 +15,7 @@ const OverallGradeCard = ({ overallGrade }) => {
         <div className="mt-6">
           <LinearProgress
             variant="determinate"
-            value={parseInt(overallGrade)}
+            value={overallGrade}
             // className="h-6 rounded-full"
             className="mt-2 rounded-lg !h-1.5 !font-medium"
           />

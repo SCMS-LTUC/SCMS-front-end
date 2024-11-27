@@ -780,7 +780,7 @@ export const studentCourses = {
   ],
 };
 export const notStartedCourses = {
-  $id: "1",
+  /*  */ $id: "1",
   $values: [
     {
       $id: "2",

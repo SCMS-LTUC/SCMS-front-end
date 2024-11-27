@@ -15,13 +15,13 @@ export default function EditAssignment() {
       assignmentName: formData.name,
       description: formData.description,
       dueDate: formData.due,
-      mark: formData.mark,
+      fullMark: formData.mark,
       visible: formData.visible,
     };
-    console.log(assignment);
+    console.log("==========================", assignment);
     addAssignment(assignment);
     Navigate(-1);
-  }
+  };
 
   return (
     <div>

@@ -18,7 +18,7 @@ export default function AssignmentList() {
         <Divider className="!my-4" />
         <div>
           <div className="flex flex-col justify-start space-y-6">
-            <AssignmentTable  />
+            <AssignmentTable />
           </div>
         </div>
         <Divider className="!my-4" />

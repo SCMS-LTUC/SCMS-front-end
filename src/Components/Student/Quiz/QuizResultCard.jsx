@@ -4,8 +4,8 @@ import { Card, CardContent, Divider } from "@mui/material";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 export default function QuizResultCard({ quizResult, quizMark }) {
   const score = quizResult.quizMark;
-  const correctAnswersCount = quizResult.correctAnswers;
-  const totalQuestionsCount = quizResult.totalQuestions;
+  const correctAnswersCount = quizResult.correctAnswersCount;
+  const totalQuestionsCount = quizResult.totalQuestionsCount;
   return (
     <Card className="container !bg-neutral-surface !rounded-lg !shadow-md !shadow-neutral-border !border-2 !border-neutral-border !p-4  ">
       <CardContent className="!h-full space-y-4  !pb-4">

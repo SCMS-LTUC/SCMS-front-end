@@ -1,5 +1,6 @@
 import AssignmentLayout from "../../../Components/Student/Assignments/AssignmentLayout";
 import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { Card, CardContent } from "@mui/material";
 // the assignments is the data from api/assignments/courses/{courseId}/student/assignments
 // import { studentAssignmentt } from "../../../Logic/Student/Data";
@@ -10,85 +11,24 @@ import {
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import FeedOutlinedIcon from "@mui/icons-material/FeedOutlined";
 
-const formatDate = (dateString) => {
-  if (!dateString) return { date: "N/A", time: "N/A" };
-
-  const date = new Date(dateString);
-  const toDate = date.toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  });
-  const toTime = date.toLocaleTimeString("en-US", {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: true,
-  });
-  return { date: toDate, time: toTime };
-};
-// TODO: pls test the download file, I didn't test it
-const downloadFile = async (studentAssignmentId) => {
-  try {
-    // Replace with your actual backend URL and the student's assignment ID
-    const response = await fetch(
-      `http://localhost:5128/api/studentAssignments/download/${studentAssignmentId}/`,
-      {
-        method: "GET",
-        headers: {
-          accept: "*/*",
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
-
-    console.log(response);
-
-    // Create a Blob from the response data
-    const fileBlob = await response.blob();
-
-    // Create an object URL for the Blob and trigger the download
-    const downloadUrl = window.URL.createObjectURL(fileBlob);
-    const link = document.createElement("a");
-    link.href = downloadUrl;
-
-    // Check if the content-disposition header is present
-    const contentDisposition = response.headers.get("content-disposition");
-    let fileName = "file";
-    if (contentDisposition) {
-      const fileNameMatch = contentDisposition.match(
-        /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/
-      );
-      if (fileNameMatch != null && fileNameMatch[1]) {
-        fileName = fileNameMatch[1].replace(/['"]/g, "");
-      }
-    }
-    link.setAttribute("download", fileName);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  } catch (error) {
-    console.error("Error downloading file:", error);
-  }
-};
-const extractFileInfo = (filePath) => {
-  const fileNameWithGuid = filePath.split("\\").pop(); // Extract full file name
-  const fileExtension = fileNameWithGuid.split(".").pop(); // Extract file extension
-
-  // Remove the GUID portion from the filename by splitting at the underscore
-  const fileNameWithoutGuid = fileNameWithGuid.split("_")[0];
-
-  return { fileNameWithoutGuid, fileExtension };
-};
-
 export default function ViewSubmission() {
   const { assignmentId, studentAssignmentId } = useParams();
   const { assignment, status: assignmentStatus } = useAssignment(assignmentId);
   const { studentAssignment, status: studentAssignmentStatus } =
     useAssignmentSubmission(studentAssignmentId);
+  const [file, setFile] = useState(null);
+
+  useEffect(() => {
+    if (studentAssignment.filePath) {
+      setFile(
+        extractFileInfo(studentAssignment.filePath).fileNameWithoutGuid +
+          "." +
+          extractFileInfo(studentAssignment.filePath).fileExtension
+      );
+    } else {
+      setFile(null);
+    }
+  }, [studentAssignment]);
 
   console.log(assignment);
   console.log(studentAssignment);
@@ -104,6 +44,79 @@ export default function ViewSubmission() {
     return <div>Error loading data</div>;
   }
 
+  // helper methods
+  const formatDate = (dateString) => {
+    if (!dateString) return { date: "N/A", time: "N/A" };
+
+    const date = new Date(dateString);
+    const toDate = date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    });
+    const toTime = date.toLocaleTimeString("en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    });
+    return { date: toDate, time: toTime };
+  };
+  const extractFileInfo = (filePath) => {
+    const fileNameWithGuid = filePath?.split("\\").pop(); // Extract full file name
+    const fileExtension = fileNameWithGuid?.split(".").pop(); // Extract file extension
+
+    // Remove the GUID portion from the filename by splitting at the underscore
+    const fileNameWithoutGuid = fileNameWithGuid.split("_")[0];
+
+    return { fileNameWithoutGuid, fileExtension };
+  };
+  const downloadFile = async (studentAssignmentId) => {
+    try {
+      // Replace with your actual backend URL and the student's assignment ID
+      const response = await fetch(
+        `http://localhost:5128/api/studentAssignments/download/${studentAssignmentId}/`,
+        {
+          method: "GET",
+          headers: {
+            accept: "*/*",
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      console.log("this is the file response", response);
+
+      // Create a Blob from the response data
+      const fileBlob = await response.blob();
+
+      // Create an object URL for the Blob and trigger the download
+      const downloadUrl = window.URL.createObjectURL(fileBlob);
+      const link = document.createElement("a");
+      link.href = downloadUrl;
+
+      // Check if the content-disposition header is present
+      const contentDisposition = response.headers.get("content-disposition");
+      let fileName = file;
+      if (contentDisposition) {
+        const fileNameMatch = contentDisposition.match(
+          /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/
+        );
+        if (fileNameMatch != null && fileNameMatch[1]) {
+          fileName = fileNameMatch[1].replace(/['"]/g, "");
+        }
+      }
+      link.setAttribute("download", fileName);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error("Error downloading file:", error);
+    }
+  };
   return (
     <div>
       <AssignmentLayout
@@ -176,15 +189,7 @@ export default function ViewSubmission() {
                       className="hover:!text-accent-info transition-all hover:!underline hover:cursor-pointer"
                       onClick={() => downloadFile(studentAssignmentId)}
                     >
-                      {
-                        extractFileInfo(studentAssignment.filePath)
-                          .fileNameWithoutGuid
-                      }
-                      .
-                      {
-                        extractFileInfo(studentAssignment.filePath)
-                          .fileExtension
-                      }
+                      {file}
                     </div>
                   </p>
                 </div>

@@ -45,11 +45,9 @@ const TakeQuiz = () => {
         })
       ),
     };
-    console.log("this is the quiz result", quizResult);
+    // console.log("this is the quiz result", quizResult);
     submit(quizResult);
-
-    //2. then call route: api/StudentAnswer/calculate-score
-    //3. then navigate to the result page
+    //2. then navigate to the result page
     navigate(`/course-details/${courseId}/quizzes/view-results/${quizId}`);
   };
 
@@ -78,8 +76,8 @@ const TakeQuiz = () => {
   };
 
   // Derive quiz details
-  const currentQuestion = quiz.questions[currentQuestionIndex];
-  const totalQuestions = quiz.questions.length;
+  const currentQuestion = quiz?.questions?.$values[currentQuestionIndex];
+  const totalQuestions = quiz?.questions?.$values?.length;
   const minutes = Math.floor(timeLeft / 60);
   const seconds = timeLeft % 60;
 
@@ -113,7 +111,7 @@ const TakeQuiz = () => {
           <aside className="col-span-1 bg-neutral-surface rounded-lg shadow p-6">
             <h2 className="text-lg font-semibold mb-4">Questions</h2>
             <div className="grid grid-cols-5 gap-2">
-              {quiz.questions.$values.map((_, index) => (
+              {quiz?.questions?.$values?.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => handleNavigateQuestion(index)}
@@ -135,10 +133,10 @@ const TakeQuiz = () => {
             <h2 className="text-xl font-semibold mb-4">
               Question {currentQuestionIndex + 1} of {totalQuestions}
             </h2>
-            <p className="!text-lg !mb-6">{currentQuestion.text}</p>
+            <p className="!text-lg !mb-6">{currentQuestion?.text}</p>
             <form>
               <div className="space-y-4">
-                {currentQuestion.answerOptions.map((option) => (
+                {currentQuestion?.answerOptions?.$values.map((option) => (
                   <FormControlLabel
                     key={option.answerOptionId}
                     control={
