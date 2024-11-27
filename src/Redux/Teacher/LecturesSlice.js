@@ -1,12 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { 
-    fetchCourseLectures
+    fetchCourseLectures,
+    fetchAttendanceSummary,
 } from "../../Api/Teacher/LectureApi";
 
 const lecturesSlice = createSlice({
     name: "lectures",
     initialState: {
       lectures: [],
+      attendanceSummary: [],
       status: "idle",
       error: null,
     },
@@ -24,6 +26,17 @@ const lecturesSlice = createSlice({
           state.status = "failed";
           state.error = action.error.message;
         })
+        .addCase(fetchAttendanceSummary.pending, (state) => {
+          state.status = "loading";
+        })
+        .addCase(fetchAttendanceSummary.fulfilled, (state, action) => {
+          state.status = "succeeded";
+          state.attendanceSummary = action.payload;
+        })
+        .addCase(fetchAttendanceSummary.rejected, (state, action) => {
+          state.status = "failed";
+          state.error = action.error.message;
+        });
     },
 });
 

@@ -39,3 +39,20 @@ export const submitAttendance = createAsyncThunk(
         }
     }
 );
+
+export const fetchAttendanceSummary = createAsyncThunk(
+    "Lectures/fetchAttendanceSummary",
+    async (courseId) => {
+        try {
+        const response = await baseUrl.get(`/LectureAttendance/${courseId}`, {
+            headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+        });
+        return response.data.$values;
+        } catch (error) {
+        console.error("Error fetching attendance summary:", error);
+        throw error;
+        }
+    }
+);

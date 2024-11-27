@@ -3,7 +3,11 @@ import { Divider, Typography, Button } from "@mui/material";
 import { useState } from "react";
 import SummarizeOutlinedIcon from "@mui/icons-material/SummarizeOutlined";
 import SummaryDialog from "../../../Components/Teacher/Attendance/SummaryTableDialog.jsx";
+import { useAttendanceSummary } from "../../../Logic/Teacher/useLectures.js";
+import { useParams } from "react-router-dom";
+
 export default function CalendarView() {
+  const { courseId } = useParams();
   const [summaryDialogOpen, setSummaryDialogOpen] = useState(false);
 
   const handleDialogOpen = () => {
@@ -13,23 +17,27 @@ export default function CalendarView() {
   const handleDialogClose = () => {
     setSummaryDialogOpen(false);
   };
-  const rows = [
-    {
-      studentID: "Student1",
-      fullName: "Dima Salem",
-      absenceRateForTheStudent: "25%",
-    },
-    {
-      studentID: "Student2",
-      fullName: "Saja Alyouns",
-      absenceRateForTheStudent: "5%",
-    },
-    {
-      studentID: "Student3",
-      fullName: "Mohammad Al-farwan",
-      absenceRateForTheStudent: "20%",
-    },
-  ];
+
+  const { attendanceSummary } = useAttendanceSummary(courseId);
+  const rows = attendanceSummary;
+
+  // const rows = [
+  //   {
+  //     studentID: "Student1",
+  //     fullName: "Dima Salem",
+  //     absenceRateForTheStudent: "25%",
+  //   },
+  //   {
+  //     studentID: "Student2",
+  //     fullName: "Saja Alyouns",
+  //     absenceRateForTheStudent: "5%",
+  //   },
+  //   {
+  //     studentID: "Student3",
+  //     fullName: "Mohammad Al-farwan",
+  //     absenceRateForTheStudent: "20%",
+  //   },
+  // ];
   return (
     <div className="flex flex-col justify-between !p-8">
       <div className="container space-y-6 !mx-auto">
