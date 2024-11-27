@@ -15,21 +15,7 @@ import ProtectedRoute from "./Components/Common/ProtectedRoute";
 import store from "./Redux/Store"; // Import your Redux store
 
 // public pages
-import {
-  Achievement,
-  Categories,
-  Companies,
-  Courses,
-  CTA,
-  Footer,
-  Hero,
-  Feedback,
-  Navbar,
-} from "./Components/Home";
-import Login from "./Pages/Login/Login";
-import Signup from "./Pages/Signup/Signup";
-import ContactUs from "./Pages/Home/ContactUs";
-import AboutUs from "./Pages/Home/AboutUs";
+
 const App = () => {
   return (
     <Provider store={store}>

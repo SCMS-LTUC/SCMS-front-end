@@ -3,6 +3,8 @@ import {
   fetchStudentCurrentCourses,
   fetchStudentPreviousCourses,
   fetchStudentCourse,
+  fetchNotStartedCourses,
+  enrollCourse,
 } from "../../Api/Student/CoursesApi";
 import { useEffect } from "react";
 
@@ -20,16 +22,16 @@ export const useCurrentStudentCourses = () => {
 };
 
 export const usePreviousStudentCourses = () => {
-    const dispatch = useDispatch();
-    const { previousCourses, status, error, loading } = useSelector(
-        (state) => state.studentCourses
-    );
-    
-    useEffect(() => {
-        if (previousCourses.length === 0) dispatch(fetchStudentPreviousCourses());
-    }, [dispatch, previousCourses.length]);
-    
-    return { previousCourses, status, error, loading };
+  const dispatch = useDispatch();
+  const { previousCourses, status, error, loading } = useSelector(
+    (state) => state.studentCourses
+  );
+
+  useEffect(() => {
+    if (previousCourses.length === 0) dispatch(fetchStudentPreviousCourses());
+  }, [dispatch, previousCourses.length]);
+
+  return { previousCourses, status, error, loading };
 };
 
 export const useCourse = (courseId) => {
@@ -44,4 +46,27 @@ export const useCourse = (courseId) => {
     if (courseId) dispatch(fetchStudentCourse({ courseId }));
   }, [dispatch, courseId]);
   return { course, status, error, loading };
+};
+export const useNotStartedCourses = () => {
+  const dispatch = useDispatch();
+  const { NotStartedCourses, status, error, loading } = useSelector(
+    (state) => state.studentCourses
+  );
+
+  useEffect(() => {
+    if (NotStartedCourses.length === 0) dispatch(fetchNotStartedCourses());
+  }, [dispatch, NotStartedCourses.length]);
+
+  return { NotStartedCourses, status, error, loading };
+};
+
+export const useEnroll = () => {
+  const dispatch = useDispatch();
+  const { status, error } = useSelector((state) => state.studentCourses);
+
+  const enroll = (courseId) => {
+    dispatch(enrollCourse(courseId));
+  };
+
+  return { enroll, status, error };
 };

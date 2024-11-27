@@ -19,7 +19,7 @@ import {
 import PropTypes from "prop-types";
 import { useSubmitAttendance } from "../../../Logic/Teacher/useLectures";
 
-const statusOptions = ["Present", "Absent"];
+const statusOptions = ["Present", "Absence"];
 
 const PostTableDialog = ({ rows, open, onClose, lectureId }) => {
   const submitAttendance = useSubmitAttendance();
@@ -49,9 +49,10 @@ const PostTableDialog = ({ rows, open, onClose, lectureId }) => {
     }));
   };
 
-  const handleSubmit =  () => {
+  const handleSubmit = () => {
     try {
-      submitAttendance(initialRequest);
+      console.log("this is the attendance request", requestData);
+      submitAttendance(requestData);
       onClose();
     } catch (error) {
       console.error("Error submitting attendance:", error);

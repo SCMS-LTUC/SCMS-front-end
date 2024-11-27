@@ -15,11 +15,11 @@ const Navbar = () => {
 
   return (
     <div className="w-full h-[80px] bg-white border-b">
-      <div className="md:max-w-[1480px] max-w-[600px] m-auto w-full h-full flex justify-between items-center md:px-0 px-4">
+      <div className="md:max-w-[1480px] max-w-[600px] m-auto w-full h-full flex justify-between items-center md:px-0 !px-0 !py-2">
         {/* Left: Site logo */}
         <div className="flex items-center ">
           <div className="flex items-center justify-between ">
-            <img src={logo} alt="Fusion Learn Logo" className="h-14 !w-20" />
+            <img src={logo} alt="Fusion Learn Logo" className="!h-14 !w-20" />
             <h1
               className="text-primary-dark font-medium	text-3xl !font-poppins"
               style={{
@@ -35,11 +35,26 @@ const Navbar = () => {
           <img src={logo} className=" h-14 !w-20" />{" "}
         </span> */}
         <div className="hidden md:flex items-center">
-          <ul className="flex gap-4">
-            <li onClick={() => handleNavigation("/")}>Home</li>
-            <li onClick={() => handleNavigation("/about-us")}>About Us</li>
-            <li onClick={() => handleNavigation("/courses")}>Courses</li>
-            <li onClick={() => handleNavigation("/contact-us")}>Contact Us</li>
+          <ul className="flex gap-4 ">
+            <li
+              onClick={() => handleNavigation("/")}
+              className="hover:cursor-pointer"
+            >
+              Home
+            </li>
+            <li
+              onClick={() => handleNavigation("/about-us")}
+              className="hover:cursor-pointer"
+            >
+              About Us
+            </li>
+            {/* <li onClick={() => handleNavigation("/courses")}>Courses</li> */}
+            <li
+              onClick={() => handleNavigation("/contact-us")}
+              className="hover:cursor-pointer"
+            >
+              Contact Us
+            </li>
           </ul>
         </div>
 
@@ -52,7 +67,7 @@ const Navbar = () => {
             Login
           </button>
           <button
-            className="px-8 py-3 rounded-md bg-[#20B486] text-white font-bold"
+            className="px-8 py-3 rounded-md bg-secondary text-white font-bold"
             onClick={() => handleNavigation("/signup")}
           >
             Sign Up For Free
@@ -84,12 +99,12 @@ const Navbar = () => {
           >
             About
           </li>
-          <li
+          {/* <li
             className="p-4 hover:bg-gray-100"
             onClick={() => handleNavigation("/courses")}
           >
             Courses
-          </li>
+          </li> */}
           <li
             className="p-4 hover:bg-gray-100"
             onClick={() => handleNavigation("/contact-us")}
@@ -105,7 +120,7 @@ const Navbar = () => {
               Login
             </button>
             <button
-              className="px-8 py-5 rounded-md bg-[#20B486] text-white font-bold"
+              className="px-8 py-5 rounded-md bg-secondary text-white font-bold"
               onClick={() => handleNavigation("/signup")}
             >
               Sign Up For Free

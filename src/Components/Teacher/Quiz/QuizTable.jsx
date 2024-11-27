@@ -133,7 +133,7 @@ export default function StickyHeadTable({ quizzes }) {
                   >
                     <Chip
                       label={row.isVisible ? "Visible" : "Hidden"}
-                      className={`!text-base ${row.isVisible ? "!bg-green-100 !text-green-700" : "!bg-red-100 !text-red-700"} "`}
+                      className={` ${row.isVisible ? "!bg-green-100 !text-green-700" : "!bg-red-100 !text-red-700"} "`}
                     />
                   </TableCell>
                   <TableCell className="!text-neutral-textMedium !bg-neutral-surface !text-lg">

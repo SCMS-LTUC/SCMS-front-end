@@ -141,7 +141,7 @@ export default function StickyHeadTable({ assignments }) {
                   >
                     <Chip
                       label={row.visible ? "Visible" : "Hidden"}
-                      className={`!text-base ${row.visible ? "!bg-green-100 !text-green-700" : "!bg-red-100 !text-red-700"} "`}
+                      className={` ${row.visible ? "!bg-green-100 !text-green-700" : "!bg-red-100 !text-red-700"} "`}
                     />
                   </TableCell>
                   <TableCell className="!text-neutral-textMedium !bg-neutral-surface !text-lg">
@@ -174,7 +174,7 @@ export default function StickyHeadTable({ assignments }) {
                     </IconButton>
                     <IconButton
                       className="hover:!bg-neutral-background transition-transform duration-300 ease-in-out transform hover:scale-110 hover:rotate-3"
-                      onClick={ () => handleDeleteDialogOpen(row.assignmentId)}
+                      onClick={() => handleDeleteDialogOpen(row.assignmentId)}
                     >
                       <DeleteOutlineOutlinedIcon
                         sx={{ fontSize: "28px" }}
@@ -201,8 +201,8 @@ export default function StickyHeadTable({ assignments }) {
           open={deleteDialogOpen}
           onClose={handleDeleteDialogClose}
           onConfirm={handleConfirmDelete}
-          title="Delete Quiz"
-          message="Are you sure you want to delete this quiz?"
+          title="Delete Assignment"
+          message="Are you sure you want to delete this assignment?"
         />
       </div>
     </Paper>

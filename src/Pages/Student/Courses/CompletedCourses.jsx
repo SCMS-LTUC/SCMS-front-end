@@ -10,8 +10,56 @@ const MyCourses = () => {
   const { previousCourses } = usePreviousStudentCourses();
   console.log(previousCourses);
 
-  function handleDownload(certificateId) {
-    console.log(`Downloading certificate for course ${certificateId}`);
+  const downloadFile = async (certificateId, courseName) => {
+    try {
+      console.log("this is the courseName", courseName);
+      // Replace with your actual backend URL and the student's assignment ID
+      const response = await fetch(
+        `http://localhost:5128/api/Certificates/download/${certificateId}`,
+        {
+          method: "GET",
+          headers: {
+            accept: "*/*",
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      console.log("this is the file response", response);
+
+      // Create a Blob from the response data
+      const fileBlob = await response.blob();
+
+      // Create an object URL for the Blob and trigger the download
+      const downloadUrl = window.URL.createObjectURL(fileBlob);
+      const link = document.createElement("a");
+      link.href = downloadUrl;
+
+      // Check if the content-disposition header is present
+      const contentDisposition = response.headers.get("content-disposition");
+      let fileName = courseName?.split(" ").join("-") + "-Certificate" + ".pdf";
+      if (contentDisposition) {
+        const fileNameMatch = contentDisposition.match(
+          /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/
+        );
+        if (fileNameMatch != null && fileNameMatch[1]) {
+          fileName = fileNameMatch[1].replace(/['"]/g, "");
+        }
+      }
+      link.setAttribute("download", fileName);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error("Error downloading file:", error);
+    }
+  };
+  function handleDownload(certificateId, courseName) {
+    downloadFile(certificateId, courseName);
   }
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -41,7 +89,9 @@ const MyCourses = () => {
                 numberOfHours={course.numberOfHours}
                 certificateId={course.certificateId}
                 averagedGrade={course.averageGrades}
-                handleDownload={handleDownload}
+                handleDownload={() => {
+                  handleDownload(course.certificateId, course.className);
+                }}
               />
             ))}
         </div>

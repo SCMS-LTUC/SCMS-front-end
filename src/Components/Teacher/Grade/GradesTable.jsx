@@ -96,7 +96,7 @@ export default function StickyHeadTable({ students, classAverage }) {
                         // variant="outlined"
                         // color={status === "Pass" ? "success" : "error"}
                         label={status}
-                        className={`!text-base ${status === "Needs Support" ? "!bg-red-100 !text-red-700" : status === "Excellent" ? "!bg-green-100 !text-green-700" : "!bg-yellow-100 !text-yellow-700"}`}
+                        className={` ${status === "Needs Support" ? "!bg-red-100 !text-red-700" : status === "Excellent" ? "!bg-green-100 !text-green-700" : "!bg-yellow-100 !text-yellow-700"}`}
                       />
                     </TableCell>
                   </TableRow>

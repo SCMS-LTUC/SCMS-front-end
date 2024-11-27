@@ -11,10 +11,13 @@ import {
 import InfoCard from "../../../Components/Student/Discover/CourseCard.jsx";
 import SearchIcon from "@mui/icons-material/Search";
 import {
-  notStartedCourses,
+  // notStartedCourses,
   departments,
 } from "../../../Logic/Student/Data.jsx";
-
+import {
+  useNotStartedCourses,
+  useEnroll,
+} from "../../../Logic/Student/useAllCourses.js";
 const levels = ["Beginner", "Intermediate", "Advanced"];
 
 const MyCourses = () => {
@@ -23,10 +26,23 @@ const MyCourses = () => {
   const [selectedDepartment, setSelectedDepartment] = useState("");
   const [selectedLevel, setSelectedLevel] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
-
+  const { NotStartedCourses, status, error } = useNotStartedCourses();
+  const { enroll } = useEnroll();
+  const notStartedCourses = NotStartedCourses;
   const handleOnClickEnroll = (courseId) => {
+    enroll(courseId);
     console.log("this is the course Id", courseId);
   };
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
+
+  if (status === "failed") {
+    if (error === "Request failed with status code 401") {
+      // navigate("/login");
+    }
+    return <div>{error}</div>;
+  }
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -53,7 +69,7 @@ const MyCourses = () => {
   };
 
   // Filter courses based on department, level, and search term
-  const filteredCourses = notStartedCourses.$values.filter((course) => {
+  const filteredCourses = notStartedCourses.$values?.filter((course) => {
     const matchesDepartment = selectedDepartment
       ? course.department === selectedDepartment
       : true;
@@ -139,7 +155,7 @@ const MyCourses = () => {
         {/* Courses */}
         <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {filteredCourses
-            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             .map((course, index) => (
               <InfoCard
                 key={index}
@@ -167,7 +183,7 @@ const MyCourses = () => {
       {/* Pagination */}
       <TablePagination
         component="div"
-        count={filteredCourses.length}
+        count={filteredCourses?.length}
         page={page}
         onPageChange={handleChangePage}
         rowsPerPage={rowsPerPage}

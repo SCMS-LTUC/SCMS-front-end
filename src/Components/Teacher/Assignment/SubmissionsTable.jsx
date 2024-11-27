@@ -30,7 +30,10 @@ export default function StickyHeadTable({ rows }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const { courseId, assignmentId } = useParams();
-  const { gradeNotSubmitted } = useGradeSubmissionNotSubmitted(courseId, assignmentId);
+  const { gradeNotSubmitted } = useGradeSubmissionNotSubmitted(
+    courseId,
+    assignmentId
+  );
   const navigate = useNavigate();
 
   function handleGradeClick(studentId, studentAssignmentId) {
@@ -134,7 +137,12 @@ export default function StickyHeadTable({ rows }) {
                         color="secondary"
                         style={{ marginLeft: 8 }}
                         className="!text-white"
-                        onClick={() => handleGradeClick(row.studentId, assignment ? assignment.studentAssignmentId : null)}
+                        onClick={() =>
+                          handleGradeClick(
+                            row.studentId,
+                            assignment ? assignment.studentAssignmentId : null
+                          )
+                        }
                       >
                         Grade
                       </Button>

@@ -850,7 +850,7 @@ export const departments = {
     {
       $id: "2",
       departmentId: 1,
-      departmentName: "Web Development",
+      departmentName: "Web development",
     },
     {
       $id: "3",

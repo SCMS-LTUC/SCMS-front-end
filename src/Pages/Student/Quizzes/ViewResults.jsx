@@ -19,7 +19,7 @@ const QuizInstructions = () => {
     // quizResult(quizId);
   }, [quizResult, quizId]);
   //call the calculate function to get the quiz result
-  if (!quizResult) return null;
+  if (!quizResult) return <div>Loading...</div>;
 
   const questions = quiz.questions || [];
   return (
