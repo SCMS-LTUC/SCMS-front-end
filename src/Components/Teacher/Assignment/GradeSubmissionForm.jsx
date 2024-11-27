@@ -98,11 +98,19 @@ export default function GradeSubmissionForm() {
   const { courseId, assignmentId, submissionId } = useParams();
   const Navigate = useNavigate();
   const { submission, error, loading } = useAssignmentSubmission(submissionId);
+  console.log("submission", submission);
   const { gradesubmit } = useGradeSubmission(submissionId);
   const { assignment } = useAssignment(assignmentId);
   //const [submission, setSubmission] = useState(null);
-  const [grade, setGrade] = useState("");
-  const [feedback, setFeedback] = useState("");
+  const [grade, setGrade] = useState(submission.grade);
+  const handleGradeChange = (e) => {
+    setGrade(e.target.value);
+  };
+  const [feedback, setFeedback] = useState(submission.feedback);
+  const handleFeedbackChange = (e) => {
+    setFeedback(e.target.value);
+  };
+
   // const [assignment] = useState({
   //   name: "Assignment 1",
   //   due: "2023-10-01",
@@ -185,7 +193,7 @@ export default function GradeSubmissionForm() {
             name="grade"
             type="number"
             value={grade}
-            onChange={(e) => setGrade(e.target.value)}
+            onChange={handleGradeChange}
             fullWidth
             variant="outlined"
             required
@@ -199,7 +207,7 @@ export default function GradeSubmissionForm() {
             label="Feedback"
             name="feedback"
             value={feedback}
-            onChange={(e) => setFeedback(e.target.value)}
+            onChange={handleFeedbackChange}
             fullWidth
             multiline
             rows={4}
