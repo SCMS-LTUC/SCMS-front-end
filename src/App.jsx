@@ -10,8 +10,6 @@ import HomePage from "./Pages/Home/HomePage";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-// const role = "publicUser";
-// const renderComponents = (role) => {
 import Login from "./Pages/Login/Login"; // Import Login component
 import ProtectedRoute from "./Components/Common/ProtectedRoute";
 import store from "./Redux/Store"; // Import your Redux store
@@ -23,8 +21,6 @@ const App = () => {
         <ThemeProvider theme={theme}>
           <Routes>
             <Route path="/login" element={<Login />} />
-            {/* <Route path="/" element={<HomePage />} /> */}
-
             <Route
               path="/*"
               element={
@@ -50,10 +46,8 @@ const RoleBasedComponent = () => {
       return <Student />;
     case "Admin":
       return <Admin />;
-    case "publicUser":
-      return <HomePage />;
     default:
-      return null;
+      return <HomePage />;
   }
 };
 

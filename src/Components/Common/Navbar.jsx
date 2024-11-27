@@ -1,5 +1,7 @@
 import { IconButton } from "@mui/material";
 import PropTypes from "prop-types";
+import { useDispatch } from 'react-redux';
+import { useNavigate } from "react-router-dom";
 
 // import {} from
 //   Notifications as NotificationsIcon,
@@ -14,15 +16,16 @@ import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import logo from "./../../Assets/Images/no-back-80.png";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MenuOpenOutlinedIcon from "@mui/icons-material/MenuOpenOutlined";
-import { useNavigate } from "react-router-dom";
 
 const Navbar = ({ isOpen, toggleSidebar }) => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const handleLogout = () => {
-    localStorage.removeItem("accessToken");
-    navigate("/login");
-    console.log("Logout clicked");
-  }
+    dispatch({ type: 'LOGOUT' });
+    navigate('/');
+  };
+
   return (
     <div className="bg-neutral-surface text-primary p-2 flex  justify-between border-b-2 border-neutral-border !shadow-sm  !shadow-neutral-border pl-2">
       {/* Left: Site logo */}
