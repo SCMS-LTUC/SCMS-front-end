@@ -52,7 +52,10 @@ const MyCourses = () => {
     }
 
     if (statusEnroll === "failed enroll") {
-      handleOpenSnackbar(errorEnroll, "error");
+      let errorMessage = errorEnroll;
+      errorMessage = errorMessage.replace(/^Internal server error: /, "");
+
+      handleOpenSnackbar(errorMessage, "error");
     }
 
     if (statusEnroll === "succeeded enroll") {
@@ -125,7 +128,7 @@ const MyCourses = () => {
               size="small"
               className="min-w-[200px]"
             >
-              <InputLabel>Department</InputLabel>
+              <InputLabel>Category</InputLabel>
               <Select
                 value={selectedDepartment}
                 onChange={handleDepartmentChange}
