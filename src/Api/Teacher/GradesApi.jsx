@@ -25,3 +25,20 @@ export const fetchCourseGrades = createAsyncThunk(
         }
     }
 );
+
+export const submitGrades = createAsyncThunk(
+    "grades/submitGrades",
+    async ({ courseId }) => {
+        try {
+        await baseUrl.get(`/Certificates/${courseId}/complete-grading`, {
+            headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+        });
+        return courseId;
+        } catch (error) {
+        console.error("Error submitting grades:", error);
+        throw error;
+        }
+    }
+);

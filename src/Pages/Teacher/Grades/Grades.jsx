@@ -7,14 +7,16 @@ import PeopleOutlineOutlinedIcon from "@mui/icons-material/PeopleOutlineOutlined
 import { v4 as uuidv4 } from "uuid";
 import StatCard from "../../../Components/Common/StatCard";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
-import { useGrades } from "../../../Logic/Teacher/useGrades";
-import { useParams } from "react-router-dom";
+import { useGrades, useSubmitGrades } from "../../../Logic/Teacher/useGrades";
+import { useParams, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 // import {currentCourse} from "../../../Logic/Teacher/Data";
 
 export default function Classlist() {
   const { courseId } = useParams();
+  const navigate = useNavigate();
   const { grades } = useGrades(courseId);
+  const { handleSubmitGrades } = useSubmitGrades(courseId);
   const { currentCourses } = useSelector((state) => state.courses);
   console.log("currentCourses", currentCourses);
 
@@ -83,6 +85,12 @@ export default function Classlist() {
     },
   ];
 
+  //function to handle complete grading
+  const handleCompleteGrading = () => {
+    handleSubmitGrades(courseId);
+    navigate(`/course-details/${courseId}/grades`);
+  };
+
   return (
     <div className="flex flex-col justify-between !p-8">
       <div className="container space-y-6 !mx-auto">
@@ -95,6 +103,7 @@ export default function Classlist() {
               color="secondary"
               className={``}
               disabled={isComplete}
+              onClick={handleCompleteGrading}
               variant="contained"
               startIcon={<CheckOutlinedIcon />}
             >
