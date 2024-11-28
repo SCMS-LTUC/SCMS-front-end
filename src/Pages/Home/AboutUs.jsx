@@ -1,4 +1,6 @@
 import { FaLinkedin, FaGithub } from "react-icons/fa";
+import filifl from "./flifil.jpg"
+import MohammedAlzoubi from "./MohammedAlzoubi.jpg"
 
 const AboutUs = () => {
   return (
@@ -16,11 +18,11 @@ const AboutUs = () => {
       {/* Our Mission Section */}
       <div className="container mx-auto px-4 py-12">
         <div className="flex flex-col md:flex-row items-center justify-between">
-          <div className="w-full md:w-1/2 mb-8 md:mb-0">
+          <div className="w-full md:w-1/2 mb-8 md:mb-0 flex justify-center">
             <img
-              src="https://via.placeholder.com/600x400"
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYWTL5nmlTDCynKlDkjzbDjd3MXmylvDX3eQ&s"
               alt="Our Mission"
-              className="rounded-lg shadow-lg"
+              className="rounded-lg shadow-lg w-4/5 h-auto"
             />
           </div>
           <div className="w-full md:w-1/2">
@@ -36,6 +38,7 @@ const AboutUs = () => {
           </div>
         </div>
       </div>
+
 
       {/* Our Values Section */}
       <div className="bg-white py-12">
@@ -86,12 +89,12 @@ const AboutUs = () => {
             <img
               src="https://via.placeholder.com/150"
               alt="Team Member"
-              className="rounded-full mx-auto mb-4"
+              className="rounded-full mx-auto mb-4 w-32 h-32 object-cover"
             />
             <h3 className="text-xl font-semibold text-gray-800 mb-2">
-              John Doe
+              Dima Salem
             </h3>
-            <p className="text-gray-600 mb-4">CEO & Founder</p>
+            <p className="text-gray-600 mb-4">Software Engineer</p>
             <div className="flex justify-center space-x-4">
               <a
                 href="https://www.linkedin.com"
@@ -111,17 +114,18 @@ const AboutUs = () => {
               </a>
             </div>
           </div>
+
           {/* Team Member 2 */}
           <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-all">
             <img
-              src="https://via.placeholder.com/150"
+              src={MohammedAlzoubi}
               alt="Team Member"
-              className="rounded-full mx-auto mb-4"
+              className="rounded-full mx-auto mb-4 w-32 h-32 object-cover"
             />
             <h3 className="text-xl font-semibold text-gray-800 mb-2">
-              Jane Smith
+              Mohammed Alzoubi
             </h3>
-            <p className="text-gray-600 mb-4">Lead Developer</p>
+            <p className="text-gray-600 mb-4">Software Engineer</p>
             <div className="flex justify-center space-x-4">
               <a
                 href="https://www.linkedin.com"
@@ -144,14 +148,14 @@ const AboutUs = () => {
           {/* Team Member 3 */}
           <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-all">
             <img
-              src="https://via.placeholder.com/150"
+              src="https://media.licdn.com/dms/image/v2/D4D03AQHfcWmWT7urKg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1726987185746?e=1738195200&v=beta&t=-XIWhkwwRn0UxKWGMRqRqjQmksJJEi0AcOmZzB7pp-Q"
               alt="Team Member"
-              className="rounded-full mx-auto mb-4"
+              className="rounded-full mx-auto mb-4 w-32 h-32 object-cover"
             />
             <h3 className="text-xl font-semibold text-gray-800 mb-2">
-              Sam Lee
+              Mohammad Alfarwan
             </h3>
-            <p className="text-gray-600 mb-4">UI/UX Designer</p>
+            <p className="text-gray-600 mb-4">Software Engineer</p>
             <div className="flex justify-center space-x-4">
               <a
                 href="https://www.linkedin.com"
@@ -174,14 +178,14 @@ const AboutUs = () => {
           {/* Team Member 4 */}
           <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-all">
             <img
-              src="https://via.placeholder.com/150"
+              src={filifl}
               alt="Team Member"
-              className="rounded-full mx-auto mb-4"
+              className="rounded-full mx-auto mb-4 w-32 h-32 object-cover"
             />
             <h3 className="text-xl font-semibold text-gray-800 mb-2">
-              Alice Green
+              Mohammad Flifil
             </h3>
-            <p className="text-gray-600 mb-4">Project Manager</p>
+            <p className="text-gray-600 mb-4">Software Engineer</p>
             <div className="flex justify-center space-x-4">
               <a
                 href="https://www.linkedin.com"
@@ -201,17 +205,18 @@ const AboutUs = () => {
               </a>
             </div>
           </div>
+          {/*        https://via.placeholder.com/150       */}
           {/* Team Member 5 */}
           <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-all">
             <img
-              src="https://via.placeholder.com/150"
+              src="https://media.licdn.com/dms/image/v2/D4E03AQHK2McEwDX_Jw/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1718215430033?e=1738195200&v=beta&t=Epk79aSZq1VucqdrcahxUUSrpFBi0bAZvF2hCcTzoXw"
               alt="Team Member"
-              className="rounded-full mx-auto mb-4"
+              className="rounded-full mx-auto mb-4 w-32 h-32 object-cover"
             />
             <h3 className="text-xl font-semibold text-gray-800 mb-2">
-              Michael Brown
+              Saja Fawaz
             </h3>
-            <p className="text-gray-600 mb-4">Marketing Specialist</p>
+            <p className="text-gray-600 mb-4">Software Engineer</p>
             <div className="flex justify-center space-x-4">
               <a
                 href="https://www.linkedin.com"
@@ -234,12 +239,12 @@ const AboutUs = () => {
           {/* Team Member 6 */}
           <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-all">
             <img
-              src="https://via.placeholder.com/150"
+              src="https://media.licdn.com/dms/image/v2/C4D03AQH_E9LCx0NUmg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1641256149955?e=1738195200&v=beta&t=hto-5APijJnbgwCNvq7lIRmnEm4CrVTA1SWhJAQ565c"
               alt="Team Member"
-              className="rounded-full mx-auto mb-4"
+              className="rounded-full mx-auto mb-4 w-32 h-32 object-cover"
             />
             <h3 className="text-xl font-semibold text-gray-800 mb-2">
-              Sophia White
+              Mustapha Al-Huneity
             </h3>
             <p className="text-gray-600 mb-4">Software Engineer</p>
             <div className="flex justify-center space-x-4">
