@@ -19,7 +19,7 @@ const NotificationSnackbar = ({ open, onClose, message, type }) => {
         onClose={onClose}
         severity={type}
         sx={{ width: "100%" }}
-        className="!text-base"
+        className="!text-base !text-white"
       >
         {message}
       </Alert>

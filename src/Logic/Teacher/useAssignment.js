@@ -1,14 +1,23 @@
 import { useSelector, useDispatch } from "react-redux";
-import { fetchAssignments, createAssignment, fetchAssignment, updateAssignment, deleteAssignment } from "../../Api/Teacher/AssignmentApi";
+import {
+  fetchAssignments,
+  createAssignment,
+  fetchAssignment,
+  updateAssignment,
+  deleteAssignment,
+} from "../../Api/Teacher/AssignmentApi";
 import { useEffect } from "react";
 
 export const useAssignments = (courseId) => {
   const dispatch = useDispatch();
-  const { assignments, status, error } = useSelector((state) => state.assignments);
+  const { assignments, status, error } = useSelector(
+    (state) => state.assignments
+  );
 
   useEffect(() => {
     if (courseId) {
-      dispatch(fetchAssignments(courseId));
+      if (courseId && (!assignments || assignments.courseId !== courseId))
+        dispatch(fetchAssignments(courseId));
     }
   }, [dispatch, courseId]);
 
@@ -21,10 +30,12 @@ export const useAssignments = (courseId) => {
 
 export const useAssignment = (assignmentId) => {
   const dispatch = useDispatch();
-  const { assignment, status, error } = useSelector((state) => state.assignments);
+  const { assignment, status, error } = useSelector(
+    (state) => state.assignments
+  );
 
   useEffect(() => {
-    if (assignmentId) {
+    if (assignmentId && (!assignment || assignment.id !== assignmentId)) {
       dispatch(fetchAssignment(assignmentId));
     }
   }, [dispatch, assignmentId]);
@@ -35,17 +46,21 @@ export const useAssignment = (assignmentId) => {
 export const useUpdateAssignment = () => {
   const dispatch = useDispatch();
   const editAssignment = (assignmentId, assignment) => {
-    dispatch(updateAssignment({ assignmentId, assignment }));
-  }
+    if (assignmentId && assignment) {
+      dispatch(updateAssignment({ assignmentId, assignment }));
+    } else {
+      console.error("Invalid assignment data or ID provided for update.");
+    }
+  };
 
   return { editAssignment };
-}
+};
 
 export const useDeleteAssignment = () => {
   const dispatch = useDispatch();
   const removeAssignment = (assignmentId) => {
     dispatch(deleteAssignment(assignmentId));
-  }
+  };
 
   return { removeAssignment };
-}
+};

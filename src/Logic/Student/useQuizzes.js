@@ -15,7 +15,7 @@ export const useQuizzes = (courseId) => {
   );
 
   useEffect(() => {
-    if (courseId) {
+    if (courseId && quizzes.length === 0) {
       dispatch(fetchQuizzes(courseId));
     }
   }, [dispatch, courseId]);
@@ -28,7 +28,7 @@ export const useQuiz = (quizId) => {
   const { quiz, status, error } = useSelector((state) => state.studentQuizzes);
 
   useEffect(() => {
-    if (quizId) {
+    if (quizId && quiz?.id !== quizId) {
       dispatch(fetchQuiz(quizId));
     }
   }, [dispatch, quizId]);
@@ -69,7 +69,7 @@ export const useQuizResult = (quizId) => {
   );
 
   useEffect(() => {
-    if (quizId) {
+    if (quizId && (!quizResult || quizResult.quizId !== quizId)) {
       dispatch(fetchQuizResult(quizId));
     }
   }, [dispatch, quizId]);

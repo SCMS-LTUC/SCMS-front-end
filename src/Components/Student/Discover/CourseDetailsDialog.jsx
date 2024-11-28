@@ -187,6 +187,7 @@ const CourseDetailsDialog = ({
           className="!text-white"
           onClick={() => {
             handleOnClickEnroll(courseId);
+            onClose();
           }}
         >
           Enroll

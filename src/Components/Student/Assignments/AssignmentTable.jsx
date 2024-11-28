@@ -38,7 +38,7 @@ StickyHeadTable.propTypes = {
   assignments: PropTypes.array.isRequired,
 };
 
-export default function StickyHeadTable( ) {
+export default function StickyHeadTable() {
   const { courseId } = useParams();
   const { assignments } = useAssignments(courseId);
   const [page, setPage] = React.useState(0);
@@ -47,7 +47,7 @@ export default function StickyHeadTable( ) {
 
   const columns = React.useMemo(
     () => [
-      { id: "quizName", label: "Quiz", minWidth: 100 },
+      { id: "assignmentName", label: "Assignment", minWidth: 100 },
       { id: "score", label: "Score", minWidth: 100 },
       { id: "status", label: "Status", minWidth: 100 },
     ],

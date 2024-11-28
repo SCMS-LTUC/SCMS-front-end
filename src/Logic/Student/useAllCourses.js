@@ -54,8 +54,10 @@ export const useNotStartedCourses = () => {
   );
 
   useEffect(() => {
-    if (NotStartedCourses.length === 0) dispatch(fetchNotStartedCourses());
-  }, [dispatch, NotStartedCourses.length]);
+    if (NotStartedCourses.length === 0 || status === "succeeded enroll") {
+      dispatch(fetchNotStartedCourses());
+    }
+  }, [dispatch, NotStartedCourses.length, status]);
 
   return { NotStartedCourses, status, error, loading };
 };
@@ -67,6 +69,7 @@ export const useEnroll = () => {
   const enroll = (courseId) => {
     dispatch(enrollCourse(courseId));
   };
-
-  return { enroll, status, error };
+  const statusEnroll = status;
+  const errorEnroll = error;
+  return { enroll, statusEnroll, errorEnroll };
 };

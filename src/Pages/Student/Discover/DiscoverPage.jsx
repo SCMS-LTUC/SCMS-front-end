@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   TablePagination,
   MenuItem,
@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import InfoCard from "../../../Components/Student/Discover/CourseCard.jsx";
 import SearchIcon from "@mui/icons-material/Search";
+import NotificationSnackbar from "../../../Components/Common/NotificationSnackbar.jsx";
 import {
   // notStartedCourses,
   departments,
@@ -27,12 +28,43 @@ const MyCourses = () => {
   const [selectedLevel, setSelectedLevel] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const { NotStartedCourses, status, error } = useNotStartedCourses();
-  const { enroll } = useEnroll();
+  const { enroll, statusEnroll, errorEnroll } = useEnroll();
   const notStartedCourses = NotStartedCourses;
+
+  //snack bar
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [snackbarType, setSnackbarType] = useState("info");
+  // const [count, setCount] = useState(0);
+
+  const handleOpenSnackbar = (message, type) => {
+    setSnackbarMessage(message);
+    setSnackbarType(type);
+    setSnackbarOpen(true);
+  };
+  const handleCloseSnackbar = () => {
+    setSnackbarOpen(false);
+  };
+  useEffect(() => {
+    if (statusEnroll === "loading enroll") {
+      handleOpenSnackbar("Enroll in progress", "warning");
+      // setCount(count + 1);
+    }
+
+    if (statusEnroll === "failed enroll") {
+      handleOpenSnackbar(errorEnroll, "error");
+    }
+
+    if (statusEnroll === "succeeded enroll") {
+      handleOpenSnackbar("Enrolled Successfully", "success");
+    }
+  }, [statusEnroll, errorEnroll]);
+  // snack bar end
   const handleOnClickEnroll = (courseId) => {
     enroll(courseId);
     console.log("this is the course Id", courseId);
   };
+
   if (status === "loading") {
     return <div>Loading...</div>;
   }
@@ -191,6 +223,15 @@ const MyCourses = () => {
         rowsPerPageOptions={[5, 10, 25]}
         className="!text-neutral-textPrimary"
       />
+
+      <div>
+        <NotificationSnackbar
+          open={snackbarOpen}
+          onClose={handleCloseSnackbar}
+          message={snackbarMessage}
+          type={snackbarType}
+        />
+      </div>
     </div>
   );
 };

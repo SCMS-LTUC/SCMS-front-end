@@ -85,15 +85,15 @@ const coursesSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(enrollCourse.pending, (state) => {
-        state.status = "loading";
+        state.status = "loading enroll";
         state.loading = true;
       })
       .addCase(enrollCourse.fulfilled, (state) => {
-        state.status = "succeeded";
+        state.status = "succeeded enroll";
         state.loading = false;
       })
       .addCase(enrollCourse.rejected, (state, action) => {
-        state.status = "failed";
+        state.status = "failed enroll";
         state.loading = false;
         state.error = action.payload || action.error.message;
       });

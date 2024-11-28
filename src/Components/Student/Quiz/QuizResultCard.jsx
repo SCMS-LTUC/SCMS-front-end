@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Card, CardContent, Divider } from "@mui/material";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 export default function QuizResultCard({ quizResult, quizMark }) {
-  const score = quizResult.quizMark;
+  const score = quizResult.score;
   const correctAnswersCount = quizResult.correctAnswersCount;
   const totalQuestionsCount = quizResult.totalQuestionsCount;
   return (
