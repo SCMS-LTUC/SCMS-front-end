@@ -9,16 +9,18 @@ import { useState } from "react";
 import ClasslistCard from "../../../Components/Teacher/Classlist/ClasslistCard";
 import TeacherCard from "../../../Components/Student/Classlist/TeacherCard";
 import SearchIcon from "@mui/icons-material/Search";
-import { students, currentCourse } from "../../../Logic/Student/Data";
-//import { useParams } from "react-router-dom";
-//import { useClassList } from "../../../Logic/Teacher/useClassList";
+// import { currentCourse } from "../../../Logic/Student/Data";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { useClassList } from "../../../Logic/Teacher/useClassList";
 
 export default function Classlist() {
-  //  const { courseId } = useParams();
-  //  const { students } = useClassList(courseId);
+  const { courseId } = useParams();
+  const { students } = useClassList(courseId);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [searchQuery, setSearchQuery] = useState("");
+  const { currentCourses } = useSelector((state) => state.courses);
 
   // Search handler
   const handleSearch = (event) => {
@@ -31,7 +33,7 @@ export default function Classlist() {
     student.studentName.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const isTeacherMatch = currentCourse.teacherName
+  const isTeacherMatch = currentCourses.teacherName
     .toLowerCase()
     .includes(searchQuery.toLowerCase());
 
@@ -72,9 +74,9 @@ export default function Classlist() {
           <div className="flex flex-col justify-start space-y-2">
             {isTeacherMatch && (
               <TeacherCard
-                teacherName={currentCourse.teacherName}
-                teacherId={currentCourse.teacherId}
-                teacherDepartment={currentCourse.teacherDepartment}
+                teacherName={currentCourses.teacherName}
+                teacherId={currentCourses.teacherId}
+                teacherDepartment={currentCourses.teacherDepartment}
               />
             )}
             {filteredStudents

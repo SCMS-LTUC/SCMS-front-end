@@ -10,6 +10,7 @@ import assignmentSubmissionReducer from "./Teacher/assignmentSubmissionSlice";
 import quizReducer from "./Teacher/quizSlice";
 import lecturesReducer from "./Teacher/LecturesSlice";
 import teacherAnnouncementsReducer from "./Teacher/teacherAnnouncementsSlice";
+import teacherGradesReducer from "./Teacher/gradesSlice";
 
 import studentCoursesReduder from "./Student/coursesSlice";
 import studentAnnouncementsReducer from "./Student/announcementsSlice";
@@ -30,6 +31,7 @@ const store = configureStore({
     quizzes: quizReducer,
     lectures: lecturesReducer,
     teacherAnnouncements: teacherAnnouncementsReducer,
+    teacherGrades: teacherGradesReducer,
 
     studentCourses: studentCoursesReduder,
     studentAnnouncements: studentAnnouncementsReducer,

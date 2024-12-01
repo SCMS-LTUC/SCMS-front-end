@@ -1,5 +1,4 @@
 import { Typography, Divider, Button } from "@mui/material";
-
 import GradesTable from "../../../Components/Teacher/Grade/GradesTable";
 import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 import TrendingUpOutlinedIcon from "@mui/icons-material/TrendingUpOutlined";
@@ -8,76 +7,90 @@ import PeopleOutlineOutlinedIcon from "@mui/icons-material/PeopleOutlineOutlined
 import { v4 as uuidv4 } from "uuid";
 import StatCard from "../../../Components/Common/StatCard";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
-// variables
-// student array and isComplete are the response data
-// get the data from this endpoint: api/Courses/{courseId}/grades
-import { students, currentCourse } from "../../../Logic/Teacher/Data";
-const courseStudents = students.$values;
-const isComplete = currentCourse.isComplete;
-////////////////
-const totalGrades = courseStudents.reduce(
-  (sum, student) => sum + student.averageGrades,
-  0
-);
-const classAverage = Math.round(totalGrades / courseStudents.length);
-const topPerformance = Math.max(
-  ...courseStudents.map((student) => student.averageGrades)
-);
-const studentsNeedingHelp = courseStudents.filter(
-  (student) => student.averageGrades <= classAverage - 10
-);
-const totalStudents = courseStudents.length;
-const stats = [
-  {
-    title: "Class Average",
-    value: classAverage + "%",
-    icon: (
-      <StarBorderOutlinedIcon
-        className=" text-accent-info"
-        sx={{ fontSize: "40px" }}
-      />
-    ),
-    trend: "+5% vs last month",
-  },
-  {
-    title: "Top Performance",
-    value: topPerformance + "%",
-    icon: (
-      <TrendingUpOutlinedIcon
-        className=" text-accent-success"
-        sx={{ fontSize: "40px" }}
-      />
-    ),
-    trend: "Highest: 95%",
-  },
-  {
-    title: "Support Needed",
-    value: studentsNeedingHelp.length,
-    icon: (
-      <ReportProblemOutlinedIcon
-        className="text-red-500"
-        sx={{ fontSize: "40px" }}
-      />
-    ),
-    trend:
-      studentsNeedingHelp.length == 0
-        ? "On track"
-        : "Additional attention required",
-  },
-  {
-    title: "Total Students",
-    value: totalStudents,
-    icon: (
-      <PeopleOutlineOutlinedIcon
-        className=" text-accent-emphasis text"
-        sx={{ fontSize: "40px" }}
-      />
-    ),
-    trend: "Active students",
-  },
-];
+import { useGrades, useSubmitGrades } from "../../../Logic/Teacher/useGrades";
+import { useParams, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+// import {currentCourse} from "../../../Logic/Teacher/Data";
 
 export default function Classlist() {
+  const { courseId } = useParams();
+  const navigate = useNavigate();
+  const { grades } = useGrades(courseId);
+  const { handleSubmitGrades } = useSubmitGrades(courseId);
+  const { currentCourses } = useSelector((state) => state.courses);
+  console.log("currentCourses", currentCourses);
+
+  const isComplete = currentCourses.isComplete;
+  console.log("isComplete", isComplete);
+
+  const totalGrades = grades.reduce(
+    (sum, student) => sum + student.averageGrades,
+    0
+  );
+  const classAverage = Math.round(totalGrades / grades.length);
+  const topPerformance = Math.max(
+    ...grades.map((student) => student.averageGrades)
+  );
+  const studentsNeedingHelp = grades.filter(
+    (student) => student.averageGrades <= classAverage - 10
+  );
+  const totalStudents = grades.length;
+  const stats = [
+    {
+      title: "Class Average",
+      value: classAverage + "%",
+      icon: (
+        <StarBorderOutlinedIcon
+          className=" text-accent-info"
+          sx={{ fontSize: "40px" }}
+        />
+      ),
+      trend: "+5% vs last month",
+    },
+    {
+      title: "Top Performance",
+      value: topPerformance + "%",
+      icon: (
+        <TrendingUpOutlinedIcon
+          className=" text-accent-success"
+          sx={{ fontSize: "40px" }}
+        />
+      ),
+      trend: "Highest: 95%",
+    },
+    {
+      title: "Support Needed",
+      value: studentsNeedingHelp.length,
+      icon: (
+        <ReportProblemOutlinedIcon
+          className="text-red-500"
+          sx={{ fontSize: "40px" }}
+        />
+      ),
+      trend:
+        studentsNeedingHelp.length == 0
+          ? "On track"
+          : "Additional attention required",
+    },
+    {
+      title: "Total Students",
+      value: totalStudents,
+      icon: (
+        <PeopleOutlineOutlinedIcon
+          className=" text-accent-emphasis text"
+          sx={{ fontSize: "40px" }}
+        />
+      ),
+      trend: "Active students",
+    },
+  ];
+
+  //function to handle complete grading
+  const handleCompleteGrading = () => {
+    handleSubmitGrades(courseId);
+    navigate(`/course-details/${courseId}/grades`);
+  };
+
   return (
     <div className="flex flex-col justify-between !p-8">
       <div className="container space-y-6 !mx-auto">
@@ -88,11 +101,9 @@ export default function Classlist() {
           <div className="!flex !justify-end">
             <Button
               color="secondary"
-              // onClick={() =>
-              //   Navigate("/course-details/:courseName/quizzes/create-quiz")
-              // }
               className={``}
               disabled={isComplete}
+              onClick={handleCompleteGrading}
               variant="contained"
               startIcon={<CheckOutlinedIcon />}
             >
@@ -106,11 +117,10 @@ export default function Classlist() {
             <StatCard key={uuidv4()} stat={stat} />
           ))}
         </div>
-
         <div>
           <div className="flex flex-col justify-start space-y-2">
             <GradesTable
-              students={courseStudents}
+              students={grades}
               classAverage={classAverage}
             />
           </div>
