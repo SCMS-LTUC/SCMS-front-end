@@ -1,7 +1,8 @@
 import { FaLinkedin, FaGithub } from "react-icons/fa";
-import filifl from "./flifil.jpg"
-import MohammedAlzoubi from "./MohammedAlzoubi.jpg"
-
+import filifl from "./flifil.jpg";
+import MohammedAlzoubi from "./MohammedAlzoubi.jpg";
+import DimaSalem from "./dima.jpg";
+import SajaFawaz from "./saja.jpg";
 const AboutUs = () => {
   return (
     <div className="bg-gray-100 py-12">
@@ -38,7 +39,6 @@ const AboutUs = () => {
           </div>
         </div>
       </div>
-
 
       {/* Our Values Section */}
       <div className="bg-white py-12">
@@ -87,7 +87,8 @@ const AboutUs = () => {
           {/* Team Member 1 */}
           <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-all">
             <img
-              src="https://via.placeholder.com/150"
+              // src="https://via.placeholder.com/150"
+              src={DimaSalem}
               alt="Team Member"
               className="rounded-full mx-auto mb-4 w-32 h-32 object-cover"
             />
@@ -209,7 +210,8 @@ const AboutUs = () => {
           {/* Team Member 5 */}
           <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-all">
             <img
-              src="https://media.licdn.com/dms/image/v2/D4E03AQHK2McEwDX_Jw/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1718215430033?e=1738195200&v=beta&t=Epk79aSZq1VucqdrcahxUUSrpFBi0bAZvF2hCcTzoXw"
+              // src="https://media.licdn.com/dms/image/v2/D4E03AQHK2McEwDX_Jw/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1718215430033?e=1738195200&v=beta&t=Epk79aSZq1VucqdrcahxUUSrpFBi0bAZvF2hCcTzoXw"
+              src={SajaFawaz}
               alt="Team Member"
               className="rounded-full mx-auto mb-4 w-32 h-32 object-cover"
             />

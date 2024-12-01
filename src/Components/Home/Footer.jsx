@@ -1,4 +1,4 @@
-import { logo } from "./assets";
+// import { logo } from "./assets";
 import {
   FaFacebookF,
   FaDribbble,
@@ -13,7 +13,10 @@ const Footer = () => {
       <div className="md:max-w-[1200px] m-auto grid md:grid-cols-3 gap-8 px-6">
         {/* Logo and Contact */}
         <div>
-          <img src={logo} className="h-8 mb-6" alt="Logo" />
+          <h1 className="h-8 mb-6 font-bold text-secondary-dark text-4xl">
+            Learnify
+          </h1>
+          {/* <img src={logo} className="h-8 mb-6" alt="Logo" /> */}
           <p className="text-gray-600 text-sm mb-4">
             Call: +123 400 123
             <br />
