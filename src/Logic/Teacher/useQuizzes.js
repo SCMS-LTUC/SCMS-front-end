@@ -13,7 +13,7 @@ export const useQuizzes = () => {
 
   useEffect(() => {
     if (quizzes.length === 0) dispatch(fetchQuizzes());
-  }, [dispatch]);
+  }, [dispatch, quizzes]);
 
   return { quizzes, status, error };
 };
@@ -34,6 +34,7 @@ export const useDeleteQuiz = () => {
   const { status, error } = useSelector((state) => state.quizzes);
 
   const removeQuiz = async (quizId) => {
+    // console.log("this is the quiz id from remove quiz", quizId);
     dispatch(deleteQuiz(quizId));
   };
 

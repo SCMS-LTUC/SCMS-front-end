@@ -21,8 +21,8 @@ const CourseDetailsLayout = () => {
 
   // data fetching
   const { course, status, error, loading } = useCourse(courseId);
-  console.log("this is the teacher course", course);
-  console.log("this is the status", status);
+  // console.log("this is the teacher course", course);
+  // console.log("this is the status", status);
 
   const tabs = [
     {

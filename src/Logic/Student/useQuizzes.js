@@ -69,10 +69,12 @@ export const useQuizResult = (quizId) => {
   );
 
   useEffect(() => {
+    console.log("this is the quiz result ");
     if (quizId && (!quizResult || quizResult.quizId !== quizId)) {
+      console.log("this is the if inside the quiz result ");
       dispatch(fetchQuizResult(quizId));
     }
-  }, [dispatch, quizId]);
+  }, [dispatch, quizId, quizResult]);
   console.log("use effect in quiz result", quizResult);
 
   return { quizResult, status, error };

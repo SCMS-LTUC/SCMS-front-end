@@ -8,27 +8,6 @@ import { useAssignments } from "../../../Logic/Teacher/useAssignment";
 import { useParams } from "react-router-dom";
 
 export default function AssignmentList() {
-  // const assignments = [
-  //   {
-  //     assignmentId: 1,
-  //     assignmentName: "Assignment 1",
-  //     dueDate: "2024-11-02T00:07:38.913Z",
-  //     visible: false,
-  //     submissions: 20,
-  //     description: "Description for Assignment 1",
-  //     mark: 10,
-  //   },
-  //   {
-  //     assignmentId: 2,
-  //     assignmentName: "Assignment 2",
-  //     dueDate: "2024-11-14T00:07:38.913Z",
-  //     visible: true,
-  //     submissions: 15,
-  //     description: "Description for Assignment 2",
-  //     mark: 20,
-  //   },
-  // ];
-
   const { courseId } = useParams();
   const { assignments, error, loading } = useAssignments(courseId);
   const Navigate = useNavigate();
@@ -36,11 +15,10 @@ export default function AssignmentList() {
   if (loading) {
     return <div>Loading...</div>;
   }
-  
+
   if (error) {
     return <div>Error: {error.message}</div>;
   }
-
 
   return (
     <div className="flex flex-col justify-between !p-8">

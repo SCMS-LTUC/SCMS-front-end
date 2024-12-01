@@ -50,6 +50,7 @@ export default {
           // Hyperlinks, help tooltips, resource downloads
           info: "#3b82f6",
           emphasis: "#a855f7",
+          special: "#ec4899",
         },
       },
       fontFamily: {

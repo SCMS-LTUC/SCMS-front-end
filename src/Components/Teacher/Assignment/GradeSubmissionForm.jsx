@@ -26,6 +26,21 @@ export default function GradeSubmissionForm() {
     setFeedback(e.target.value);
   };
   const [file, setFile] = useState(null);
+  useEffect(() => {
+    if (submission) {
+      setGrade(submission.grade || "");
+      setFeedback(submission.feedback || "");
+      if (submission.filePath) {
+        setFile(
+          extractFileInfo(submission.filePath).fileNameWithoutGuid +
+            "." +
+            extractFileInfo(submission.filePath).fileExtension
+        );
+      } else {
+        setFile(null);
+      }
+    }
+  }, [submission]);
 
   useEffect(() => {
     console.log(file);
@@ -74,7 +89,7 @@ export default function GradeSubmissionForm() {
         throw new Error("Network response was not ok");
       }
 
-      console.log("this is the file response", response);
+      // console.log("this is the file response", response);
 
       // Create a Blob from the response data
       const fileBlob = await response.blob();

@@ -9,7 +9,7 @@ import { useParams } from "react-router-dom";
 import { useLectures } from "../../../Logic/Teacher/useLectures.js";
 //import { useCourse } from "../../../Logic/Teacher/useAllCourses.jsx";
 import { useClassList } from "../../../Logic/Teacher/useClassList.js";
-
+import PropTypes from "prop-types";
 
 const formatDate = (dateString) => {
   if (!dateString) return "N/A";
@@ -19,7 +19,7 @@ const formatDate = (dateString) => {
   return date.toISOString().split("T")[0];
 };
 
-const App = () => {
+const App = ({ postSuccessfully, errorInPost }) => {
   const { courseId } = useParams();
   const { students } = useClassList(courseId);
   console.log(students);
@@ -53,7 +53,7 @@ const App = () => {
     }));
     setLectureDates(formattedLectures);
     setCalendarKey((prevKey) => prevKey + 1); // Force re-render of the calendar
-  }, []);
+  }, [lectures]);
 
   const eventClassNames = (event) => {
     // Apply class to today's event or standard event
@@ -113,10 +113,15 @@ const App = () => {
           open={postDialogOpen}
           onClose={handleDialogClose}
           lectureId={selectedLectureId}
+          postSuccessfully={postSuccessfully}
+          errorInPost={errorInPost}
         />
       </div>
     </div>
   );
 };
-
+App.propTypes = {
+  postSuccessfully: PropTypes.func.isRequired,
+  errorInPost: PropTypes.func.isRequired,
+};
 export default App;

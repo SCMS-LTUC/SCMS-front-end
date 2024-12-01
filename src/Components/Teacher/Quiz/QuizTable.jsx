@@ -42,7 +42,7 @@ export default function StickyHeadTable({ quizzes }) {
   const { removeQuiz } = useDeleteQuiz();
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
-  const [selectedQuiz, setQuizId] = React.useState(null);
+  const [selectedQuiz, setQuizId] = React.useState(0);
   const navigate = useNavigate();
   const columns = React.useMemo(
     () => [
@@ -56,6 +56,7 @@ export default function StickyHeadTable({ quizzes }) {
     []
   );
 
+  // console.log("this is quizzes from quiz table", quizzes);
   //handlers
   const handleEditClick = (quizId) => {
     const selectedQuiz = quizzes.find((quiz) => quiz.id === quizId);
@@ -71,6 +72,7 @@ export default function StickyHeadTable({ quizzes }) {
   // Delete dialog
   const handleDeleteDialogOpen = (quizId) => {
     setQuizId(quizId);
+    console.log("this is the quiz id====", quizId);
     setDeleteDialogOpen(true);
   };
 

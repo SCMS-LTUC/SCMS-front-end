@@ -46,7 +46,7 @@ const AbsenceTable = ({ absenceDates }) => {
                   <TableCell className="!text-neutral-textMedium !bg-neutral-surface !text-lg">
                     <Chip
                       label="Absent"
-                      className="!bg-red-100 !text-red-700 !text-base"
+                      className="!bg-red-100 !text-red-700 "
                     />
                   </TableCell>
                 </TableRow>

@@ -41,7 +41,7 @@ export const useCourse = (courseId) => {
   );
 
   useEffect(() => {
-    console.log("this is the course id", courseId);
+    // console.log("this is the course id", courseId);
 
     if (courseId) dispatch(fetchStudentCourse({ courseId }));
   }, [dispatch, courseId]);

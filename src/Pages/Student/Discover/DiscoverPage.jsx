@@ -65,7 +65,7 @@ const MyCourses = () => {
   // snack bar end
   const handleOnClickEnroll = (courseId) => {
     enroll(courseId);
-    console.log("this is the course Id", courseId);
+    // console.log("this is the course Id", courseId);
   };
 
   if (status === "loading") {

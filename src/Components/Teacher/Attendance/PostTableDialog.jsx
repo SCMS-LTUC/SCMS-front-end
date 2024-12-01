@@ -21,7 +21,14 @@ import { useSubmitAttendance } from "../../../Logic/Teacher/useLectures";
 
 const statusOptions = ["Present", "Absence"];
 
-const PostTableDialog = ({ rows, open, onClose, lectureId }) => {
+const PostTableDialog = ({
+  rows,
+  open,
+  onClose,
+  lectureId,
+  postSuccessfully,
+  errorInPost,
+}) => {
   const submitAttendance = useSubmitAttendance();
   const initialRequest = {
     lectureId: lectureId,
@@ -51,11 +58,13 @@ const PostTableDialog = ({ rows, open, onClose, lectureId }) => {
 
   const handleSubmit = () => {
     try {
-      console.log("this is the attendance request", requestData);
+      // console.log("this is the attendance request", requestData);
       submitAttendance(requestData);
       onClose();
+      postSuccessfully();
     } catch (error) {
       console.error("Error submitting attendance:", error);
+      errorInPost(error);
     }
   };
 
@@ -140,12 +149,7 @@ const PostTableDialog = ({ rows, open, onClose, lectureId }) => {
       </DialogContent>
 
       <DialogActions className="!bg-neutral-background !p-4 !border-t-2 !border-neutral-border">
-        <Button
-          onClick={onClose}
-          variant="contained"
-          color="secondary"
-          className="!text-neutral-surface"
-        >
+        <Button onClick={onClose} variant="outlined" color="textMedium">
           Cancel
         </Button>
         <Button
@@ -171,6 +175,8 @@ PostTableDialog.propTypes = {
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   lectureId: PropTypes.number.isRequired,
+  postSuccessfully: PropTypes.func.isRequired,
+  errorInPost: PropTypes.func.isRequired,
 };
 
 export default PostTableDialog;

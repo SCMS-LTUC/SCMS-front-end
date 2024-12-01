@@ -88,7 +88,7 @@ export default function ViewSubmission() {
         throw new Error("Network response was not ok");
       }
 
-      console.log("this is the file response", response);
+      // console.log("this is the file response", response);
 
       // Create a Blob from the response data
       const fileBlob = await response.blob();

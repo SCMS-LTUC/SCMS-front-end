@@ -12,7 +12,7 @@ const MyCourses = () => {
 
   const downloadFile = async (certificateId, courseName) => {
     try {
-      console.log("this is the courseName", courseName);
+      // console.log("this is the courseName", courseName);
       // Replace with your actual backend URL and the student's assignment ID
       const response = await fetch(
         `http://localhost:5128/api/Certificates/download/${certificateId}`,
@@ -29,7 +29,7 @@ const MyCourses = () => {
         throw new Error("Network response was not ok");
       }
 
-      console.log("this is the file response", response);
+      // console.log("this is the file response", response);
 
       // Create a Blob from the response data
       const fileBlob = await response.blob();

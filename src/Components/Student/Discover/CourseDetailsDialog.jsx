@@ -80,11 +80,11 @@ const CourseDetailsDialog = ({
             >
               <PersonOutlineOutlinedIcon
                 style={{ marginRight: 8 }}
-                className="!text-secondary"
+                className="!text-accent-success"
               />
               Instructor
             </Typography>
-            <Typography className="!text-base">{teacher}</Typography>
+            <Typography className="!text-base !p-1">{teacher}</Typography>
           </Grid>
 
           {/* Duration */}
@@ -96,11 +96,11 @@ const CourseDetailsDialog = ({
             >
               <CalendarTodayOutlinedIcon
                 style={{ marginRight: 8 }}
-                className="!text-secondary"
+                className="!text-accent-warning"
               />
               Duration
             </Typography>
-            <Typography className="!text-base">{duration}</Typography>
+            <Typography className="!text-base !p-1">{duration}</Typography>
           </Grid>
 
           {/* Time */}
@@ -112,11 +112,11 @@ const CourseDetailsDialog = ({
             >
               <ClockIcon
                 style={{ marginRight: 8 }}
-                className="!text-secondary"
+                className="!text-accent-info"
               />
               Time
             </Typography>
-            <Typography className="!text-base">{time}</Typography>
+            <Typography className="!text-base !p-1">{time}</Typography>
           </Grid>
 
           {/* Days */}
@@ -128,11 +128,13 @@ const CourseDetailsDialog = ({
             >
               <EventOutlinedIcon
                 style={{ marginRight: 8 }}
-                className="!text-secondary"
+                className="!text-accent-emphasis"
               />
               Days
             </Typography>
-            <Typography className="!text-base">{days.join(", ")}</Typography>
+            <Typography className="!text-base !p-1">
+              {days.join(", ")}
+            </Typography>
           </Grid>
 
           {/* Hours */}
@@ -144,11 +146,11 @@ const CourseDetailsDialog = ({
             >
               <HourglassEmptyOutlinedIcon
                 style={{ marginRight: 8 }}
-                className="!text-secondary"
+                className="!text-accent-special"
               />
               Total Hours
             </Typography>
-            <Typography className="!text-base">{hours} hours</Typography>
+            <Typography className="!text-base !p-1">{hours} hours</Typography>
           </Grid>
 
           {/* Price */}
@@ -160,11 +162,11 @@ const CourseDetailsDialog = ({
             >
               <LocalAtmOutlinedIcon
                 style={{ marginRight: 8 }}
-                className="!text-secondary"
+                className="!text-accent-error"
               />
               Price
             </Typography>
-            <Typography fontWeight="bold" className="!text-base">
+            <Typography fontWeight="bold" className="!text-base !p-1">
               ${price}
             </Typography>
           </Grid>

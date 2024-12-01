@@ -1,10 +1,18 @@
 import { useState } from "react";
-import { Box, Button, TextField, Typography, Checkbox, FormControlLabel } from "@mui/material";
+import {
+  Box,
+  Button,
+  TextField,
+  Typography,
+  Checkbox,
+  FormControlLabel,
+  IconButton,
+} from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useParams } from "react-router-dom";
 import { useCreateQuiz } from "../../../Logic/Teacher/useQuizzes"; // Adjust the import path as needed
 import { useNavigate } from "react-router-dom";
-
+import CloseIcon from "@mui/icons-material/Close";
 const CreateQuiz = () => {
   const { courseId } = useParams();
   const { addQuiz, status, error } = useCreateQuiz();
@@ -16,7 +24,14 @@ const CreateQuiz = () => {
   const [duration, setDuration] = useState("");
   const [marks, setMarks] = useState("");
   const [questions, setQuestions] = useState([
-    { questionId: 0, text: "", quizId: 0, answerOptions: [{ answerOptionId: 0, text: "", isCorrect: false, questionId: 0 }] },
+    {
+      questionId: 0,
+      text: "",
+      quizId: 0,
+      answerOptions: [
+        { answerOptionId: 0, text: "", isCorrect: false, questionId: 0 },
+      ],
+    },
   ]);
 
   const handleQuestionChange = (index, updatedQuestion) => {
@@ -54,7 +69,9 @@ const CreateQuiz = () => {
 
   const handleRemoveAnswerOption = (qIndex, aIndex) => {
     const updatedQuestions = [...questions];
-    updatedQuestions[qIndex].answerOptions = updatedQuestions[qIndex].answerOptions.filter((_, i) => i !== aIndex);
+    updatedQuestions[qIndex].answerOptions = updatedQuestions[
+      qIndex
+    ].answerOptions.filter((_, i) => i !== aIndex);
     setQuestions(updatedQuestions);
   };
 
@@ -63,12 +80,15 @@ const CreateQuiz = () => {
     const updatedQuestions = [...questions];
     if (name === "isCorrect" && checked) {
       // Ensure only one option can be correct
-      updatedQuestions[qIndex].answerOptions = updatedQuestions[qIndex].answerOptions.map((ao, i) => ({
+      updatedQuestions[qIndex].answerOptions = updatedQuestions[
+        qIndex
+      ].answerOptions.map((ao, i) => ({
         ...ao,
         isCorrect: i === aIndex,
       }));
     } else {
-      updatedQuestions[qIndex].answerOptions[aIndex][name] = type === "checkbox" ? checked : value;
+      updatedQuestions[qIndex].answerOptions[aIndex][name] =
+        type === "checkbox" ? checked : value;
     }
     setQuestions(updatedQuestions);
   };
@@ -109,7 +129,10 @@ const CreateQuiz = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6 p-6 bg-white rounded-lg shadow-md">
+    <form
+      onSubmit={handleSubmit}
+      className="space-y-6 p-6 bg-white rounded-lg shadow-md"
+    >
       <Typography className="mb-4 text-primary !font-bold !text-3xl">
         Create Quiz
       </Typography>
@@ -197,18 +220,41 @@ const CreateQuiz = () => {
         <Typography className="!text-xl !font-bold !mb-2">Questions</Typography>
         {questions.map((q, qIndex) => (
           <Box key={qIndex} className="mb-4">
-            <TextField
-              label="Question Text"
-              name="text"
-              value={q.text}
-              onChange={(e) => handleQuestionChange(qIndex, { ...q, text: e.target.value })}
-              fullWidth
-              variant="outlined"
-              className="!mb-4"
-              required
-            />
+            <div className="flex !items-center space-x-2">
+              <TextField
+                label="Question Text"
+                name="text"
+                value={q.text}
+                onChange={(e) =>
+                  handleQuestionChange(qIndex, { ...q, text: e.target.value })
+                }
+                fullWidth
+                variant="outlined"
+                className="!my-4"
+                required
+              />
+              {/* <Button
+                variant="outlined"
+                color="remove"
+                startIcon={<CloseIcon />}
+                onClick={() => handleRemoveQuestion(qIndex)}
+              >
+                Question
+              </Button> */}
+
+              <IconButton
+                variant="outlined"
+                onClick={() => handleRemoveQuestion(qIndex)}
+                startIcon={<CloseIcon />}
+                color="remove"
+                className=" !h-fit"
+              >
+                <CloseIcon />
+              </IconButton>
+            </div>
+
             {q.answerOptions.map((a, aIndex) => (
-              <Box key={aIndex} className="mb-2">
+              <Box key={aIndex} className=" flex space-x-2 !items-center">
                 <TextField
                   label="Answer Option Text"
                   name="text"
@@ -224,24 +270,48 @@ const CreateQuiz = () => {
                     <Checkbox
                       name="isCorrect"
                       checked={a.isCorrect}
-                      onChange={(e) => handleAnswerOptionChange(qIndex, aIndex, e)}
+                      onChange={(e) =>
+                        handleAnswerOptionChange(qIndex, aIndex, e)
+                      }
                       color="primary"
                     />
                   }
                   label="Correct"
                 />
-                <Button variant="outlined" onClick={() => handleRemoveAnswerOption(qIndex, aIndex)}>Remove Option</Button>
+                <IconButton
+                  variant="outlined"
+                  onClick={() => handleRemoveAnswerOption(qIndex, aIndex)}
+                  startIcon={<CloseIcon />}
+                  color="remove"
+                  className=" !h-fit"
+                >
+                  <CloseIcon />
+                </IconButton>
+                {/* <Button
+                  variant="outlined"
+                  onClick={() => handleRemoveAnswerOption(qIndex, aIndex)}
+                  startIcon={<CloseIcon />}
+                  color="remove"
+                >
+                  Option
+                </Button> */}
               </Box>
             ))}
-            <Button variant="outlined" onClick={() => handleAddAnswerOption(qIndex)}>Add Answer Option</Button>
-            <Button variant="outlined" onClick={() => handleRemoveQuestion(qIndex)}>Remove Question</Button>
+            <Button
+              variant="outlined"
+              color="secondaryDark"
+              startIcon={<AddIcon />}
+              onClick={() => handleAddAnswerOption(qIndex)}
+            >
+              Add Option
+            </Button>
           </Box>
         ))}
         <Button
           variant="contained"
           onClick={handleAddQuestion}
           startIcon={<AddIcon />}
-          className="mt-2 !text-white"
+          className="mt-4 !text-white"
           color="secondary"
         >
           Add Question

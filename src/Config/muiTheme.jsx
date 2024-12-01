@@ -33,6 +33,9 @@ const theme = createTheme({
       light: secondaryColorLight,
       dark: secondaryColorDark,
     },
+    secondaryDark: {
+      main: "#3B7A70",
+    },
     text: {
       primary: textPrimary,
       secondary: textSecondary,
@@ -51,6 +54,13 @@ const theme = createTheme({
     },
     info: {
       main: "#3b82f6",
+    },
+    remove: {
+      // main: "#EF4444",
+      main: "#dc2626",
+    },
+    add: {
+      main: "#16a34a",
     },
   },
 });

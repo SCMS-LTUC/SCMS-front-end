@@ -120,7 +120,12 @@ export default function Schedule({ scheduleCourses }) {
                     {data.datePeriod}
                   </TableCell>
                   <TableCell className="!text-neutral-textMedium !bg-neutral-surface !text-lg">
-                    {data.days}
+                    {data.days.map((day, index) => (
+                      <span key={index}>
+                        {day.slice(0, 3)}
+                        {index !== data.days.length - 1 ? ", " : " "}
+                      </span>
+                    ))}
                   </TableCell>
                   <TableCell className="!text-neutral-textMedium !bg-neutral-surface !text-lg">
                     {data.time}

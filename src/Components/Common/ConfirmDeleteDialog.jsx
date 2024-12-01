@@ -33,7 +33,10 @@ export default function ConfirmDeleteDialog({
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose} className="!text-neutral-textMedium">
+        {/* <Button onClick={onClose} className="!text-neutral-textMedium">
+          Cancel
+        </Button> */}
+        <Button onClick={onClose} variant="outlined" color="textMedium">
           Cancel
         </Button>
         <Button

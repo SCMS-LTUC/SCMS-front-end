@@ -2,6 +2,7 @@ import AssignmentLayout from "../../../Components/Teacher/Assignment/AssignmentL
 import SubmissionsTable from "../../../Components/Teacher/Assignment/SubmissionsTable";
 import { useAssignmentSubmissions } from "../../../Logic/Teacher/useAssignmentSubmissions";
 import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 // const rows = [
 //   {
@@ -48,7 +49,15 @@ import { useParams } from "react-router-dom";
 
 export default function AssignmentSubmissions() {
   const { assignmentId } = useParams();
-  const { submissions, error, loading } = useAssignmentSubmissions(assignmentId);
+  const [key, setKey] = useState(0);
+  console.log(key);
+
+  const { submissions, error, loading } =
+    useAssignmentSubmissions(assignmentId);
+  useEffect(() => {
+    // Force re-render when submissions change
+    setKey((prevKey) => prevKey + 1);
+  }, [submissions]);
 
   if (loading) {
     return <div>Loading...</div>;

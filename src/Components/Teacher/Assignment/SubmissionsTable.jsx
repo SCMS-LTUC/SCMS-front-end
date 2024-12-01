@@ -17,6 +17,7 @@ StickyHeadTable.propTypes = {
 };
 
 export default function StickyHeadTable({ rows }) {
+  console.log("this is the rows", rows);
   const columns = React.useMemo(
     () => [
       { id: "studentName", label: "Student Name", minWidth: 170 },
