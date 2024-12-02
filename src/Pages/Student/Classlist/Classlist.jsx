@@ -30,12 +30,12 @@ export default function Classlist() {
 
   // Filter students and teacher based on search query
   const filteredStudents = students.filter((student) =>
-    student.studentName.toLowerCase().includes(searchQuery.toLowerCase())
+    student.studentName?.toLowerCase().includes(searchQuery?.toLowerCase())
   );
 
   const isTeacherMatch = currentCourses.teacherName
-    .toLowerCase()
-    .includes(searchQuery.toLowerCase());
+    ?.toLowerCase()
+    .includes(searchQuery?.toLowerCase());
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);

@@ -5,11 +5,12 @@ import SummarizeOutlinedIcon from "@mui/icons-material/SummarizeOutlined";
 import SummaryDialog from "../../../Components/Teacher/Attendance/SummaryTableDialog.jsx";
 import { useAttendanceSummary } from "../../../Logic/Teacher/useLectures.js";
 import { useParams } from "react-router-dom";
-
 import NotificationSnackbar from "../../../Components/Common/NotificationSnackbar.jsx";
 
 export default function CalendarView() {
   const { courseId } = useParams();
+  const { attendanceSummary } = useAttendanceSummary(courseId);
+  const rows = attendanceSummary;
   const [summaryDialogOpen, setSummaryDialogOpen] = useState(false);
   const handleDialogOpen = () => {
     setSummaryDialogOpen(true);
@@ -17,9 +18,46 @@ export default function CalendarView() {
   const handleDialogClose = () => {
     setSummaryDialogOpen(false);
   };
+  // const rows = [
+  //   {
+  //     studentID: "Student1",
+  //     fullName: "Dima Salem",
+  //     absenceRateForTheStudent: "25%",
+  //   },
+  //   {
+  //     studentID: "Student2",
+  //     fullName: "Saja Alyouns",
+  //     absenceRateForTheStudent: "5%",
+  //   },
+  //   {
+  //     studentID: "Student3",
+  //     fullName: "Mohammad Al-farwan",
+  //     absenceRateForTheStudent: "20%",
+  //   },
+  // ];
 
-  const { attendanceSummary } = useAttendanceSummary(courseId);
-  const rows = attendanceSummary;
+  //snack bar
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [snackbarType, setSnackbarType] = useState("info");
+  // const [count, setCount] = useState(0);
+
+  const handleOpenSnackbar = (message, type) => {
+    setSnackbarMessage(message);
+    setSnackbarType(type);
+    setSnackbarOpen(true);
+  };
+  const handleCloseSnackbar = () => {
+    setSnackbarOpen(false);
+  };
+  const postSuccessfully = () => {
+    handleOpenSnackbar("Submit Successfully", "success");
+  };
+  const errorInPost = (errorPostAttendance) => {
+    handleOpenSnackbar(errorPostAttendance, "error");
+  };
+
+  // snack bar end
 
   // const rows = [
   //   {

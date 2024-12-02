@@ -16,7 +16,7 @@ StickyHeadTable.propTypes = {
   classAverage: PropTypes.number.isRequired,
 };
 
-export default function StickyHeadTable({ students, classAverage }) {
+export default function StickyHeadTable({ students = [], classAverage }) {
   console.log(classAverage);
   const columns = React.useMemo(
     () => [
@@ -63,7 +63,7 @@ export default function StickyHeadTable({ students, classAverage }) {
           </TableHead>
           <TableBody>
             {students
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
                 const status =
                   row.averageGrades >= classAverage + 5
@@ -83,10 +83,10 @@ export default function StickyHeadTable({ students, classAverage }) {
                       {row.studentName}
                     </TableCell>
                     <TableCell className="!text-neutral-textMedium !bg-neutral-surface !text-lg">
-                      {row.assignments || "N/A"}%
+                      {row.assignments || "0"}%
                     </TableCell>
                     <TableCell className="!text-neutral-textMedium !bg-neutral-surface !text-lg">
-                      {row.quizzes || "N/A"}%
+                      {row.quizzes || "0"}%
                     </TableCell>
                     <TableCell className="!text-neutral-textMedium !bg-neutral-surface !text-lg">
                       {row.averageGrades}%

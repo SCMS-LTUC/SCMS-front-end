@@ -14,11 +14,13 @@ export const fetchTeacherCourses = createAsyncThunk(
       if (!response.data.$values || !Array.isArray(response.data.$values)) {
         throw new Error("Invalid API response format");
       }
-      const mappedCourses = response.data.$values.map((course) => ({
-        ...course,
-        courseId: Number(course.courseId), // Ensure 'courseId' is a number
-        days: Array.isArray(course.days?.$values) ? course.days.$values : [], // Extract 'days' as an array
-      }));
+      const mappedCourses = response.data.$values
+        .filter((course) => !course.isComplete)
+        .map((course) => ({
+          ...course,
+          courseId: Number(course.courseId), // Ensure 'courseId' is a number
+          days: Array.isArray(course.days?.$values) ? course.days.$values : [], // Extract 'days' as an array
+        }));
 
       console.log("Mapped Courses:", mappedCourses); // Debug: Log the mapped courses
 

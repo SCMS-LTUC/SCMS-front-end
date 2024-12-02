@@ -96,6 +96,8 @@ const coursesSlice = createSlice({
         state.status = "failed enroll";
         state.loading = false;
         state.error = action.payload || action.error.message;
+        console.log("this is action.error", action.error);
+        console.log("this is action", action);
       });
   },
 });

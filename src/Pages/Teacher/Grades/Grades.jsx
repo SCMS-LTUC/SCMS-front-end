@@ -8,25 +8,56 @@ import { v4 as uuidv4 } from "uuid";
 import StatCard from "../../../Components/Common/StatCard";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 import { useGrades, useSubmitGrades } from "../../../Logic/Teacher/useGrades";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useState, useEffect } from "react";
 // import {currentCourse} from "../../../Logic/Teacher/Data";
+import NotificationSnackbar from "../../../Components/Common/NotificationSnackbar.jsx";
 
 export default function Classlist() {
   const { courseId } = useParams();
-  const navigate = useNavigate();
-  const { grades } = useGrades(courseId);
-  const { handleSubmitGrades } = useSubmitGrades(courseId);
+  const { grades = [] } = useGrades(courseId);
+  const { handleSubmitGrades, status, error } = useSubmitGrades(courseId);
   const { currentCourses } = useSelector((state) => state.courses);
   console.log("currentCourses", currentCourses);
-
   const isComplete = currentCourses.isComplete;
   console.log("isComplete", isComplete);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [snackbarType, setSnackbarType] = useState("info");
+  const [gradingInitiated, setGradingInitiated] = useState(false);
 
-  const totalGrades = grades.reduce(
-    (sum, student) => sum + student.averageGrades,
-    0
-  );
+  const handleOpenSnackbar = (message, type) => {
+    setSnackbarMessage(message);
+    setSnackbarType(type);
+    setSnackbarOpen(true);
+  };
+  const handleCloseSnackbar = () => {
+    setSnackbarOpen(false);
+  };
+
+  useEffect(() => {
+    if (gradingInitiated) {
+      if (status === "loading complete grading") {
+        handleOpenSnackbar("Grading in progress", "warning");
+      }
+      if (status === "succeeded complete grading") {
+        handleOpenSnackbar("Grading completed successfully", "success");
+        setGradingInitiated(false);
+        window.location.href = "/";
+      }
+
+      if (status === "failed complete grading") {
+        let errorMessage = error;
+        errorMessage = errorMessage.replace(/^Internal server error: /, "");
+        handleOpenSnackbar(errorMessage, "error");
+        setGradingInitiated(false);
+      }
+    }
+  }, [status, gradingInitiated, error]);
+
+  const totalGrades =
+    grades?.reduce((sum, student) => sum + student.averageGrades, 0) || 0;
   const classAverage = Math.round(totalGrades / grades.length);
   const topPerformance = Math.max(
     ...grades.map((student) => student.averageGrades)
@@ -87,8 +118,9 @@ export default function Classlist() {
 
   //function to handle complete grading
   const handleCompleteGrading = () => {
+    setGradingInitiated(true);
     handleSubmitGrades(courseId);
-    navigate(`/course-details/${courseId}/grades`);
+    console.log("handleCompleteGrading function called");
   };
 
   return (
@@ -101,9 +133,8 @@ export default function Classlist() {
           <div className="!flex !justify-end">
             <Button
               color="secondary"
-              className={``}
-              disabled={isComplete}
               onClick={handleCompleteGrading}
+              disabled={isComplete}
               variant="contained"
               startIcon={<CheckOutlinedIcon />}
             >
@@ -119,13 +150,18 @@ export default function Classlist() {
         </div>
         <div>
           <div className="flex flex-col justify-start space-y-2">
-            <GradesTable
-              students={grades}
-              classAverage={classAverage}
-            />
+            <GradesTable students={grades} classAverage={classAverage} />
           </div>
         </div>
         <Divider className="!my-4" />
+      </div>
+      <div>
+        <NotificationSnackbar
+          open={snackbarOpen}
+          onClose={handleCloseSnackbar}
+          message={snackbarMessage}
+          type={snackbarType}
+        />
       </div>
     </div>
   );
