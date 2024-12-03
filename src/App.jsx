@@ -1,68 +1,56 @@
-import Button from "@mui/material/Button";
-import { Home, Info, ContactMail, Warning } from "@mui/icons-material";
+﻿import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { ThemeProvider } from "@mui/material/styles";
+import { Provider, useSelector } from "react-redux";
+import theme from "./Config/muiTheme";
+import Teacher from "./Pages/Teacher/Main";
+import Student from "./Pages/Student/Main";
+import Admin from "./Pages/Admin/Main";
+import HomePage from "./Pages/Home/HomePage";
+// For carousel in courses and feedback section in Home page
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
-export default function App() {
+// import Login from "./Pages/Login/Login"; // Import Login component
+import ProtectedRoute from "./Components/Common/ProtectedRoute";
+import store from "./Redux/Store"; // Import your Redux store
+
+// public pages
+
+const App = () => {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-background font-sans">
-      <h1 className="text-textPrimary text-4xl font-bold mb-4">
-        Welcome to Fusion Learn!
-      </h1>
-      <Button variant="contained" color="primary" startIcon={<Home />}>
-        Get Started
-      </Button>
-      <div className="p-8 mt-6 bg-light rounded-lg shadow-lg">
-        <h2 className="text-3xl font-bold mb-6">Color Palette Test</h2>
-
-        <p className="text-primary">
-          This is the Primary color (Primary: #3B82F6)
-        </p>
-        <p className="text-Secondary">
-          This is the Secondary color (Secondary: #6B7280)
-        </p>
-        <p className="text-accent">
-          This is the Accent color (Accent: #FBBF24)
-        </p>
-        <p className="bg-background text-textPrimary p-2">
-          This is the Background color (Background: #F9FAFB)
-        </p>
-        <p className="text-textPrimary">
-          This is the Primary Text color (Text Primary: #111827)
-        </p>
-        <p className="text-textSecondary">
-          This is the Secondary Text color (Text Secondary: #6B7280)
-        </p>
-        <p className="text-success">
-          This is the Success color (Success: #4ADE80)
-        </p>
-        <p className="text-warning">
-          This is the Warning color (Warning: #F59E0B)
-        </p>
-        <p className="text-danger">
-          This is the Danger color (Danger: #F87171)
-        </p>
-        <p className="text-info">This is the Info color (Info: #3B82F6)</p>
-        <p className="bg-light text-textPrimary p-2">
-          This is the Light color (Light: #E5E7EB)
-        </p>
-        <p className="bg-dark text-light p-2">
-          This is the Dark color (Dark: #1F2937)
-        </p>
-
-        <Warning style={{ verticalAlign: "middle", marginRight: "8px" }} />
-
-        {/* Testing Icons */}
-        <div className="mt-6 flex space-x-4">
-          <Button variant="outlined" startIcon={<Home />}>
-            Home
-          </Button>
-          <Button variant="outlined" startIcon={<Info />}>
-            About
-          </Button>
-          <Button variant="outlined" startIcon={<ContactMail />}>
-            Contact
-          </Button>
-        </div>
-      </div>
-    </div>
+    <Provider store={store}>
+      <Router>
+        <ThemeProvider theme={theme}>
+          <Routes>
+            {/* <Route path="/login" element={<Login />} /> */}
+            <Route
+              path="/*"
+              element={
+                <ProtectedRoute>
+                  <RoleBasedComponent />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </ThemeProvider>
+      </Router>
+    </Provider>
   );
-}
+};
+
+const RoleBasedComponent = () => {
+  const role = useSelector((state) => state.user.role);
+
+  switch (role) {
+    case "Teacher":
+      return <Teacher />;
+    case "Student":
+      return <Student />;
+    case "Admin":
+      return <Admin />;
+    default:
+      return <HomePage />;
+  }
+};
+
+export default App;
