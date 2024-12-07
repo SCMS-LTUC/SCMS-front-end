@@ -53,6 +53,7 @@ export const fetchAttendanceSummary = createAsyncThunk(
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
       });
+      console.log("response.data.$values", response.data.$values);
       return response.data.$values;
     } catch (error) {
       console.error("Error fetching attendance summary:", error);

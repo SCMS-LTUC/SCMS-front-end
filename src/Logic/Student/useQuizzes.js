@@ -10,16 +10,16 @@ import { useEffect } from "react";
 
 export const useQuizzes = (courseId) => {
   const dispatch = useDispatch();
-  const { quizzes, status, error } = useSelector(
+  const { quizzes, status, error, quizResult } = useSelector(
     (state) => state.studentQuizzes
   );
 
   useEffect(() => {
-    if (courseId && quizzes.length === 0) {
+    if (courseId) {
       dispatch(fetchQuizzes(courseId));
     }
-  }, [dispatch, courseId]);
-
+  }, [dispatch, courseId, quizResult]);
+  console.log("this is the quizzes from useQuizzes", quizzes);
   return { quizzes, status, error };
 };
 
@@ -74,7 +74,7 @@ export const useQuizResult = (quizId) => {
       console.log("this is the if inside the quiz result ");
       dispatch(fetchQuizResult(quizId));
     }
-  }, [dispatch, quizId, quizResult]);
+  }, [dispatch, quizId]);
   console.log("use effect in quiz result", quizResult);
 
   return { quizResult, status, error };

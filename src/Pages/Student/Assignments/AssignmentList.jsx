@@ -1,5 +1,5 @@
 //import { useParams } from "react-router-dom";
-// import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Typography, Divider } from "@mui/material";
 import AssignmentTable from "../../../Components/Student/Assignments/AssignmentTable";
 // the assignments is the data from api/assignments/courses/{courseId}/student/assignments
@@ -7,6 +7,10 @@ import AssignmentTable from "../../../Components/Student/Assignments/AssignmentT
 
 export default function AssignmentList() {
   //const { courseId } = useParams();
+  const [key, setKey] = useState(0);
+  useEffect(() => {
+    setKey(key + 1);
+  }, []);
   return (
     <div className="flex flex-col justify-between !p-8">
       <div className="container space-y-6 !mx-auto">

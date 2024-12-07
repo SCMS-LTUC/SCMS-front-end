@@ -8,17 +8,16 @@ import QuizResultCard from "../../../Components/Student/Quiz/QuizResultCard";
 // the quizResult is the data from api/Quiz/get-saved-score
 //import { quizResult } from "../../../Logic/Student/Data";
 import { useQuiz, useQuizResult } from "../../../Logic/Student/useQuizzes";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
 const QuizInstructions = () => {
   const { quizId } = useParams();
   const { quiz } = useQuiz(quizId);
   const { quizResult } = useQuizResult(quizId);
-
+  const [key, setKey] = useState(0);
   useEffect(() => {
-    // quizResult(quizId);
-  }, [quizResult, quizId]);
-  //call the calculate function to get the quiz result
+    setKey(key + 1);
+  }, []);
   if (!quizResult) return <div>Loading...</div>;
 
   const questions = quiz.questions || [];

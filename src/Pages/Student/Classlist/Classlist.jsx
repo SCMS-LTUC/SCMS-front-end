@@ -20,8 +20,8 @@ export default function Classlist() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [searchQuery, setSearchQuery] = useState("");
-  const { currentCourses } = useSelector((state) => state.courses);
-
+  const { course } = useSelector((state) => state.studentCourses);
+  console.log("course", course);
   // Search handler
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);
@@ -33,7 +33,7 @@ export default function Classlist() {
     student.studentName?.toLowerCase().includes(searchQuery?.toLowerCase())
   );
 
-  const isTeacherMatch = currentCourses.teacherName
+  const isTeacherMatch = course.teacherName
     ?.toLowerCase()
     .includes(searchQuery?.toLowerCase());
 
@@ -74,9 +74,9 @@ export default function Classlist() {
           <div className="flex flex-col justify-start space-y-2">
             {isTeacherMatch && (
               <TeacherCard
-                teacherName={currentCourses.teacherName}
-                teacherId={currentCourses.teacherId}
-                teacherDepartment={currentCourses.teacherDepartment}
+                teacherName={course.teacherName}
+                teacherId={course.teacherId}
+                teacherDepartment={course.teacherDepartment}
               />
             )}
             {filteredStudents

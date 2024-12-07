@@ -62,7 +62,7 @@ const SummaryDialog = ({ rows, open, onClose }) => {
                       className="!text-neutral-textMedium !bg-neutral-surface !text-lg !w-2/5"
                       align="center"
                     >
-                      {row.absenceRateForTheStudent}
+                      {row.absenceRateForTheStudent}%
                     </TableCell>
                   </TableRow>
                 ))}

@@ -19,7 +19,7 @@ export const useAssignments = (courseId) => {
       if (courseId && (!assignments || assignments.courseId !== courseId))
         dispatch(fetchAssignments(courseId));
     }
-  }, [dispatch, courseId]);
+  }, [dispatch, courseId, assignments]);
 
   const addAssignment = (assignment) => {
     dispatch(createAssignment({ assignment }));

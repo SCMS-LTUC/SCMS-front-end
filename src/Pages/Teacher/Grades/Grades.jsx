@@ -49,7 +49,8 @@ export default function Classlist() {
 
       if (status === "failed complete grading") {
         let errorMessage = error;
-        errorMessage = errorMessage.replace(/^Internal server error: /, "");
+        errorMessage = errorMessage.replace(/^"Internal server error: /, "");
+        errorMessage = errorMessage.replace(/"$/, "");
         handleOpenSnackbar(errorMessage, "error");
         setGradingInitiated(false);
       }

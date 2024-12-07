@@ -7,7 +7,7 @@ export default function ClasslistCard({
   teacherDepartment,
   onChatOpen,
 }) {
-  console.log(teacherDepartment);
+  console.log("teacherDepartment", teacherDepartment);
   return (
     <Stack className="!flex !flex-row items-center !bg-neutral-background !p-2 rounded-md !space-x-4">
       <Avatar className="!bg-primary-light" sx={{ width: 45, height: 45 }}>

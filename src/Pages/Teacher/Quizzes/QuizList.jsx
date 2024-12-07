@@ -4,19 +4,19 @@ import AddIcon from "@mui/icons-material/Add";
 import QuizTable from "../../../Components/Teacher/Quiz/QuizTable";
 import { useQuizzes } from "../../../Logic/Teacher/useQuizzes";
 import { useParams } from "react-router-dom";
-// import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 export default function QuizList() {
   const { courseId } = useParams();
   const { quizzes, status, error } = useQuizzes();
   // console.log("quizzes from quiz list page", quizzes);
   const Navigate = useNavigate();
-  // const [key, setKey] = useState(0);
-  // console.log(key);
-  // useEffect(() => {
-  //   // Force re-render when quizzes change
-  //   setKey((prevKey) => prevKey + 1);
-  // }, [quizzes]);
+  const [key, setKey] = useState(0);
+  console.log(key);
+  useEffect(() => {
+    setKey((prevKey) => prevKey + 1);
+    // window.location.reload();
+  }, []);
 
   if (status === "loading") {
     return <div>Loading...</div>;

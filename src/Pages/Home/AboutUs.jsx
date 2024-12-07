@@ -246,7 +246,7 @@ const AboutUs = () => {
               className="rounded-full mx-auto mb-4 w-32 h-32 object-cover"
             />
             <h3 className="text-xl font-semibold text-gray-800 mb-2">
-              Mustapha Al-Huneity
+              Mustafa Al-Huneity
             </h3>
             <p className="text-gray-600 mb-4">Software Engineer</p>
             <div className="flex justify-center space-x-4">
