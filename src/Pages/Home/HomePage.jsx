@@ -14,6 +14,8 @@ import Login from "../Login/Login";
 import Signup from "../Signup/Signup";
 import ContactUs from "./ContactUs";
 import AboutUs from "./AboutUs";
+import ForgetPassword from "../Login/ForgetPassword";
+import ResetPassword from "../Login/ResetPassword";
 
 const HomePage = () => {
   return (
@@ -60,6 +62,28 @@ const HomePage = () => {
           <div className="overflow-hidden">
             <Navbar />
             <Signup />
+          </div>
+        }
+      />
+      <Route
+        path="/forgot-password"
+        element={
+          <div className="overflow-hidden">
+            <Navbar />
+            <h1 className="text-3xl font-bold text-center text-secondary bg-gray-100 p-4 rounded-lg shadow-md">
+              <ForgetPassword />
+            </h1>
+          </div>
+        }
+      />
+      <Route
+        path="/reset-password"
+        element={
+          <div className="overflow-hidden">
+            <Navbar />
+            <h1 className="text-3xl font-bold text-center text-secondary bg-gray-100 p-4 rounded-lg shadow-md">
+              <ResetPassword />
+            </h1>
           </div>
         }
       />
